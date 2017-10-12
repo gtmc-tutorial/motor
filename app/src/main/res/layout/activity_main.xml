@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="horizontal"
+    android:background="#000000"
+    tools:context=".motor.Activity.MainActivity">
+    <RelativeLayout
+        android:id="@+id/main_layout_title"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        >
+        <TextView
+            android:id="@+id/main_title_text"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:background="@color/colorPrimary"
+            android:text="首頁"
+            android:gravity="center"
+            android:textAllCaps="false"
+            android:textColor="#FFFFFF"
+            android:textSize="35sp"/>
+        <ImageView
+            android:id="@+id/btn_user"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:src="@drawable/btn_account"
+            android:gravity="center"
+            android:layout_alignBottom="@+id/home" />
+    </RelativeLayout>
+    <LinearLayout
+        android:id="@+id/button_view_include"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentStart="true">
+
+        <ImageView
+            android:id="@+id/movie_btn"
+            android:layout_width="75dp"
+            android:layout_height="70dp"
+            android:src="@drawable/down_btn_user"
+            android:gravity="center"
+            android:text="會員中心" />
+
+        <ImageView
+            android:id="@+id/tv_btn"
+            android:layout_width="75dp"
+            android:layout_height="70dp"
+            android:layout_weight="1"
+            android:src="@drawable/down_btn_setting"
+            android:gravity="center"
+            android:textColor="#FFFFFF" />
+
+        <ImageView
+            android:id="@+id/anime_btn"
+            android:layout_width="75dp"
+            android:layout_height="70dp"
+            android:layout_weight="1"
+            android:src="@drawable/down_btn_gps"
+            android:gravity="center"
+            android:textColor="#FFFFFF" />
+
+        <ImageView
+            android:id="@+id/variety_btn"
+            android:layout_width="75dp"
+            android:layout_height="70dp"
+            android:layout_weight="1"
+            android:src="@drawable/down_btn_help"
+            android:gravity="center"
+            android:textColor="#FFFFFF" />
+
+        <ImageView
+            android:id="@+id/abc_btn"
+            android:layout_width="75dp"
+            android:layout_height="70dp"
+            android:layout_weight="1"
+            android:src="@drawable/down_btn_set"
+            android:gravity="center"
+            android:textColor="#FFFFFF" />
+    </LinearLayout>
+
+    <FrameLayout
+        android:id="@+id/fragment_content"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_above="@+id/button_view_include"
+        android:layout_below="@+id/main_layout_title"
+        android:background="#e7ae16"
+    ></FrameLayout>
+
+</RelativeLayout>
