@@ -30,7 +30,7 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
     private Page2Fragment fragment2;
     private mapFragment fragment3;
     private Page4Fragment fragment4;
-
+    //  add 8787
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
