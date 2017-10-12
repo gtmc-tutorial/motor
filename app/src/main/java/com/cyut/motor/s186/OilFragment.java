@@ -84,11 +84,12 @@ public class OilFragment extends Fragment {
                 Log.e("in","IN");
                 sharedPreferences.edit().putString("score" , button4.getText().toString()).commit();
                 getActivity().getSupportFragmentManager().beginTransaction()
-                        .replace(R.id.fragment_content,new InformationFragment(), FragmentTag.INFORMATION_TAG)
-                        .commit();
-//                fm = getFragmentManager();
-//                ft = fm.beginTransaction();
-//                ft.replace(R.id.fragment_content,new InformationFragment()).commit();
+                        .replace(R.id.fragment_content,new InformationFragment(), FragmentTag.INFORMATION_TAG).commit();
+
+//              fm = getFragmentManager();
+//              ft = fm.beginTransaction();
+//              ft.replace(R.id.fragment_content,new InformationFragment()).commit();
+
             }
         });
 

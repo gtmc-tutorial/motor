@@ -10,12 +10,11 @@ import android.widget.ImageView;
 import com.cyut.motor.FragmentTag;
 import com.cyut.motor.s065.LoginActivity;
 import com.cyut.motor.s186.MaintenanceAddFragment;
-import com.cyut.motor.Fragment.Page1Fragment;
+import com.cyut.motor.Fragment.HomeFragment;
 import com.cyut.motor.s186.MaintenanceFragment;
 import com.cyut.motor.Fragment.mapFragment;
-import com.cyut.motor.Fragment.Page4Fragment;
+import com.cyut.motor.s134.SettingFragment;
 import com.cyut.motor.R;
-import com.cyut.motor.s065.ForgetPasswordActivity;
 
 
 public class MainActivity extends FragmentActivity implements View.OnClickListener  {
@@ -27,11 +26,11 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
     private android.app.FragmentTransaction ft;
     private MaintenanceFragment mMapFragment;
 
-    private Page1Fragment fragment1;
+    private HomeFragment homeFragment;
     private MaintenanceFragment maintenanceFragment;
     private MaintenanceAddFragment maintenanceAddFragment;
     private mapFragment mapFragment;
-    private Page4Fragment fragment4;
+    private SettingFragment fragment4;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,7 +39,7 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
         findById();
 
         getSupportFragmentManager().beginTransaction()
-                .add(R.id.fragment_content, fragment1 = new Page1Fragment(),FragmentTag.FRAGEMENT1)
+                .add(R.id.fragment_content, homeFragment = new HomeFragment(),FragmentTag.FRAGEMENT1)
                 .commit();
         getSupportFragmentManager().beginTransaction()
                 .add(R.id.fragment_content, maintenanceFragment = new MaintenanceFragment(), FragmentTag.MAINTENANCE_TAG)
@@ -49,14 +48,14 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
                 .add(R.id.fragment_content, mapFragment = new mapFragment(), FragmentTag.MAP_TAG)
                 .commit();
         getSupportFragmentManager().beginTransaction()
-                .add(R.id.fragment_content, fragment4 = new Page4Fragment(),FragmentTag.FRAGEMENT4)
+                .add(R.id.fragment_content, fragment4 = new SettingFragment(),FragmentTag.FRAGEMENT4)
                 .commit();
         getSupportFragmentManager().beginTransaction()
                 .add(R.id.fragment_content, maintenanceAddFragment = new MaintenanceAddFragment(), FragmentTag.MAINTENANCEADD_TAG)
                 .commit();
 
         getSupportFragmentManager().beginTransaction()
-                .show(fragment1).hide(maintenanceFragment).hide(mapFragment).hide(fragment4).hide(maintenanceAddFragment)
+                .show(homeFragment).hide(maintenanceFragment).hide(mapFragment).hide(fragment4).hide(maintenanceAddFragment)
                 .commit();
 
         // 進入系統默認為movie
@@ -75,7 +74,7 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
         tvBtn = (ImageView)this.findViewById(R.id.tv_btn);
         animeBtn = (ImageView) this.findViewById(R.id.anime_btn);
         varietyBtn = (ImageView)this.findViewById(R.id.variety_btn);
-        abcBtn = (ImageView)this.findViewById(R.id.abc_btn);
+        abcBtn = (ImageView)this.findViewById(R.id.setting_btn);
         btn_user = (ImageView)findViewById(R.id.btn_user);
         btn_user.setOnClickListener(listener);
 
@@ -104,25 +103,29 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
         switch (view.getId()) {
             case R.id.movie_btn:
                 getSupportFragmentManager().beginTransaction()
-                        .show(fragment1).hide(maintenanceFragment).hide(mapFragment).hide(fragment4).hide(maintenanceAddFragment)
+                        .show(homeFragment).hide(maintenanceFragment).hide(mapFragment).hide(fragment4).hide(maintenanceAddFragment)
                         .commit();
                 break;
             case R.id.tv_btn:
                 getSupportFragmentManager().beginTransaction()
-                        .show(maintenanceFragment).hide(fragment1).hide(mapFragment).hide(fragment4).hide(maintenanceAddFragment)
+                        .show(maintenanceFragment).hide(homeFragment).hide(mapFragment).hide(fragment4).hide(maintenanceAddFragment)
                         .commit();
                 break;
             case R.id.anime_btn:
                 getSupportFragmentManager().beginTransaction()
-                        .show(mapFragment).hide(fragment1).hide(maintenanceFragment).hide(fragment4).hide(maintenanceAddFragment)
+                        .show(mapFragment).hide(homeFragment).hide(maintenanceFragment).hide(fragment4).hide(maintenanceAddFragment)
                         .commit();
                 break;
             case R.id.variety_btn:
                 getSupportFragmentManager().beginTransaction()
-                        .show(fragment4).hide(fragment1).hide(mapFragment).hide(maintenanceFragment).hide(maintenanceAddFragment)
+                        .show(fragment4).hide(homeFragment).hide(mapFragment).hide(maintenanceFragment).hide(maintenanceAddFragment)
                         .commit();
                 break;
-
+            case R.id.setting_btn:
+                getSupportFragmentManager().beginTransaction()
+                        .show(fragment4).hide(homeFragment).hide(mapFragment).hide(maintenanceFragment).hide(maintenanceAddFragment)
+                        .commit();
+                break;
             default:
                 break;
         }
@@ -142,7 +145,7 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
 
     public void chageFragment(){
         getSupportFragmentManager().beginTransaction()
-                .hide(fragment1).hide(maintenanceFragment).hide(mapFragment).hide(fragment4).show(maintenanceAddFragment)
+                .hide(homeFragment).hide(maintenanceFragment).hide(mapFragment).hide(fragment4).show(maintenanceAddFragment)
                 .commit();
     }
 }

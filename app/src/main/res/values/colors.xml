@@ -17,4 +17,7 @@
     <color name="Background">#e7ae16</color>
     <color name="Watercolor">#ffffff</color>
     <color name="TOP">#171102</color>
+    <color name="colorblack">#000000</color>
+    <color name="colorwhite">#FFFFFF</color>
+
 </resources>

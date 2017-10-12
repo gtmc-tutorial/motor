@@ -15,20 +15,21 @@
         <TextView
             android:id="@+id/main_title_text"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="50dp"
             android:layout_weight="1"
             android:background="@color/colorPrimary"
             android:text="首頁"
             android:gravity="center"
             android:textAllCaps="false"
             android:textColor="#FFFFFF"
-            android:textSize="35sp"/>
+            android:textSize="25sp"/>
         <ImageView
             android:id="@+id/btn_user"
             android:layout_width="50dp"
             android:layout_height="50dp"
             android:src="@drawable/btn_account"
             android:gravity="center"
+            android:padding="4dp"
             android:layout_alignBottom="@+id/home" />
     </RelativeLayout>
     <LinearLayout
@@ -75,7 +76,7 @@
             android:textColor="#FFFFFF" />
 
         <ImageView
-            android:id="@+id/abc_btn"
+            android:id="@+id/setting_btn"
             android:layout_width="75dp"
             android:layout_height="70dp"
             android:layout_weight="1"

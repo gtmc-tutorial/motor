@@ -3,21 +3,138 @@
 
     <item
         is-multidex="true"
-        jar="C:\Users\samsung\Documents\motor\app\build\intermediates\incremental-classes\debug\instant-run-bootstrap.jar"
+        jar="/Users/wubingyu/.gradle/caches/modules-2/files-2.1/com.google.zxing/core/3.3.0/73c49077166faa4c3c0059c5f583d1d7bd1475fe/core-3.3.0.jar"
         jumboMode="true"
         optimize="true"
         revision="26.0.1"
-        sha1="19fc3ee1b9b8f83ddd2979ce8fd94eab41e1a0c4">
-        <dex dex="C:\Users\samsung\Documents\motor\app\build\intermediates\transforms\dex\debug\folders\1000\10000\instant-run-bootstrap_e86099b29e1f9b447af4674141caa1c0980f2bcd\classes.dex" />
+        sha1="73c49077166faa4c3c0059c5f583d1d7bd1475fe">
+        <dex dex="/Users/wubingyu/Documents/android/motor/app/build/intermediates/transforms/dex/debug/folders/1000/10/core-3.3.0_f2c586ea80a3801830d48018679201226ae03313/classes.dex" />
     </item>
     <item
         is-multidex="true"
-        jar="C:\Users\samsung\Documents\motor\app\build\intermediates\incremental-runtime-classes\debug\instant-run.jar"
+        jar="/Users/wubingyu/Documents/android/motor/app/build/intermediates/incremental-classes/debug/instant-run-bootstrap.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="26.0.1"
+        sha1="c20ab3b58252a5d67fdbb1cff854683a49c4b362">
+        <dex dex="/Users/wubingyu/Documents/android/motor/app/build/intermediates/transforms/dex/debug/folders/1000/10000/instant-run-bootstrap_d8193644a7556081d89354a223ebbe4a6da1eea9/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/Users/wubingyu/.gradle/caches/modules-2/files-2.1/com.parse.bolts/bolts-tasks/1.4.0/d85884acf6810a3bbbecb587f239005cbc846dc4/bolts-tasks-1.4.0.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="26.0.1"
+        sha1="d85884acf6810a3bbbecb587f239005cbc846dc4">
+        <dex dex="/Users/wubingyu/Documents/android/motor/app/build/intermediates/transforms/dex/debug/folders/1000/10/bolts-tasks-1.4.0_dfe3e64f5ac05df062ac8c02d3767b7ade1fefbc/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/Users/wubingyu/.android/build-cache/465075bce12c25435729ccd7cea408c83edcb162/output/jars/classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="26.0.1"
+        sha1="9a0c96cb2e74d3a6e692d920c9e03326e77f6429">
+        <dex dex="/Users/wubingyu/Documents/android/motor/app/build/intermediates/transforms/dex/debug/folders/1000/10/classes_8d6b8f0e2929ac4b481f9b7f850b1a3401fe52d8/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/Users/wubingyu/.android/build-cache/6200823d6e65fc6061dd82cf5bef0c44c66989de/output/jars/classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="26.0.1"
+        sha1="914f5d3e3ace66080e59613708f06d129a222e25">
+        <dex dex="/Users/wubingyu/Documents/android/motor/app/build/intermediates/transforms/dex/debug/folders/1000/10/classes_5531f88a2897c4266c5f86094306cf6fe2106aeb/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/Users/wubingyu/.android/build-cache/779203206cece26b834f6879e6ba46261f7b4458/output/jars/classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="26.0.1"
+        sha1="82ea5a937ab84229fbd2f3fc8cf2a72cbdf0ee0f">
+        <dex dex="/Users/wubingyu/Documents/android/motor/app/build/intermediates/transforms/dex/debug/folders/1000/10/classes_1b8412354c5347d8e719606e36af13cef63aae12/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/Users/wubingyu/.gradle/caches/modules-2/files-2.1/com.parse.bolts/bolts-applinks/1.4.0/8ad21bf21784dacce5f2043afb97218cc377e835/bolts-applinks-1.4.0.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="26.0.1"
+        sha1="8ad21bf21784dacce5f2043afb97218cc377e835">
+        <dex dex="/Users/wubingyu/Documents/android/motor/app/build/intermediates/transforms/dex/debug/folders/1000/10/bolts-applinks-1.4.0_22e08996ed7af7fb2842346047dbf2982b26398d/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/Users/wubingyu/.android/build-cache/f8601289a6b02219e5a1b1646b4072b04d8ec07b/output/jars/classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="26.0.1"
+        sha1="bc9ea2bc291bbebc83f5b160d115c699bddc4e16">
+        <dex dex="/Users/wubingyu/Documents/android/motor/app/build/intermediates/transforms/dex/debug/folders/1000/10/classes_df36f63ac9ee52c45c7f081c1c4017aedca09f4e/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/Users/wubingyu/.android/build-cache/b38f6222cad9763d815053d886c17290a2b4f4e6/output/jars/classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="26.0.1"
+        sha1="0d394688dd7030b83dea8eed3fa483410c24afe0">
+        <dex dex="/Users/wubingyu/Documents/android/motor/app/build/intermediates/transforms/dex/debug/folders/1000/10/classes_c02e59552e199f01b648d4fb416c195d7284480f/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/Users/wubingyu/.android/build-cache/99f791cd689cf51d5b356575530716c39b4e7856/output/jars/classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="26.0.1"
+        sha1="252896ce41f2a84a2849e29235e66098be7d12ee">
+        <dex dex="/Users/wubingyu/Documents/android/motor/app/build/intermediates/transforms/dex/debug/folders/1000/10/classes_8e04f47d91c871b093213245dd1754b9bd5faef9/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/Users/wubingyu/.android/build-cache/0a40f58268d5ff4e56905085773c3706d2b77bfd/output/jars/classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="26.0.1"
+        sha1="807751a24cf96566fd8675517c94d8463cf364db">
+        <dex dex="/Users/wubingyu/Documents/android/motor/app/build/intermediates/transforms/dex/debug/folders/1000/10/classes_6e65263d0be2439deaa8d2092100021ee0ac26ee/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/Users/wubingyu/.android/build-cache/d8aa1ecedd3862696bdca9368310e74702689618/output/jars/classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="26.0.1"
+        sha1="2482bfd874e8b3927f4141105674ad392ff83698">
+        <dex dex="/Users/wubingyu/Documents/android/motor/app/build/intermediates/transforms/dex/debug/folders/1000/10/classes_2cb032e63d659901b8673d83312e7f95006aaa2b/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/Users/wubingyu/.android/build-cache/2a7e9d042feed29bc2cf5bdcc1749d00dc621604/output/jars/classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="26.0.1"
+        sha1="53e8932b1ac8c7dfc35cfeda1f9efbc9822ceaf3">
+        <dex dex="/Users/wubingyu/Documents/android/motor/app/build/intermediates/transforms/dex/debug/folders/1000/10/classes_07d3454ca2525afee27dda5c82f63a70d93a30d4/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/Users/wubingyu/Documents/android/motor/app/build/intermediates/incremental-runtime-classes/debug/instant-run.jar"
         jumboMode="true"
         optimize="true"
         revision="26.0.1"
         sha1="3be78ebc2706b2e1fe2f12d5726887a92d6c183b">
-        <dex dex="C:\Users\samsung\Documents\motor\app\build\intermediates\transforms\dex\debug\folders\1000\10000\instant-run_8f856d3a55339a79eb983b846b40ad19b62ef6d2\classes.dex" />
+        <dex dex="/Users/wubingyu/Documents/android/motor/app/build/intermediates/transforms/dex/debug/folders/1000/10000/instant-run_a57945abb0b8ae003dc94e1a6ce0789ac105ce34/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/Users/wubingyu/.android/build-cache/a5d864c9c989ac642008326d7197214073091bf6/output/jars/classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="26.0.1"
+        sha1="b8b26b28aae0ba8e2db55ad9fe0ebc770530c5ef">
+        <dex dex="/Users/wubingyu/Documents/android/motor/app/build/intermediates/transforms/dex/debug/folders/1000/10/classes_9e656e8dd114b755ddae539a23ac0f10beb251c2/classes.dex" />
     </item>
 
 </items>
