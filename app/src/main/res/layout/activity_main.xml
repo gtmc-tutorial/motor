@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:orientation="horizontal"
     android:background="#000000"
-    tools:context=".motor.Activity.MainActivity">
+    tools:context=".Activity.MainActivity">
     <RelativeLayout
         android:id="@+id/main_layout_title"
         android:layout_width="fill_parent"
