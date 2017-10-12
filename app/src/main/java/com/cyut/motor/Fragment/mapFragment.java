@@ -72,6 +72,8 @@ public class mapFragment extends Fragment implements OnMapReadyCallback, Locatio
     final Marker[] finalMarker1 = {null};
     public static LatLng latLng2;
 
+    private static final int MESSAGE_CHECKED = 0;
+
     @Nullable
     private Button movie_btn2,tv_btn2,anime_btn2;
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, Bundle savedInstanceState) {
@@ -215,14 +217,14 @@ public class mapFragment extends Fragment implements OnMapReadyCallback, Locatio
                                 elevation = jsonObjectelevation.getString("elevation");
                                 Log.e("elevation",elevation+"");
                             }
-                            Message msg = new Message();
 
-                            mHandler.sendMessage(msg);
+                            Message message = mHandler.obtainMessage(MESSAGE_CHECKED);
 
-                            Message message = null;
-                            message.obj = elevation;
-//                            message = mHandler.obtainMessage(1,elevation);
-                            mHandler.sendMessage(message);
+                            Bundle bundle = new Bundle();
+                            bundle.putString("elevation", elevation);
+                            message.setData(bundle);
+                            message.sendToTarget();
+
                         } catch (JSONException e) {
                             e.printStackTrace();
                         }
@@ -321,13 +323,17 @@ public class mapFragment extends Fragment implements OnMapReadyCallback, Locatio
     private Handler mHandler = new Handler(){
         @Override
         public void handleMessage(Message msg) {
-            if(finalMarker1[0] != null)
-                finalMarker1[0].remove();
-            finalMarker1[0] =  mMap.addMarker(new MarkerOptions().position(latLng2).title(msg.obj.toString()+"123"));
-            finalMarker1[0].showInfoWindow();
-
+            Bundle bundle = msg.getData();
+            switch (msg.what) {
+                case MESSAGE_CHECKED:
+                    if(finalMarker1[0] != null)
+                        finalMarker1[0].remove();
+                    finalMarker1[0] =  mMap.addMarker(new MarkerOptions().position(latLng2).title(bundle.getString("elevation")));
+                    finalMarker1[0].showInfoWindow();
+            }
         }
     };
+    
 }
 
 

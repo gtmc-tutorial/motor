@@ -3,21 +3,21 @@
 
     <item
         is-multidex="true"
-        jar="/Users/wubingyu/Documents/android/motorcycle/app/build/intermediates/incremental-runtime-classes/debug/instant-run.jar"
+        jar="/Users/wubingyu/Documents/android/motor/app/build/intermediates/incremental-runtime-classes/debug/instant-run.jar"
         jumboMode="true"
         optimize="true"
         revision="26.0.1"
         sha1="3be78ebc2706b2e1fe2f12d5726887a92d6c183b">
-        <dex dex="/Users/wubingyu/Documents/android/motorcycle/app/build/intermediates/transforms/dex/debug/folders/1000/10000/instant-run_ff27994bc2b198b2fe1bd91a951d267abfe1fb61/classes.dex" />
+        <dex dex="/Users/wubingyu/Documents/android/motor/app/build/intermediates/transforms/dex/debug/folders/1000/10000/instant-run_a57945abb0b8ae003dc94e1a6ce0789ac105ce34/classes.dex" />
     </item>
     <item
         is-multidex="true"
-        jar="/Users/wubingyu/Documents/android/motorcycle/app/build/intermediates/incremental-classes/debug/instant-run-bootstrap.jar"
+        jar="/Users/wubingyu/Documents/android/motor/app/build/intermediates/incremental-classes/debug/instant-run-bootstrap.jar"
         jumboMode="true"
         optimize="true"
         revision="26.0.1"
-        sha1="cc94331b703494c935589b7371ef7b8489ec94b6">
-        <dex dex="/Users/wubingyu/Documents/android/motorcycle/app/build/intermediates/transforms/dex/debug/folders/1000/10000/instant-run-bootstrap_40ddc110a40e10d6c093556f959211d3b1b1b052/classes.dex" />
+        sha1="c9e50f335bd1ef38b5a90569b6c9986ba8e76b34">
+        <dex dex="/Users/wubingyu/Documents/android/motor/app/build/intermediates/transforms/dex/debug/folders/1000/10000/instant-run-bootstrap_d8193644a7556081d89354a223ebbe4a6da1eea9/classes.dex" />
     </item>
 
 </items>
