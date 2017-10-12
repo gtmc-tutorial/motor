@@ -32,7 +32,7 @@ public class OilFragment extends Fragment {
         final SharedPreferences sharedPreferences = getActivity().getSharedPreferences("data" , MODE_PRIVATE);
 
         //定義View
-        button1 = view.findViewById(R.id.button1);
+        button1 =(Button) view.findViewById(R.id.button1);
         button1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -47,7 +47,7 @@ public class OilFragment extends Fragment {
             }
         });
 
-        button2 = view.findViewById(R.id.button2);
+        button2 =(Button) view.findViewById(R.id.button2);
         button2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -62,7 +62,7 @@ public class OilFragment extends Fragment {
             }
         });
 
-        button3 = view.findViewById(R.id.button3);
+        button3 =(Button) view.findViewById(R.id.button3);
         button3.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -77,7 +77,7 @@ public class OilFragment extends Fragment {
             }
         });
 
-        button4 = view.findViewById(R.id.button4);
+        button4 =(Button) view.findViewById(R.id.button4);
         button4.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

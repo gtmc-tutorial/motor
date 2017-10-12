@@ -19,6 +19,9 @@
         <meta-data
             android:name="com.google.android.maps.v2.API_KEY"
             android:value="@string/google_maps_key" />
+        <meta-data
+            android:name="com.facebook.sdk.ApplicationId"
+            android:value="@string/facebook_app_id"/>
         <activity android:name=".Activity.MainActivity"
             android:label="首頁">
             <intent-filter>
@@ -28,7 +31,7 @@
         </activity>
 
         <activity
-            android:name=".s065.ForgetPasswordActivity$LoginActivity"
+            android:name=".s065.LoginActivity"
             android:label="會員登入" />
         <activity
             android:name=".s065.RegisterActivity"

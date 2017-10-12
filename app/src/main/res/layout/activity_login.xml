@@ -4,7 +4,7 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:background="@color/colorBackground"
-    tools:context=".LoginActivity"
+    tools:context=".s065.LoginActivity"
     android:weightSum="1">
 
     <TextView
@@ -18,12 +18,12 @@
         android:gravity="center"
         />
 
-    <Button
-        android:id="@+id/btn_home"
-        android:layout_width="80dp"
-        android:layout_height="100dp"
-        android:layout_alignParentBottom="true"
-        android:background="@drawable/up_btn_home"/>
+    <!--<Button-->
+    <!--android:id="@+id/movie_btne"-->
+    <!--android:layout_width="80dp"-->
+    <!--android:layout_height="100dp"-->
+    <!--android:layout_alignParentBottom="true"-->
+    <!--android:background="@drawable/up_btn_home"/>-->
 
 
     <EditText
@@ -57,9 +57,9 @@
         android:layout_height="wrap_content"
         android:background="@color/colorBackground"
         android:textColor="@color/colorPrimary"
-        android:layout_below="@+id/ed_password"
+        android:layout_below="@+id/login_with_facebook"
         android:layout_marginLeft="220dp"
-        android:layout_marginTop="80dp"
+        android:layout_marginTop="10dp"
         android:text="忘記密碼"/>
 
 
@@ -85,10 +85,79 @@
         android:background="@color/colorBackground"
         android:textColor="@color/colorPrimary"
         android:layout_marginLeft="20dp"
-        android:layout_marginTop="80dp"
+        android:layout_marginTop="10dp"
         android:text="建立帳號"
-        android:layout_below="@+id/ed_password"
+        android:layout_below="@+id/login_with_facebook"
         android:layout_alignLeft="@+id/ed_password"
         android:layout_alignStart="@+id/ed_password" />
+
+    <com.google.android.gms.common.SignInButton
+        android:id="@+id/login_with_google"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/btn_login"
+        android:layout_centerHorizontal="true" />
+
+    <com.facebook.login.widget.LoginButton
+        android:id="@+id/login_with_facebook"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:layout_below="@+id/login_with_google"
+        android:layout_centerHorizontal="true"/>
+
+    <LinearLayout
+        android:id="@+id/button_view_include"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:background="@color/colorPrimary"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentStart="true">
+
+        <ImageView
+            android:id="@+id/movie_btn"
+            android:layout_width="75dp"
+            android:layout_height="70dp"
+            android:src="@drawable/down_btn_user"
+            android:gravity="center"
+            android:text="會員中心" />
+
+        <ImageView
+            android:id="@+id/tv_btn"
+            android:layout_width="75dp"
+            android:layout_height="70dp"
+            android:layout_weight="1"
+            android:src="@drawable/down_btn_setting"
+            android:gravity="center"
+            android:textColor="#FFFFFF" />
+
+        <ImageView
+            android:id="@+id/anime_btn"
+            android:layout_width="75dp"
+            android:layout_height="70dp"
+            android:layout_weight="1"
+            android:src="@drawable/down_btn_gps"
+            android:gravity="center"
+            android:textColor="#FFFFFF" />
+
+        <ImageView
+            android:id="@+id/variety_btn"
+            android:layout_width="75dp"
+            android:layout_height="70dp"
+            android:layout_weight="1"
+            android:src="@drawable/down_btn_help"
+            android:gravity="center"
+            android:textColor="#FFFFFF" />
+
+        <ImageView
+            android:id="@+id/abc_btn"
+            android:layout_width="75dp"
+            android:layout_height="70dp"
+            android:layout_weight="1"
+            android:src="@drawable/down_btn_set"
+            android:gravity="center"
+            android:textColor="#FFFFFF" />
+    </LinearLayout>
 
 </RelativeLayout>

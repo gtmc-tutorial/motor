@@ -8,6 +8,7 @@ import android.widget.Button;
 import android.widget.ImageView;
 
 import com.cyut.motor.FragmentTag;
+import com.cyut.motor.s065.LoginActivity;
 import com.cyut.motor.s186.MaintenanceAddFragment;
 import com.cyut.motor.Fragment.Page1Fragment;
 import com.cyut.motor.s186.MaintenanceFragment;
@@ -133,7 +134,7 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
         public void onClick(View v) {
             // TODO Auto-generated method stub
             Intent intent = new Intent();
-            intent.setClass(MainActivity.this, ForgetPasswordActivity.LoginActivity.class);
+            intent.setClass(MainActivity.this,LoginActivity.class);
             startActivity(intent);
             finish();
         }
