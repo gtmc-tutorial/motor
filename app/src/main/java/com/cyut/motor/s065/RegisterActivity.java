@@ -101,7 +101,7 @@ public class RegisterActivity extends AppCompatActivity {
         public void onClick(View v) {
             // TODO Auto-generated method stub
             Intent intent = new Intent();
-            intent.setClass(RegisterActivity.this, LoginActivity.class);
+            intent.setClass(RegisterActivity.this, ForgetPasswordActivity.LoginActivity.class);
             startActivity(intent);
             finish();
         }

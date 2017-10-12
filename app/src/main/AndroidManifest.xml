@@ -28,7 +28,7 @@
         </activity>
 
         <activity
-            android:name=".s065.LoginActivity"
+            android:name=".s065.ForgetPasswordActivity$LoginActivity"
             android:label="會員登入" />
         <activity
             android:name=".s065.RegisterActivity"

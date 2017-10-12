@@ -13,7 +13,7 @@ import com.cyut.motor.Fragment.mapFragment;
 import com.cyut.motor.Fragment.Page4Fragment;
 import com.cyut.motor.Fragment.Page6Fragment;
 import com.cyut.motor.R;
-import com.cyut.motor.s065.LoginActivity;
+import com.cyut.motor.s065.ForgetPasswordActivity;
 
 
 public class MainActivity extends FragmentActivity implements View.OnClickListener  {
@@ -128,7 +128,7 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
         public void onClick(View v) {
             // TODO Auto-generated method stub
             Intent intent = new Intent();
-            intent.setClass(MainActivity.this, LoginActivity.class);
+            intent.setClass(MainActivity.this, ForgetPasswordActivity.LoginActivity.class);
             startActivity(intent);
             finish();
         }
