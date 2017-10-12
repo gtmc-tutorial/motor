@@ -13,4 +13,8 @@
     <color name="colorBackground">#E7AE16</color>
     <color name="colorWhite">#FFFFFF</color>
     <color name="color">#171102</color>
+
+    <color name="Background">#e7ae16</color>
+    <color name="Watercolor">#ffffff</color>
+    <color name="TOP">#171102</color>
 </resources>

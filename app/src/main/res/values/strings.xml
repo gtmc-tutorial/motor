@@ -3,4 +3,76 @@
     <string name="title_home">Home</string>
     <string name="title_dashboard">Dashboard</string>
     <string name="title_notifications">Notifications</string>
+
+    <string-array name="money">
+        <item>請選擇價位</item>
+        <item>100</item>
+        <item>150</item>
+        <item>200</item>
+        <item>250</item>
+        <item>300</item>
+        <item>350</item>
+        <item>400</item>
+        <item>450</item>
+        <item>500</item>
+        <item>550</item>
+        <item>600</item>
+        <item>650</item>
+        <item>700</item>
+        <item>750</item>
+        <item>800</item>
+        <item>850</item>
+        <item>900</item>
+        <item>950</item>
+        <item>1000</item>
+        <item>1000 UP</item>
+    </string-array>
+
+    <string-array name="name">
+        <item>none</item>
+        <item>油類</item>
+        <item>耗材</item>
+
+    </string-array>
+
+    <string-array name="specification">
+        <item>請選擇廠牌</item>
+        <item>光陽機車(KYMCO)</item>
+        <item>山葉機車(YAMAHA)</item>
+        <item>宏佳騰機車(Aeon)</item>
+        <item>三陽機車(SYM)</item>
+        <item>台鈴機車(Suzuki)</item>
+        <item>比雅久機車(PGO SCOOTER)</item>
+        <item>哈特佛機車(Hartford)</item>
+        <item>其它</item>
+
+    </string-array>
+
+    <string-array name="km">
+        <item>none</item>
+        <item>0-5000</item>
+        <item>5000-10000</item>
+        <item>10000-15000</item>
+        <item>15000-20000</item>
+        <item>20000-25000</item>
+        <item>25000-30000</item>
+        <item>30000-35000</item>
+        <item>35000-40000</item>
+        <item>40000-45000</item>
+        <item>45000-50000</item>
+        <item>50000-55000</item>
+        <item>55000-60000</item>
+        <item>60000-65000</item>
+        <item>65000-70000</item>
+        <item>70000-75000</item>
+        <item>75000-80000</item>
+        <item>80000-85000</item>
+        <item>85000-90000</item>
+        <item>90000-95000</item>
+        <item>95000-100000</item>
+        <item>100000 UP</item>
+
+    </string-array>
+
+
 </resources>
