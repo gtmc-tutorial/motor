@@ -9,6 +9,8 @@ import android.location.LocationListener;
 import android.location.LocationManager;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
 import android.support.annotation.Nullable;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
@@ -40,6 +42,10 @@ import com.google.gson.JsonObject;
 import com.koushikdutta.async.future.FutureCallback;
 import com.koushikdutta.ion.Ion;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.concurrent.TimeUnit;
@@ -61,6 +67,10 @@ public class mapFragment extends Fragment implements OnMapReadyCallback, Locatio
     private LocationManager locMgr;
     String bestProv;
     private ArrayList<MapStructure> mapList = new ArrayList<>();
+
+    String elevation = "";
+    final Marker[] finalMarker1 = {null};
+    public static LatLng latLng2;
 
     @Nullable
     private Button movie_btn2,tv_btn2,anime_btn2;
@@ -177,8 +187,8 @@ public class mapFragment extends Fragment implements OnMapReadyCallback, Locatio
         Location location = lm.getLastKnownLocation(LocationManager.GPS_PROVIDER); // 設定定位資訊由 GPS提供
         double lat = 0,lng = 0;
         if(location != null){
-             lat = location.getLatitude();  // 取得經度
-             lng = location.getLongitude(); // 取得緯度
+            lat = location.getLatitude();  // 取得經度
+            lng = location.getLongitude(); // 取得緯度
         }
         LatLng HOME = new LatLng(lat, lng);
 //        mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(HOME, 15.0f));//數字越大放越大
@@ -187,22 +197,38 @@ public class mapFragment extends Fragment implements OnMapReadyCallback, Locatio
         final String[] eleva = {""};
         mMap.setOnMapClickListener(new GoogleMap.OnMapClickListener() {
             @Override
-            public void onMapClick(LatLng latLng) {
+            public void onMapClick(final LatLng latLng) {
 
-                Ion.with(getActivity())
-                        .load("https://maps.googleapis.com/maps/api/elevation/json?locations="+latLng.latitude+","+latLng.longitude+"&key=AIzaSyALcD0X57AVTQJq8GoqK3-62Hia5TpoF2I")
-                        .asJsonObject()
-                        .setCallback(new FutureCallback<JsonObject>() {
-                            @Override
-                            public void onCompleted(Exception e, JsonObject result) {
-                                eleva[0] = result.toString().substring(result.toString().indexOf(":",2),result.toString().indexOf(","));
-                                Log.e("result", eleva[0]);
+                mapFragment.latLng2 = latLng;
+                new Thread(new Runnable(){
+                    @Override
+                    public void run() {
+                        String result = getJSONContent("https://maps.googleapis.com/maps/api/elevation/json?locations="+Double.parseDouble(String.valueOf(latLng.latitude))+","+Double.parseDouble(String.valueOf(latLng.longitude))+"&key=AIzaSyALcD0X57AVTQJq8GoqK3-62Hia5TpoF2I");
+
+                        try {
+                            JSONObject jsonObject = new JSONObject(result);
+                            JSONArray array = jsonObject.getJSONArray("results");
+                            Log.e("array",array+"");
+
+                            for (int i = 0; i < array.length(); i++) {
+                                JSONObject jsonObjectelevation = array.getJSONObject(i);
+                                elevation = jsonObjectelevation.getString("elevation");
+                                Log.e("elevation",elevation+"");
                             }
-                        });
+                            Message msg = new Message();
 
-                if(finalMarker[0] != null)
-                    finalMarker[0].remove();
-                finalMarker[0] =  mMap.addMarker(new MarkerOptions().position(latLng).title("安安"+eleva[0]));
+                            mHandler.sendMessage(msg);
+
+                            Message message = null;
+                            message.obj = elevation;
+//                            message = mHandler.obtainMessage(1,elevation);
+                            mHandler.sendMessage(message);
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+
+                    }
+                }).start();
             }
         });
     }
@@ -258,7 +284,7 @@ public class mapFragment extends Fragment implements OnMapReadyCallback, Locatio
         Criteria criteria = new Criteria();
         bestProv = locMgr.getBestProvider(criteria, true);
     }
-        //@Override
+    //@Override
     public void onProviderEnabled(String provider) {
 
     }
@@ -267,6 +293,7 @@ public class mapFragment extends Fragment implements OnMapReadyCallback, Locatio
     public void onProviderDisabled(String provider) {
 
     }
+
 
     public synchronized String getJSONContent(String apiUrl) {
         OkHttpClient client = new OkHttpClient.Builder()
@@ -285,12 +312,22 @@ public class mapFragment extends Fragment implements OnMapReadyCallback, Locatio
             response.close();
             return jsonString;
         } catch (IOException e) {
+            Log.e("e",e+"");
             e.printStackTrace();
             return null;
         }
-
-
     }
+
+    private Handler mHandler = new Handler(){
+        @Override
+        public void handleMessage(Message msg) {
+            if(finalMarker1[0] != null)
+                finalMarker1[0].remove();
+            finalMarker1[0] =  mMap.addMarker(new MarkerOptions().position(latLng2).title(msg.obj.toString()+"123"));
+            finalMarker1[0].showInfoWindow();
+
+        }
+    };
 }
 
 
