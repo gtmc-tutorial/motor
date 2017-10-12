@@ -37,6 +37,8 @@
             android:name=".s065.ForgetPasswordActivity"
             android:label="忘記密碼" />
 
+        <activity android:name=".s192.WebViewActivity"></activity>
+
     </application>
 
 </manifest>
