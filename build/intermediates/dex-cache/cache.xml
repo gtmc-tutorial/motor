@@ -3,21 +3,26 @@
 
     <item
         is-multidex="true"
-        jar="/Users/wubingyu/Documents/android/motor/app/build/intermediates/incremental-runtime-classes/debug/instant-run.jar"
+        jar="C:\Users\samsung\Documents\motor\app\build\intermediates\incremental-classes\debug\instant-run-bootstrap.jar"
         jumboMode="true"
         optimize="true"
         revision="26.0.1"
-        sha1="3be78ebc2706b2e1fe2f12d5726887a92d6c183b">
-        <dex dex="/Users/wubingyu/Documents/android/motor/app/build/intermediates/transforms/dex/debug/folders/1000/10000/instant-run_a57945abb0b8ae003dc94e1a6ce0789ac105ce34/classes.dex" />
+        sha1="19fc3ee1b9b8f83ddd2979ce8fd94eab41e1a0c4">
+        <dex dex="C:\Users\samsung\Documents\motor\app\build\intermediates\transforms\dex\debug\folders\1000\10000\instant-run-bootstrap_e86099b29e1f9b447af4674141caa1c0980f2bcd\classes.dex" />
     </item>
     <item
         is-multidex="true"
-        jar="/Users/wubingyu/Documents/android/motor/app/build/intermediates/incremental-classes/debug/instant-run-bootstrap.jar"
+        jar="C:\Users\samsung\Documents\motor\app\build\intermediates\incremental-runtime-classes\debug\instant-run.jar"
         jumboMode="true"
         optimize="true"
         revision="26.0.1"
+<<<<<<< HEAD
         sha1="bd234265027769cc50adffd5512df8564962333e">
         <dex dex="/Users/wubingyu/Documents/android/motor/app/build/intermediates/transforms/dex/debug/folders/1000/10000/instant-run-bootstrap_d8193644a7556081d89354a223ebbe4a6da1eea9/classes.dex" />
+=======
+        sha1="3be78ebc2706b2e1fe2f12d5726887a92d6c183b">
+        <dex dex="C:\Users\samsung\Documents\motor\app\build\intermediates\transforms\dex\debug\folders\1000\10000\instant-run_8f856d3a55339a79eb983b846b40ad19b62ef6d2\classes.dex" />
+>>>>>>> f8a0dc8191409218203eea76be935f6e3384b063
     </item>
 
 </items>

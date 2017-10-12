@@ -29,21 +29,21 @@ public class InformationFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_information, null);
 
         final SharedPreferences sharedPreferences = getActivity().getSharedPreferences("data" , MODE_PRIVATE);
-        EditText editText =  view.findViewById(R.id.editText);
+        EditText editText =(EditText)  view.findViewById(R.id.editText);
         editText.setText(sharedPreferences.getString("score",""));
-        Spinner spinner = view.findViewById(R.id.spinner);
+        Spinner spinner =(Spinner) view.findViewById(R.id.spinner);
         ArrayAdapter<CharSequence> moneyList = ArrayAdapter.createFromResource(getActivity(),
                 R.array.money,
                 android.R.layout.simple_spinner_dropdown_item);
         spinner.setAdapter(moneyList);
 
-        Spinner spinner2 = view.findViewById(R.id.spinner2);
+        Spinner spinner2 =(Spinner) view.findViewById(R.id.spinner2);
         ArrayAdapter<CharSequence> specificationList = ArrayAdapter.createFromResource(getActivity(),
                 R.array.specification,
                 android.R.layout.simple_spinner_dropdown_item);
         spinner2.setAdapter(specificationList);
 
-        EditText dateEditText = view.findViewById(R.id.tvDate);
+        EditText dateEditText =(EditText) view.findViewById(R.id.tvDate);
         dateEditText.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

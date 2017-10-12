@@ -31,7 +31,7 @@ public class SuppliesFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_supplies, null);
         final SharedPreferences sharedPreferences = getActivity().getSharedPreferences("data" , MODE_PRIVATE);
         //定義View
-        button1 = view.findViewById(R.id.button1);
+        button1 = (Button) view.findViewById(R.id.button1);
         button1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -46,7 +46,7 @@ public class SuppliesFragment extends Fragment {
             }
         });
 
-        button2 = view.findViewById(R.id.button2);
+        button2 =(Button) view.findViewById(R.id.button2);
         button2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -61,7 +61,7 @@ public class SuppliesFragment extends Fragment {
             }
         });
 
-        button3 = view.findViewById(R.id.button3);
+        button3 =(Button) view.findViewById(R.id.button3);
         button3.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -76,7 +76,7 @@ public class SuppliesFragment extends Fragment {
             }
         });
 
-        button4 = view.findViewById(R.id.button4);
+        button4 =(Button) view.findViewById(R.id.button4);
         button4.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -91,7 +91,7 @@ public class SuppliesFragment extends Fragment {
             }
         });
 
-        button5 = view.findViewById(R.id.button5);
+        button5 =(Button) view.findViewById(R.id.button5);
         button5.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -106,7 +106,7 @@ public class SuppliesFragment extends Fragment {
             }
         });
 
-        button6 = view.findViewById(R.id.button6);
+        button6 =(Button) view.findViewById(R.id.button6);
         button6.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -121,7 +121,7 @@ public class SuppliesFragment extends Fragment {
             }
         });
 
-        button7 = view.findViewById(R.id.button7);
+        button7 =(Button) view.findViewById(R.id.button7);
         button7.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -136,7 +136,7 @@ public class SuppliesFragment extends Fragment {
             }
         });
 
-        button8 = view.findViewById(R.id.button8);
+        button8 =(Button) view.findViewById(R.id.button8);
         button8.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -151,7 +151,7 @@ public class SuppliesFragment extends Fragment {
             }
         });
 
-        button9 = view.findViewById(R.id.button9);
+        button9 =(Button) view.findViewById(R.id.button9);
         button9.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -166,7 +166,7 @@ public class SuppliesFragment extends Fragment {
             }
         });
 
-        button10 = view.findViewById(R.id.button10);
+        button10 =(Button) view.findViewById(R.id.button10);
         button10.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
