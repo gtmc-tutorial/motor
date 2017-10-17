@@ -22,8 +22,8 @@ public class AlarmInitReceiver extends BroadcastReceiver {
         context.startActivity(intent1);
         //執行一個Activity
 
-        long time= System.currentTimeMillis();
-        final Calendar mCalendar= Calendar.getInstance();
+        long time=System.currentTimeMillis();
+        final Calendar mCalendar=Calendar.getInstance();
         mCalendar.setTimeInMillis(time);
         int mYear=mCalendar.get(Calendar.YEAR);
         int mMonth=mCalendar.get(Calendar.MONTH);
@@ -40,8 +40,11 @@ public class AlarmInitReceiver extends BroadcastReceiver {
         int year = c.get(Calendar.YEAR);
         int month = c.get(Calendar.MONTH);
         int day = c.get(Calendar.DAY_OF_MONTH);
+        int hour=c.get(Calendar.HOUR);
+        int minute=c.get(Calendar.MINUTE);
 
-        int j = year*365+month*30+day;
+        int j = year*365*24*60+month*30*24*60+day*24*60+hour*60+minute;
+
         //定義時間格式
 //        SimpleDateFormat sdf = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
 //
@@ -60,14 +63,14 @@ public class AlarmInitReceiver extends BroadcastReceiver {
 //        Long timeP=ut2-ut1;//毫秒差
 //        Long sec=timeP/1000;//秒差
 //        Log.e("date",time+"");
-        SharedPreferences mySharedPreferences= context.getSharedPreferences("data_", Activity.MODE_PRIVATE);
-        String i = mySharedPreferences.getString("i","");
+        SharedPreferences mySharedPreferences= context.getSharedPreferences("data_",Activity.MODE_PRIVATE);
+        String i = mySharedPreferences.getString("name","");
         int ii = Integer.parseInt(i);
-        SharedPreferences iSharedPreferences = context.getSharedPreferences("test", Activity.MODE_PRIVATE);
-        SharedPreferences.Editor editor = dateSharedPreferences.edit();
-        editor.putString("test", String.valueOf(ii));
-        editor.commit();
-        if (j >= ii){
+        dateSharedPreferences = context.getSharedPreferences("date_", Activity.MODE_PRIVATE);
+        String h = dateSharedPreferences.getString("date","");
+        int hh = Integer.parseInt(h);
+        long jj=j-hh;
+        if (jj*60 >=ii ){
             System.out.println("Start polling service...");
             PollingUtils.startPollingService(context,1,PollingService.class, PollingService.ACTION);
         }
@@ -84,4 +87,6 @@ public class AlarmInitReceiver extends BroadcastReceiver {
 
 
 
+
 }
+

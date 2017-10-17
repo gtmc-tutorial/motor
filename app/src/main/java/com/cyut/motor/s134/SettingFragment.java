@@ -23,13 +23,14 @@ import java.util.Calendar;
 
 public class SettingFragment extends Fragment {
     Button notice;
+    Button stole;
 
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_setting, null);
 
-
+        stole=(Button)view.findViewById(R.id.stole);
         notice=(Button)view.findViewById(R.id.notice);
         long time=System.currentTimeMillis();
         final Calendar mCalendar=Calendar.getInstance();
@@ -46,6 +47,7 @@ public class SettingFragment extends Fragment {
         SharedPreferences iSharedPreferences = getActivity().getSharedPreferences("test",Activity.MODE_PRIVATE);
         String ii = iSharedPreferences.getString("test","");
         Log.e("test",ii+"");
+
         notice.setOnClickListener(new Button.OnClickListener(){
             public void onClick (View v){
                 new AlertDialog.Builder(getActivity()).setTitle("請選擇題醒時間").setSingleChoiceItems(
@@ -97,9 +99,6 @@ public class SettingFragment extends Fragment {
                 }).setNegativeButton("取消",null).show();
 
             }});
-
-
-
 
         return view;
     }

@@ -5,6 +5,7 @@ import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.app.Service;
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.IBinder;
 import android.util.Log;
 
@@ -43,6 +44,7 @@ public class PollingService extends Service {
 //初始化通知栏配置
 
     private void initNotifiManager() {
+
 //
 //        mManager = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
 //
@@ -61,6 +63,8 @@ public class PollingService extends Service {
 ////弹出Notification
 //
     private void showNotification() {
+
+
         Notification.Builder builder = new Notification.Builder(this);
         Intent notificationIntent = new Intent(this, MainActivity.class);
         PendingIntent notifyPIntent = PendingIntent.getActivity(getApplicationContext(), 0,notificationIntent, 0);
@@ -73,6 +77,14 @@ public class PollingService extends Service {
         builder.setAutoCancel(true);
 
         Notification notification = builder.getNotification();
+        // 建立震動效果，陣列中元素依序為停止、震動的時間，單位是毫秒
+        long[] vibrate_effect =
+                {1000, 500, 1000, 400, 1000, 300};
+        // 設定震動效果
+        builder.setVibrate(vibrate_effect);
+        // 設定閃燈效果，參數依序為顏色、打開與關閉時間，單位是毫秒
+        builder.setLights(Color.GREEN, 1000, 1000);
+        notification.defaults = Notification.DEFAULT_ALL; // 使用默認設置，比如鈴聲、震動、閃燈
         notification.flags = Notification.DEFAULT_LIGHTS | Notification.FLAG_AUTO_CANCEL;
 
 

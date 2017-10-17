@@ -81,5 +81,12 @@
 
     </string-array>
 
+    <string-array name="kind">
+        <item>汽車</item>
+        <item>重機車</item>
+        <item>輕機車</item>
+        <item>動力機械車</item>
+    </string-array>
+
 
 </resources>
