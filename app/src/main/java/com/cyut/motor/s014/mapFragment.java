@@ -358,7 +358,7 @@ public class mapFragment extends Fragment implements OnMapReadyCallback, Locatio
                 case MESSAGE_CHECKED:
                     if(finalMarker1[0] != null)
                         finalMarker1[0].remove();
-                    finalMarker1[0] =  mMap.addMarker(new MarkerOptions().position(latLng2).title(bundle.getString("elevation")));
+                    finalMarker1[0] =  mMap.addMarker(new MarkerOptions().position(latLng2).title((int)Float.parseFloat(bundle.getString("elevation"))+""));
                     finalMarker1[0].showInfoWindow();
             }
         }
