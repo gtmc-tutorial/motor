@@ -53,19 +53,18 @@ public class MaintenanceAddFragment extends Fragment implements View.OnClickList
         switch (view.getId()) {
             case R.id.oil_btn:
                 getActivity().getSupportFragmentManager().beginTransaction()
-                        .replace(R.id.fragment_content,new OilFragment(), FragmentTag.OilFragment_TAG)
+                        .replace(R.id.fragment_content_layout,new OilFragment(), FragmentTag.OilFragment_TAG)
                         .commit();
                 break;
             case R.id.Supplies_btn:
                 getActivity().getSupportFragmentManager().beginTransaction()
-                        .replace(R.id.fragment_content,new SuppliesFragment(), FragmentTag.SUPPLIES_TAG)
+                        .replace(R.id.fragment_content_layout,new SuppliesFragment(), FragmentTag.SUPPLIES_TAG)
                         .commit();
 //                ft.replace(R.id.fragment_content,new SuppliesFragment());
                 break;
             default:
                 break;
         }
-        // 不要忘记提交
         ft.commit();
     }
 }
