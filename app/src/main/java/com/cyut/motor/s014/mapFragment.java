@@ -22,9 +22,8 @@ import android.widget.Button;
 import android.widget.Toast;
 
 import com.cyut.motor.Activity.MainActivity;
-import com.cyut.motor.Structure.MapStructure;
 import com.cyut.motor.R;
-
+import com.cyut.motor.Structure.MapStructure;
 import com.firebase.client.ChildEventListener;
 import com.firebase.client.DataSnapshot;
 import com.firebase.client.Firebase;
@@ -72,7 +71,7 @@ public class mapFragment extends Fragment implements OnMapReadyCallback, Locatio
     private static final int MESSAGE_CHECKED = 0;
 
     @Nullable
-    private Button movie_btn2,tv_btn2,anime_btn2;
+    private Button battery_btn,car_dealers_btn,gas_btn;
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_page3, container, false);
         findById(view);
@@ -97,21 +96,54 @@ public class mapFragment extends Fragment implements OnMapReadyCallback, Locatio
             Toast.makeText(((MainActivity) getContext()), "請開啟定位服務", Toast.LENGTH_LONG).show();
         }
 
-        readFireBaseData();
+        readFireBaseData("battery");
         return view;
     }
     private void findById(View view) {
-        movie_btn2 =(Button)view.findViewById(R.id.movie_btn2);
-        tv_btn2=(Button)view.findViewById(R.id.tv_btn2);
-        anime_btn2=(Button)view.findViewById(R.id.anime_btn2);
+        battery_btn =(Button)view.findViewById(R.id.battery_btn2);
+        car_dealers_btn=(Button)view.findViewById(R.id.car_dealers_btn2);
+        gas_btn=(Button)view.findViewById(R.id.gas_btn2);
+
+        battery_btn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                mMap.clear();
+                readFireBaseData("battery");
+            }
+        });
+        car_dealers_btn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                mMap.clear();
+                readFireBaseData("car_dealers");
+            }
+        });
+        gas_btn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                mMap.clear();
+                readFireBaseData("gas");
+            }
+        });
+
     }
 
 
-    private void readFireBaseData(){
+    private void readFireBaseData(String tag){
         Firebase.setAndroidContext(getActivity());
+        Firebase myFirebaseRef = null;
+        switch (tag) {
+            case "battery" :
+                myFirebaseRef = new Firebase("https://motorcycle-cc0fe.firebaseio.com/place/battery");
+                break;
+            case "car_dealers" :
+                myFirebaseRef = new Firebase("https://motorcycle-cc0fe.firebaseio.com/place/car_dealers");
+                break;
+            case "gas" :
+                myFirebaseRef= new Firebase("https://motorcycle-cc0fe.firebaseio.com/place/gas");
+                break;
 
-
-        Firebase myFirebaseRef = new Firebase("https://motorcycle-cc0fe.firebaseio.com/place/battery");
+        }
         Query queryRef = myFirebaseRef.orderByChild("lat");
 
         queryRef.addChildEventListener(new ChildEventListener() {
@@ -137,7 +169,8 @@ public class mapFragment extends Fragment implements OnMapReadyCallback, Locatio
                             }
                         });
 
-                mMap.addMarker(new MarkerOptions().position(latLng).title(mapStructure.name));
+                mMap.addMarker(new MarkerOptions().position(latLng).title(mapStructure.name).snippet(mapStructure.add));
+
 
             }
             @Override
@@ -325,7 +358,7 @@ public class mapFragment extends Fragment implements OnMapReadyCallback, Locatio
                 case MESSAGE_CHECKED:
                     if(finalMarker1[0] != null)
                         finalMarker1[0].remove();
-                    finalMarker1[0] =  mMap.addMarker(new MarkerOptions().position(latLng2).title(bundle.getString("elevation")));
+                    finalMarker1[0] =  mMap.addMarker(new MarkerOptions().position(latLng2).title("點選位置海拔"+":"+(int)Float.parseFloat(bundle.getString("elevation"))+"").snippet("單位/公尺"));
                     finalMarker1[0].showInfoWindow();
             }
         }
