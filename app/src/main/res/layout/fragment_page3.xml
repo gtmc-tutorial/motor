@@ -13,7 +13,7 @@
         android:layout_alignParentStart="true">
 
         <Button
-            android:id="@+id/movie_btn2"
+            android:id="@+id/battery_btn2"
             android:layout_width="wrap_content"
             android:layout_height="50dp"
             android:layout_weight="1"
@@ -23,7 +23,7 @@
             android:textColor="#FFFFFF" />
 
         <Button
-            android:id="@+id/tv_btn2"
+            android:id="@+id/car_dealers_btn2"
             android:layout_width="wrap_content"
             android:layout_height="50dp"
             android:layout_weight="1"
@@ -33,7 +33,7 @@
             android:textColor="#FFFFFF" />
 
         <Button
-            android:id="@+id/anime_btn2"
+            android:id="@+id/gas_btn2"
             android:layout_width="wrap_content"
             android:layout_height="50dp"
             android:layout_weight="1"
@@ -76,17 +76,7 @@
         android:layout_alignParentStart="true">
 
 
-        <TextView
-            android:id="@+id/movie_btn3"
-            android:layout_width="wrap_content"
-            android:layout_height="50dp"
-            android:layout_weight="1"
-            android:background="@color/colorAccent"
-            android:text="位置服務"
-            android:gravity="center"
-            android:textAllCaps="false"
-            android:textColor="#ffffff"
-            android:textSize="20sp" />
+
 
     </LinearLayout>
 

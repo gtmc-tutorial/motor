@@ -6,6 +6,7 @@ import android.support.v4.app.FragmentActivity;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.TextView;
 
 import com.cyut.motor.Structure.FragmentTag;
 import com.cyut.motor.s065.LoginActivity;
@@ -18,6 +19,7 @@ import com.cyut.motor.R;
 
 
 public class MainActivity extends FragmentActivity implements View.OnClickListener  {
+    private TextView titleTextView;
     private ImageView movieBtn, tvBtn,animeBtn, varietyBtn,abcBtn,movieBtn2,tvBtn2,animeBtn2;
 
     private ImageView btn_user;
@@ -69,6 +71,7 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
 //        ft.commit();
     }
     private void findById() {
+        titleTextView = (TextView) this.findViewById(R.id.main_title_text);
 
         movieBtn = (ImageView)this.findViewById(R.id.movie_btn);
         tvBtn = (ImageView)this.findViewById(R.id.tv_btn);
@@ -105,26 +108,31 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
                 getSupportFragmentManager().beginTransaction()
                         .show(homeFragment).hide(maintenanceFragment).hide(mapFragment).hide(fragment4).hide(maintenanceAddFragment)
                         .commit();
+                titleTextView.setText("首頁");
                 break;
             case R.id.tv_btn:
                 getSupportFragmentManager().beginTransaction()
                         .show(maintenanceFragment).hide(homeFragment).hide(mapFragment).hide(fragment4).hide(maintenanceAddFragment)
                         .commit();
+                titleTextView.setText("保養");
                 break;
             case R.id.anime_btn:
                 getSupportFragmentManager().beginTransaction()
                         .show(mapFragment).hide(homeFragment).hide(maintenanceFragment).hide(fragment4).hide(maintenanceAddFragment)
                         .commit();
+                titleTextView.setText("位置服務");
                 break;
             case R.id.variety_btn:
                 getSupportFragmentManager().beginTransaction()
                         .show(fragment4).hide(homeFragment).hide(mapFragment).hide(maintenanceFragment).hide(maintenanceAddFragment)
                         .commit();
+                titleTextView.setText("道路救援");
                 break;
             case R.id.setting_btn:
                 getSupportFragmentManager().beginTransaction()
                         .show(fragment4).hide(homeFragment).hide(mapFragment).hide(maintenanceFragment).hide(maintenanceAddFragment)
                         .commit();
+                titleTextView.setText("設定");
                 break;
             default:
                 break;
