@@ -1,4 +1,4 @@
-package com.cyut.motor;
+package com.cyut.motor.Structure;
 
 /**
  * Created by user on 2017/9/20.

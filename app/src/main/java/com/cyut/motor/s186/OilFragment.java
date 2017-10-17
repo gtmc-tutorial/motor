@@ -11,7 +11,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.Toast;
 
-import com.cyut.motor.FragmentTag;
+import com.cyut.motor.Structure.FragmentTag;
 import com.cyut.motor.R;
 
 import static android.content.Context.MODE_PRIVATE;

@@ -1,4 +1,4 @@
-package com.cyut.motor.Fragment;
+package com.cyut.motor.s192;
 
 import android.content.Context;
 import android.content.Intent;

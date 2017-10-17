@@ -1,4 +1,4 @@
-package com.cyut.motor.Fragment;
+package com.cyut.motor.s014;
 
 import android.Manifest;
 import android.content.Context;
@@ -22,7 +22,7 @@ import android.widget.Button;
 import android.widget.Toast;
 
 import com.cyut.motor.Activity.MainActivity;
-import com.cyut.motor.MapStructure;
+import com.cyut.motor.Structure.MapStructure;
 import com.cyut.motor.R;
 
 import com.firebase.client.ChildEventListener;
@@ -30,7 +30,6 @@ import com.firebase.client.DataSnapshot;
 import com.firebase.client.Firebase;
 import com.firebase.client.FirebaseError;
 import com.firebase.client.Query;
-import com.firebase.client.ValueEventListener;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.MapFragment;
@@ -53,8 +52,6 @@ import java.util.concurrent.TimeUnit;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.Response;
-
-import static android.content.ContentValues.TAG;
 
 /**
  * Created by hipsre720 on 2017/8/17.

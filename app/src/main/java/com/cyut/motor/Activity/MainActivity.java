@@ -7,12 +7,12 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 
-import com.cyut.motor.FragmentTag;
+import com.cyut.motor.Structure.FragmentTag;
 import com.cyut.motor.s065.LoginActivity;
 import com.cyut.motor.s186.MaintenanceAddFragment;
-import com.cyut.motor.Fragment.HomeFragment;
+import com.cyut.motor.s192.HomeFragment;
 import com.cyut.motor.s186.MaintenanceFragment;
-import com.cyut.motor.Fragment.mapFragment;
+import com.cyut.motor.s014.mapFragment;
 import com.cyut.motor.s134.SettingFragment;
 import com.cyut.motor.R;
 
