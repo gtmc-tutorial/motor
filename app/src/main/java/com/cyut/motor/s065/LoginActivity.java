@@ -142,10 +142,12 @@ public class LoginActivity extends AppCompatActivity implements GoogleApiClient.
                 Toast.makeText(LoginActivity.this, "不能有空值", Toast.LENGTH_LONG).show();
                 return;
             }
+
             if(ed_password.getText().length() >=6 || ed_email.getText().toString().length() >=6){
                 Toast.makeText(LoginActivity.this, "帳號與密碼需6碼以上", Toast.LENGTH_LONG).show();
                 return;
             }
+
             final ProgressDialog progressDialog = ProgressDialog.show(LoginActivity.this, "Please wait...", "Proccessing...", true);
             (firebaseAuth.signInWithEmailAndPassword(ed_email.getText().toString(), ed_password.getText().toString()))
                     .addOnCompleteListener(new OnCompleteListener<AuthResult>() {

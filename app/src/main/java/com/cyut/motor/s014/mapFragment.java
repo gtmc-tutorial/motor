@@ -59,15 +59,13 @@ import okhttp3.Response;
 public class mapFragment extends Fragment implements OnMapReadyCallback, LocationListener {
 
     private GoogleMap mMap;
-    float zoom;
+    float zoom = 7;
     private LocationManager locMgr;
     String bestProv;
     private ArrayList<MapStructure> mapList = new ArrayList<>();
-
     String elevation = "";
     final Marker[] finalMarker1 = {null};
     public static LatLng latLng2;
-
     private static final int MESSAGE_CHECKED = 0;
 
     @Nullable
@@ -203,24 +201,13 @@ public class mapFragment extends Fragment implements OnMapReadyCallback, Locatio
         mMap.setMapType(GoogleMap.MAP_TYPE_NORMAL);
         requestPermissions();
 
-        //mMap.addMarker(new MarkerOptions()
-        // .icon(BitmapDescriptorFactory.fromResource(R.drawable.mapmarker))
-        //.anchor(0.0f, 1.0f) // Anchors the marker on the bottom left
-        //.position(new LatLng(24.172501, 120.662946)));
-
         LocationManager lm = (LocationManager) getActivity().getSystemService(Context.LOCATION_SERVICE);
         if (ActivityCompat.checkSelfPermission(getActivity(), Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(getActivity(), Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
             // TODO: Consider calling
-            //    ActivityCompat#requestPermissions
-            // here to request the missing permissions, and then overriding
-            //   public void onRequestPermissionsResult(int requestCode, String[] permissions,
-            //                                          int[] grantResults)
-            // to handle the case where the user grants the permission. See the documentation
-            // for ActivityCompat#requestPermissions for more details.
             return;
         }
         Location location = lm.getLastKnownLocation(LocationManager.GPS_PROVIDER); // 設定定位資訊由 GPS提供
-        double lat = 0,lng = 0;
+        double lat = 23.4471421,lng = 120.9861134;
         if(location != null){
             lat = location.getLatitude();  // 取得經度
             lng = location.getLongitude(); // 取得緯度
@@ -233,7 +220,6 @@ public class mapFragment extends Fragment implements OnMapReadyCallback, Locatio
         mMap.setOnMapClickListener(new GoogleMap.OnMapClickListener() {
             @Override
             public void onMapClick(final LatLng latLng) {
-
                 mapFragment.latLng2 = latLng;
                 new Thread(new Runnable(){
                     @Override
@@ -248,9 +234,7 @@ public class mapFragment extends Fragment implements OnMapReadyCallback, Locatio
                             for (int i = 0; i < array.length(); i++) {
                                 JSONObject jsonObjectelevation = array.getJSONObject(i);
                                 elevation = jsonObjectelevation.getString("elevation");
-                                Log.e("elevation",elevation+"");
                             }
-
                             Message message = mHandler.obtainMessage(MESSAGE_CHECKED);
 
                             Bundle bundle = new Bundle();
@@ -261,21 +245,12 @@ public class mapFragment extends Fragment implements OnMapReadyCallback, Locatio
                         } catch (JSONException e) {
                             e.printStackTrace();
                         }
-
                     }
                 }).start();
             }
         });
     }
-    @Override
-    public void onDestroy() {
-        Log.e("Destory","Destory");
-        super.onDestroy();
-    }
-    public void onStart() {
 
-        super.onStart();
-    }
     private void requestPermissions(){
         if (Build.VERSION.SDK_INT >=23){
             int hasPermission = ActivityCompat.checkSelfPermission(((MainActivity)getContext()), android.Manifest.permission.ACCESS_COARSE_LOCATION);
@@ -286,6 +261,7 @@ public class mapFragment extends Fragment implements OnMapReadyCallback, Locatio
         }
         setMyLocation();
     }
+
     public void onRequestPermissionsResult(int requestCode,String[] permissions,int [] grantResults){
         if (requestCode == 1){
             if (grantResults[0]==PackageManager.PERMISSION_GRANTED){
@@ -315,16 +291,12 @@ public class mapFragment extends Fragment implements OnMapReadyCallback, Locatio
 
     }
     public void onStatusChanged(String provider, int status, Bundle extras) {
-
         Criteria criteria = new Criteria();
         bestProv = locMgr.getBestProvider(criteria, true);
     }
-    //@Override
     public void onProviderEnabled(String provider) {
 
     }
-
-    //@Override
     public void onProviderDisabled(String provider) {
 
     }
