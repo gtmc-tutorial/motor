@@ -12,6 +12,7 @@ import android.widget.Toast;
 
 import com.cyut.motor.Activity.MainActivity;
 import com.cyut.motor.R;
+import com.cyut.motor.StaticMethodPack;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
@@ -24,7 +25,7 @@ import com.google.firebase.auth.FirebaseAuthWeakPasswordException;
 public class RegisterActivity extends AppCompatActivity {
 
 
-    private Button btn_cencel,btn_home;
+    private Button btn_cencel;
     private EditText ed_email;
     private EditText ed_password;
     private FirebaseAuth firebaseAuth;
@@ -42,48 +43,37 @@ public class RegisterActivity extends AppCompatActivity {
 
         btn_cencel = (Button)findViewById(R.id.btn_cencel);
         btn_cencel.setOnClickListener(listener);
-        btn_home = (Button) findViewById(R.id.btn_home);
-        btn_home.setOnClickListener(listener1);
 
     }
 
     public void btnRegistrationUser_Click(View v) {
+        //判斷網路狀況
+        if(StaticMethodPack.isNetworkConnecting(this)){
+            //process
+            final ProgressDialog progressDialog = ProgressDialog.show(RegisterActivity.this, "Please wait...", "Processing...", true);
+            (firebaseAuth.createUserWithEmailAndPassword(ed_email.getText().toString(), ed_password.getText().toString()))
+                    .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+                        @Override
+                        public void onComplete(@NonNull Task<AuthResult> task) {
+                            progressDialog.dismiss();
 
-        final ProgressDialog progressDialog = ProgressDialog.show(RegisterActivity.this, "Please wait...", "Processing...", true);
-        (firebaseAuth.createUserWithEmailAndPassword(ed_email.getText().toString(), ed_password.getText().toString()))
-                .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
-                    @Override
-                    public void onComplete(@NonNull Task<AuthResult> task) {
-                        progressDialog.dismiss();
-
-                        if (task.isSuccessful()) {
-                            Toast.makeText(RegisterActivity.this, "註冊成功", Toast.LENGTH_LONG).show();
-                            Intent i = new Intent(RegisterActivity.this, MainActivity.class);
-                            startActivity(i);
-                        }
-                        else if (task.getException() instanceof FirebaseAuthUserCollisionException) {
-                            Toast.makeText(RegisterActivity.this, "此信箱已被註冊", Toast.LENGTH_LONG).show();
-
-                        }
-
-                        //If email already registered.
-
-                        else if (task.getException() instanceof FirebaseAuthInvalidCredentialsException) {
-                            Toast.makeText(RegisterActivity.this, "信箱格式輸入錯誤", Toast.LENGTH_LONG).show();
-
-                        //If email are in incorret  format
-                        }
-
-                        else if (task.getException() instanceof FirebaseAuthWeakPasswordException) {
-                            Toast.makeText(RegisterActivity.this, "密碼長度不夠", Toast.LENGTH_LONG).show();
-
-                        //if password not 'stronger'
-                        }
-
-                        else {
-
-                        }
-
+                            if (task.isSuccessful()) {
+                                Toast.makeText(RegisterActivity.this, "註冊成功", Toast.LENGTH_LONG).show();
+                                Intent i = new Intent(RegisterActivity.this, MainActivity.class);
+                                startActivity(i);
+                            }
+                            else if (task.getException() instanceof FirebaseAuthUserCollisionException) {
+                                Toast.makeText(RegisterActivity.this, "此信箱已被註冊", Toast.LENGTH_LONG).show();
+                            }
+                            //If email already registered.
+                            else if (task.getException() instanceof FirebaseAuthInvalidCredentialsException) {
+                                Toast.makeText(RegisterActivity.this, "信箱格式輸入錯誤", Toast.LENGTH_LONG).show();
+                                //If email are in incorret  format
+                            }
+                            else if (task.getException() instanceof FirebaseAuthWeakPasswordException) {
+                                Toast.makeText(RegisterActivity.this, "密碼長度不夠", Toast.LENGTH_LONG).show();
+                                //if password not 'stronger'
+                            }
 //                        else
 //                        {
 //                            Log.e("註冊失敗", task.getException().toString());
@@ -92,8 +82,11 @@ public class RegisterActivity extends AppCompatActivity {
 //                            startActivity(i);
 //                        //OTHER THING
 //                        }
-                    }
-                });
+                        }
+                    });
+        }else{
+            Toast.makeText(this,"請連接網路",Toast.LENGTH_SHORT);
+        }
     }
 
     private Button.OnClickListener listener = new Button.OnClickListener() {
@@ -106,16 +99,4 @@ public class RegisterActivity extends AppCompatActivity {
             finish();
         }
     };
-
-    private Button.OnClickListener listener1 = new Button.OnClickListener() {
-        @Override
-        public void onClick(View v) {
-            // TODO Auto-generated method stub
-            Intent intent = new Intent();
-            intent.setClass(RegisterActivity.this, MainActivity.class);
-            startActivity(intent);
-            finish();
-        }
-    };
-
 }

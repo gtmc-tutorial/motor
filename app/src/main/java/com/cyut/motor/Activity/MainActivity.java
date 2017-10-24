@@ -147,7 +147,6 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
             Intent intent = new Intent();
             intent.setClass(MainActivity.this,LoginActivity.class);
             startActivity(intent);
-            finish();
         }
     };
 
