@@ -3,7 +3,6 @@ package com.cyut.motor.s134;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
-import android.content.Intent;
 import android.content.SharedPreferences;
 import android.support.v4.app.Fragment;
 import android.os.Bundle;
@@ -12,13 +11,14 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ArrayAdapter;
 import android.widget.Button;
+<<<<<<< HEAD
 import android.widget.RelativeLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
+=======
+>>>>>>> 8cc284f0e0f7a146b6616bd8760436059bd7ee1a
 
-import com.cyut.motor.Activity.MainActivity;
 import com.cyut.motor.R;
 
 import java.util.Calendar;
@@ -104,7 +104,7 @@ public class SettingFragment extends Fragment {
 
 //            protected void onCreate(Bundle savedInstanceState) {
 //                super.onCreate(savedInstanceState);
-//                setContentView(R.layout.dialog);
+//                setContentView(R.layout.dialog_setting);
 //                Spinner spinner = (Spinner)findViewById(R.id.spinner);
 //                ArrayAdapter<CharSequence> kind = ArrayAdapter.createFromResource(getActivity(),
 //                        R.array.kind,
@@ -119,7 +119,11 @@ public class SettingFragment extends Fragment {
                 RelativeLayout relativeLayout = (RelativeLayout) inflater.inflate(R.layout.dialog,null);
 
                 builder.setTitle("請輸入查詢的種類與車牌")
+<<<<<<< HEAD
                         .setView(relativeLayout)
+=======
+                        .setView(inflater.inflate(R.layout.dialog_setting,null))
+>>>>>>> 8cc284f0e0f7a146b6616bd8760436059bd7ee1a
                         .setPositiveButton("確定",new DialogInterface.OnClickListener(){
                             public void onClick(DialogInterface dialog,int id){
 
