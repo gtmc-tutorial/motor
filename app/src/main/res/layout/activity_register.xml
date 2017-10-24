@@ -173,15 +173,4 @@
         android:layout_marginTop="20dp"
         android:text="取消"/>
 
-    <Button
-        android:id="@+id/btn_home"
-        android:layout_width="80dp"
-        android:layout_height="100dp"
-        android:layout_alignParentBottom="true"
-        android:background="@drawable/up_btn_home"/>
-
-
-
-
-
 </RelativeLayout>

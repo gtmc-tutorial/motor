@@ -14,6 +14,7 @@ import android.widget.Toast;
 
 import com.cyut.motor.Activity.MainActivity;
 import com.cyut.motor.R;
+import com.cyut.motor.StaticMethodPack;
 import com.facebook.AccessToken;
 import com.facebook.CallbackManager;
 import com.facebook.FacebookCallback;
@@ -65,8 +66,6 @@ public class LoginActivity extends AppCompatActivity implements GoogleApiClient.
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
 
-        movie_btn = (ImageView) findViewById(R.id.movie_btn);
-        movie_btn.setOnClickListener(listener);
         btn_register = (Button) findViewById(R.id.btn_register);
         btn_register.setOnClickListener(listener1);
         btn_forgetpw = (Button) findViewById(R.id.btn_forgetpw);
@@ -137,38 +136,39 @@ public class LoginActivity extends AppCompatActivity implements GoogleApiClient.
     }
 
     public void btnUserLogin_Click(View v) {
-        final ProgressDialog progressDialog = ProgressDialog.show(LoginActivity.this, "Please wait...", "Proccessing...", true);
+        if(StaticMethodPack.isNetworkConnecting(this)){
 
-        (firebaseAuth.signInWithEmailAndPassword(ed_email.getText().toString(), ed_password.getText().toString()))
-                .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
-                    @Override
-                    public void onComplete(@NonNull Task<AuthResult> task) {
-                        progressDialog.dismiss();
+            if(ed_password.getText().toString().equals("") || ed_email.getText().toString().equals("")){
+                Toast.makeText(LoginActivity.this, "不能有空值", Toast.LENGTH_LONG).show();
+                return;
+            }
+            if(ed_password.getText().length() >=6 || ed_email.getText().toString().length() >=6){
+                Toast.makeText(LoginActivity.this, "帳號與密碼需6碼以上", Toast.LENGTH_LONG).show();
+                return;
+            }
+            final ProgressDialog progressDialog = ProgressDialog.show(LoginActivity.this, "Please wait...", "Proccessing...", true);
+            (firebaseAuth.signInWithEmailAndPassword(ed_email.getText().toString(), ed_password.getText().toString()))
+                    .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+                        @Override
+                        public void onComplete(@NonNull Task<AuthResult> task) {
+                            progressDialog.dismiss();
 
-                        if (task.isSuccessful()) {
-                            Toast.makeText(LoginActivity.this, "登入成功", Toast.LENGTH_LONG).show();
-                            Intent i = new Intent(LoginActivity.this, MainActivity.class);
-                            i.putExtra("Email", firebaseAuth.getCurrentUser().getEmail());
-                            startActivity(i);
-                        } else {
-                            Log.e("登入失敗", task.getException().toString());
-                            Toast.makeText(LoginActivity.this, task.getException().getMessage(), Toast.LENGTH_LONG).show();
+                            if (task.isSuccessful()) {
+                                Toast.makeText(LoginActivity.this, "登入成功", Toast.LENGTH_LONG).show();
+                                Intent i = new Intent(LoginActivity.this, MainActivity.class);
+                                i.putExtra("Email", firebaseAuth.getCurrentUser().getEmail());
+                                startActivity(i);
+                            } else {
+                                Toast.makeText(LoginActivity.this, "帳號密碼錯誤", Toast.LENGTH_LONG).show();
 
+                            }
                         }
-                    }
-                });
-    }
-
-    private ImageView.OnClickListener listener = new ImageView.OnClickListener() {
-        @Override
-        public void onClick(View v) {
-            // TODO Auto-generated method stub
-            Intent intent = new Intent();
-            intent.setClass(LoginActivity.this, MainActivity.class);
-            startActivity(intent);
-            finish();
+                    });
+        }else{
+            Toast.makeText(this,"請連接網路",Toast.LENGTH_SHORT);
         }
-    };
+
+    }
 
     private Button.OnClickListener listener1 = new Button.OnClickListener() {
         @Override
@@ -176,19 +176,15 @@ public class LoginActivity extends AppCompatActivity implements GoogleApiClient.
             Intent intent = new Intent();
             intent.setClass(LoginActivity.this, RegisterActivity.class);
             startActivity(intent);
-            finish();
         }
     };
 
     private Button.OnClickListener listener2 = new Button.OnClickListener() {
         @Override
         public void onClick(View v) {
-
             Intent intent = new Intent();
             intent.setClass(LoginActivity.this, ForgetPasswordActivity.class);
             startActivity(intent);
-            finish();
-
         }
     };
 
@@ -207,7 +203,7 @@ public class LoginActivity extends AppCompatActivity implements GoogleApiClient.
     }
 
     private void firebaseAuthWithGoogle(GoogleSignInAccount acct) {
-        Log.d(TAG, "firebaseAuthWithGooogle:" + acct.getId());
+            Log.d(TAG, "firebaseAuthWithGooogle:" + acct.getId());
         AuthCredential credential = GoogleAuthProvider.getCredential(acct.getIdToken(), null);
         mAuth.signInWithCredential(credential)
                 .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
@@ -267,9 +263,16 @@ public class LoginActivity extends AppCompatActivity implements GoogleApiClient.
     }
 
     private void signIn() {
-        Intent signInIntent = Auth.GoogleSignInApi.getSignInIntent(mGoogleApiClient);
-        startActivityForResult(signInIntent, RC_SIGN_IN);
+        if(StaticMethodPack.isNetworkConnecting(this)) {
+            Intent signInIntent = Auth.GoogleSignInApi.getSignInIntent(mGoogleApiClient);
+            startActivityForResult(signInIntent, RC_SIGN_IN);
+        }else
+        Toast.makeText(this,"請連接網路",Toast.LENGTH_SHORT);
+
+
+
     }
+
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
@@ -280,6 +283,8 @@ public class LoginActivity extends AppCompatActivity implements GoogleApiClient.
         if (requestCode == RC_SIGN_IN) {
             GoogleSignInResult result = Auth.GoogleSignInApi.getSignInResultFromIntent(data);
             if (result.isSuccess()) {
+                Toast.makeText(LoginActivity.this, "登入成功",
+                        Toast.LENGTH_SHORT).show();
                 // Google Sign In was successful, authenticate with Firebase
                 GoogleSignInAccount account = result.getSignInAccount();
                 firebaseAuthWithGoogle(account);
@@ -294,7 +299,7 @@ public class LoginActivity extends AppCompatActivity implements GoogleApiClient.
     public void onConnectionFailed(@NonNull ConnectionResult connectionResult) {
         // An unresolvable error has occurred and Google APIs (including Sign-In) will not
         // be available.
-        Log.d(TAG, "onConnectionFailed:" + connectionResult);
+        Log.d(TAG, "連線失敗:" + connectionResult);
         Toast.makeText(this, "Google Play Services error.", Toast.LENGTH_SHORT).show();
     }
 

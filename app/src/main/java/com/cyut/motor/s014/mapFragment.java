@@ -158,16 +158,19 @@ public class mapFragment extends Fragment implements OnMapReadyCallback, Locatio
 
                 final String[] elevation = {""};
 
-                Ion.with(getActivity())
-                        .load("https://maps.googleapis.com/maps/api/elevation/json?locations="+Double.parseDouble(mapStructure.lat)+","+Double.parseDouble(mapStructure.lng)+"&key=AIzaSyALcD0X57AVTQJq8GoqK3-62Hia5TpoF2II")
-                        .asJsonObject()
-                        .setCallback(new FutureCallback<JsonObject>() {
-                            @Override
-                            public void onCompleted(Exception e, JsonObject result) {
-                                elevation[0] = result.toString().substring(result.toString().indexOf(":",2),result.toString().indexOf(","));
-                                Log.e("result",elevation[0]);
-                            }
-                        });
+                if(getActivity()!=null){
+                    Ion.with(getActivity())
+                            .load("https://maps.googleapis.com/maps/api/elevation/json?locations="+Double.parseDouble(mapStructure.lat)+","+Double.parseDouble(mapStructure.lng)+"&key=AIzaSyALcD0X57AVTQJq8GoqK3-62Hia5TpoF2II")
+                            .asJsonObject()
+                            .setCallback(new FutureCallback<JsonObject>() {
+                                @Override
+                                public void onCompleted(Exception e, JsonObject result) {
+                                    elevation[0] = result.toString().substring(result.toString().indexOf(":",2),result.toString().indexOf(","));
+                                    Log.e("result",elevation[0]);
+                                }
+                            });
+                }
+
 
                 mMap.addMarker(new MarkerOptions().position(latLng).title(mapStructure.name).snippet(mapStructure.add));
 
