@@ -54,6 +54,7 @@
         </receiver>
         <service android:name=".s134.PollingService" />
 
+
     </application>
 
 </manifest>

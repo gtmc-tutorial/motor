@@ -3,6 +3,7 @@ package com.cyut.motor.s134;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.support.v4.app.Fragment;
 import android.os.Bundle;
@@ -11,8 +12,11 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.Spinner;
 
+import com.cyut.motor.Activity.MainActivity;
 import com.cyut.motor.R;
 
 import java.util.Calendar;
@@ -99,7 +103,41 @@ public class SettingFragment extends Fragment {
                 }).setNegativeButton("取消",null).show();
 
             }});
+        stole.setOnClickListener(new View.OnClickListener() {
+
+
+
+//            protected void onCreate(Bundle savedInstanceState) {
+//                super.onCreate(savedInstanceState);
+//                setContentView(R.layout.dialog);
+//                Spinner spinner = (Spinner)findViewById(R.id.spinner);
+//                ArrayAdapter<CharSequence> kind = ArrayAdapter.createFromResource(getActivity(),
+//                        R.array.kind,
+//                        android.R.layout.simple_spinner_dropdown_item);
+//                spinner.setAdapter(kind);
+//            }
+
+            @Override
+            public void onClick(View v) {
+                LayoutInflater inflater = getActivity().getLayoutInflater();
+                AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+                builder.setTitle("請輸入查詢的種類與車牌")
+                        .setView(inflater.inflate(R.layout.dialog,null))
+                        .setPositiveButton("確定",new DialogInterface.OnClickListener(){
+                            public void onClick(DialogInterface dialog,int id){
+
+                            }
+                                }
+
+                        ).setNegativeButton("取消",null)
+                ;
+                AlertDialog dialog =builder.create();
+                dialog.show();
+            }
+        });
+
 
         return view;
+
     }
 }
