@@ -14,7 +14,9 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.RelativeLayout;
 import android.widget.Spinner;
+import android.widget.TextView;
 
 import com.cyut.motor.Activity.MainActivity;
 import com.cyut.motor.R;
@@ -32,7 +34,7 @@ public class SettingFragment extends Fragment {
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_setting, null);
+        final View view = inflater.inflate(R.layout.fragment_setting, null);
 
         stole=(Button)view.findViewById(R.id.stole);
         notice=(Button)view.findViewById(R.id.notice);
@@ -57,7 +59,6 @@ public class SettingFragment extends Fragment {
                 new AlertDialog.Builder(getActivity()).setTitle("請選擇題醒時間").setSingleChoiceItems(
                         new String[]{"1週","2週","3週","1個月"},0,
                         new DialogInterface.OnClickListener(){
-
                             @Override
                             public void onClick(DialogInterface dialogInterface, int i) {
                                 Log.e("i",i+"");
@@ -87,25 +88,19 @@ public class SettingFragment extends Fragment {
                                     PollingUtils.startPollingService(getActivity(), 2419200, PollingService.class, PollingService.ACTION);
                                 }
                             }
-
                             public void Onclick(DialogInterface dialog , int which){
                                 dialog.dismiss();
                             }
                         }
                 ).setPositiveButton("確定", new DialogInterface.OnClickListener() {
-
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
                         //定義時間格式
-
-
                     }
                 }).setNegativeButton("取消",null).show();
 
             }});
         stole.setOnClickListener(new View.OnClickListener() {
-
-
 
 //            protected void onCreate(Bundle savedInstanceState) {
 //                super.onCreate(savedInstanceState);
@@ -121,15 +116,17 @@ public class SettingFragment extends Fragment {
             public void onClick(View v) {
                 LayoutInflater inflater = getActivity().getLayoutInflater();
                 AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+                RelativeLayout relativeLayout = (RelativeLayout) inflater.inflate(R.layout.dialog,null);
+
                 builder.setTitle("請輸入查詢的種類與車牌")
-                        .setView(inflater.inflate(R.layout.dialog,null))
+                        .setView(relativeLayout)
                         .setPositiveButton("確定",new DialogInterface.OnClickListener(){
                             public void onClick(DialogInterface dialog,int id){
 
                             }
-                                }
+                        }
 
-                        ).setNegativeButton("取消",null)
+                 ).setNegativeButton("取消",null)
                 ;
                 AlertDialog dialog =builder.create();
                 dialog.show();

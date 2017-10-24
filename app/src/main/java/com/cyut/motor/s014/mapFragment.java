@@ -37,6 +37,7 @@ import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.gson.JsonObject;
+import com.google.maps.android.clustering.ClusterManager;
 import com.koushikdutta.async.future.FutureCallback;
 import com.koushikdutta.ion.Ion;
 
@@ -44,19 +45,17 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.io.IOException;
+import java.io.InputStream;
 import java.util.ArrayList;
-import java.util.concurrent.TimeUnit;
-
-import okhttp3.OkHttpClient;
-import okhttp3.Request;
-import okhttp3.Response;
+import java.util.Collection;
+import java.util.List;
 
 /**
  * Created by hipsre720 on 2017/8/17.
  */
 
 public class mapFragment extends Fragment implements OnMapReadyCallback, LocationListener {
+    private ClusterManager<MyItem> mClusterManager;
 
     private GoogleMap mMap;
     float zoom = 7;
@@ -140,55 +139,25 @@ public class mapFragment extends Fragment implements OnMapReadyCallback, Locatio
             case "gas" :
                 myFirebaseRef= new Firebase("https://motorcycle-cc0fe.firebaseio.com/place/gas");
                 break;
-
         }
         Query queryRef = myFirebaseRef.orderByChild("lat");
 
         queryRef.addChildEventListener(new ChildEventListener() {
             @Override
             public void onChildAdded(DataSnapshot snapshot, String previousChild) {
-
                 MapStructure mapStructure = snapshot.getValue(MapStructure.class);
                 Log.e("FireBaseTraining", "lat = " + mapStructure.lat +"lng = " + mapStructure.lng+ " , Name = " + mapStructure.name+" , add = " + mapStructure.add);
                 LatLng latLng = new LatLng(Double.parseDouble(mapStructure.lat), Double.parseDouble(mapStructure.lng));
 
-//                getJSONContent("https://maps.googleapis.com/maps/api/elevation/json?locations="+Double.parseDouble(mapStructure.lat)+","+Double.parseDouble(mapStructure.lng)+"&key=AIzaSyALcD0X57AVTQJq8GoqK3-62Hia5TpoF2I");
+                MyItem myitem = new MyItem(latLng.latitude,latLng.longitude,mapStructure.name,mapStructure.add);
+                mClusterManager.addItem(myitem);
 
-                final String[] elevation = {""};
-
-                if(getActivity()!=null){
-                    Ion.with(getActivity())
-                            .load("https://maps.googleapis.com/maps/api/elevation/json?locations="+Double.parseDouble(mapStructure.lat)+","+Double.parseDouble(mapStructure.lng)+"&key=AIzaSyALcD0X57AVTQJq8GoqK3-62Hia5TpoF2II")
-                            .asJsonObject()
-                            .setCallback(new FutureCallback<JsonObject>() {
-                                @Override
-                                public void onCompleted(Exception e, JsonObject result) {
-                                    elevation[0] = result.toString().substring(result.toString().indexOf(":",2),result.toString().indexOf(","));
-                                    Log.e("result",elevation[0]);
-                                }
-                            });
-                }
-
-
-                mMap.addMarker(new MarkerOptions().position(latLng).title(mapStructure.name).snippet(mapStructure.add));
-
-
+//                mMap.addMarker(new MarkerOptions().position(latLng).title(mapStructure.name).snippet(mapStructure.add));
             }
-            @Override
-            public void onChildChanged(DataSnapshot dataSnapshot, String s) {
-            }
-
-            @Override
-            public void onChildRemoved(DataSnapshot dataSnapshot) {
-            }
-
-            @Override
-            public void onChildMoved(DataSnapshot dataSnapshot, String s) {
-            }
-
-            @Override
-            public void onCancelled(FirebaseError firebaseError) {
-            }
+            public void onChildChanged(DataSnapshot dataSnapshot, String s) {}
+            public void onChildRemoved(DataSnapshot dataSnapshot) {}
+            public void onChildMoved(DataSnapshot dataSnapshot, String s) {}
+            public void onCancelled(FirebaseError firebaseError) {}
         });
     }
 
@@ -199,6 +168,10 @@ public class mapFragment extends Fragment implements OnMapReadyCallback, Locatio
         Log.e("onMapReady", "onMapReady");
         mMap = googleMap;
         mMap.setMapType(GoogleMap.MAP_TYPE_NORMAL);
+        //群集map
+        mClusterManager = new ClusterManager<MyItem>(getActivity(), mMap);
+        mMap.setOnCameraIdleListener(mClusterManager);
+
         requestPermissions();
 
         LocationManager lm = (LocationManager) getActivity().getSystemService(Context.LOCATION_SERVICE);
@@ -206,49 +179,31 @@ public class mapFragment extends Fragment implements OnMapReadyCallback, Locatio
             // TODO: Consider calling
             return;
         }
+
+        try {
+            readItems();
+        } catch (JSONException e) {
+            Toast.makeText(getActivity(), "Problem reading list of markers.", Toast.LENGTH_LONG).show();
+        }
+
         Location location = lm.getLastKnownLocation(LocationManager.GPS_PROVIDER); // 設定定位資訊由 GPS提供
         double lat = 23.4471421,lng = 120.9861134;
         if(location != null){
             lat = location.getLatitude();  // 取得經度
             lng = location.getLongitude(); // 取得緯度
         }
+
         LatLng HOME = new LatLng(lat, lng);
-//        mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(HOME, 15.0f));//數字越大放越大
         mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(HOME,zoom));
+        mMap.setOnMapClickListener(mapClickListener);
+    }
 
-        final String[] eleva = {""};
-        mMap.setOnMapClickListener(new GoogleMap.OnMapClickListener() {
-            @Override
-            public void onMapClick(final LatLng latLng) {
-                mapFragment.latLng2 = latLng;
-                new Thread(new Runnable(){
-                    @Override
-                    public void run() {
-                        String result = getJSONContent("https://maps.googleapis.com/maps/api/elevation/json?locations="+Double.parseDouble(String.valueOf(latLng.latitude))+","+Double.parseDouble(String.valueOf(latLng.longitude))+"&key=AIzaSyALcD0X57AVTQJq8GoqK3-62Hia5TpoF2I");
+    private void readItems() throws JSONException {
+//        InputStream inputStream = getResources().openRawResource(R.raw.radar_search);
+//        List<MyItem> items = new MyItemReader().read(inputStream);
+//        mClusterManager.addItems(items);
+        //mClusterManager.addItems(items);
 
-                        try {
-                            JSONObject jsonObject = new JSONObject(result);
-                            JSONArray array = jsonObject.getJSONArray("results");
-                            Log.e("array",array+"");
-
-                            for (int i = 0; i < array.length(); i++) {
-                                JSONObject jsonObjectelevation = array.getJSONObject(i);
-                                elevation = jsonObjectelevation.getString("elevation");
-                            }
-                            Message message = mHandler.obtainMessage(MESSAGE_CHECKED);
-
-                            Bundle bundle = new Bundle();
-                            bundle.putString("elevation", elevation);
-                            message.setData(bundle);
-                            message.sendToTarget();
-
-                        } catch (JSONException e) {
-                            e.printStackTrace();
-                        }
-                    }
-                }).start();
-            }
-        });
     }
 
     private void requestPermissions(){
@@ -302,28 +257,39 @@ public class mapFragment extends Fragment implements OnMapReadyCallback, Locatio
     }
 
 
-    public synchronized String getJSONContent(String apiUrl) {
-        OkHttpClient client = new OkHttpClient.Builder()
-                .connectTimeout(5, TimeUnit.SECONDS)
-                .writeTimeout(5, TimeUnit.SECONDS)
-                .readTimeout(5, TimeUnit.SECONDS)
-                .build();
-        Request request = new Request.Builder()
-                .url(apiUrl)
-                .build();
-        try {
-            Response response = client.newCall(request).execute();
-            String jsonString = response.body().string();
-//            Log.v("GTService", "getJSONContent Response Message :" + apiUrl.substring(0, apiUrl.indexOf("?")));
-            Log.v("GTService", "getJSONContent Response Message :" + response.message());
-            response.close();
-            return jsonString;
-        } catch (IOException e) {
-            Log.e("e",e+"");
-            e.printStackTrace();
-            return null;
+    final Connecter connecter  = Connecter.getInstance();
+
+    private GoogleMap.OnMapClickListener mapClickListener = new GoogleMap.OnMapClickListener() {
+        @Override
+
+        public void onMapClick(LatLng latLng) {
+            mapFragment.latLng2 = latLng;
+            new Thread(new Runnable(){
+                @Override
+                public void run() {
+                    String result = connecter.getJSONContent("https://maps.googleapis.com/maps/api/elevation/json?locations="+Double.parseDouble(String.valueOf( mapFragment.latLng2.latitude))+","+Double.parseDouble(String.valueOf( mapFragment.latLng2.longitude))+"&key=AIzaSyALcD0X57AVTQJq8GoqK3-62Hia5TpoF2I");
+                    try {
+                        JSONObject jsonObject = new JSONObject(result);
+                        JSONArray array = jsonObject.getJSONArray("results");
+                        for (int i = 0; i < array.length(); i++) {
+                            JSONObject jsonObjectelevation = array.getJSONObject(i);
+                            elevation = jsonObjectelevation.getString("elevation");
+                        }
+                        Message message = mHandler.obtainMessage(MESSAGE_CHECKED);
+
+                        Bundle bundle = new Bundle();
+                        bundle.putString("elevation", elevation);
+                        message.setData(bundle);
+                        message.sendToTarget();
+
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+                }
+            }).start();
         }
-    }
+    };
+
 
     private Handler mHandler = new Handler(){
         @Override
