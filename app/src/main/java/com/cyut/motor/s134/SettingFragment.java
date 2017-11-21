@@ -12,12 +12,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-<<<<<<< HEAD
 import android.widget.RelativeLayout;
-import android.widget.Spinner;
-import android.widget.TextView;
-=======
->>>>>>> 8cc284f0e0f7a146b6616bd8760436059bd7ee1a
 
 import com.cyut.motor.R;
 
@@ -116,14 +111,10 @@ public class SettingFragment extends Fragment {
             public void onClick(View v) {
                 LayoutInflater inflater = getActivity().getLayoutInflater();
                 AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
-                RelativeLayout relativeLayout = (RelativeLayout) inflater.inflate(R.layout.dialog,null);
+                RelativeLayout relativeLayout = (RelativeLayout) inflater.inflate(R.layout.dialog_setting,null);
 
                 builder.setTitle("請輸入查詢的種類與車牌")
-<<<<<<< HEAD
                         .setView(relativeLayout)
-=======
-                        .setView(inflater.inflate(R.layout.dialog_setting,null))
->>>>>>> 8cc284f0e0f7a146b6616bd8760436059bd7ee1a
                         .setPositiveButton("確定",new DialogInterface.OnClickListener(){
                             public void onClick(DialogInterface dialog,int id){
 

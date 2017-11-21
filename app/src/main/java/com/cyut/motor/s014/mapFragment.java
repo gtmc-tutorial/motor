@@ -93,7 +93,6 @@ public class mapFragment extends Fragment implements OnMapReadyCallback, Locatio
             Toast.makeText(((MainActivity) getContext()), "請開啟定位服務", Toast.LENGTH_LONG).show();
         }
 
-        readFireBaseData("battery");
         return view;
     }
     private void findById(View view) {
@@ -104,21 +103,21 @@ public class mapFragment extends Fragment implements OnMapReadyCallback, Locatio
         battery_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                mMap.clear();
+                mClusterManager.clearItems();
                 readFireBaseData("battery");
             }
         });
         car_dealers_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                mMap.clear();
+                mClusterManager.clearItems();
                 readFireBaseData("car_dealers");
             }
         });
         gas_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                mMap.clear();
+                mClusterManager.clearItems();
                 readFireBaseData("gas");
             }
         });
@@ -148,16 +147,23 @@ public class mapFragment extends Fragment implements OnMapReadyCallback, Locatio
                 MapStructure mapStructure = snapshot.getValue(MapStructure.class);
                 Log.e("FireBaseTraining", "lat = " + mapStructure.lat +"lng = " + mapStructure.lng+ " , Name = " + mapStructure.name+" , add = " + mapStructure.add);
                 LatLng latLng = new LatLng(Double.parseDouble(mapStructure.lat), Double.parseDouble(mapStructure.lng));
-
                 MyItem myitem = new MyItem(latLng.latitude,latLng.longitude,mapStructure.name,mapStructure.add);
                 mClusterManager.addItem(myitem);
-
 //                mMap.addMarker(new MarkerOptions().position(latLng).title(mapStructure.name).snippet(mapStructure.add));
+//                Log.e("previousChild",previousChild);
             }
-            public void onChildChanged(DataSnapshot dataSnapshot, String s) {}
-            public void onChildRemoved(DataSnapshot dataSnapshot) {}
-            public void onChildMoved(DataSnapshot dataSnapshot, String s) {}
-            public void onCancelled(FirebaseError firebaseError) {}
+            public void onChildChanged(DataSnapshot dataSnapshot, String s) {
+                Log.e("onChildChanged","onChildChanged");
+            }
+            public void onChildRemoved(DataSnapshot dataSnapshot) {
+                Log.e("onChildRemoved","onChildRemoved");
+            }
+            public void onChildMoved(DataSnapshot dataSnapshot, String s) {
+                Log.e("onChildMoved","onChildMoved");
+            }
+            public void onCancelled(FirebaseError firebaseError) {
+                Log.e("onCancelled","onCancelled");
+            }
         });
     }
 
@@ -180,12 +186,6 @@ public class mapFragment extends Fragment implements OnMapReadyCallback, Locatio
             return;
         }
 
-        try {
-            readItems();
-        } catch (JSONException e) {
-            Toast.makeText(getActivity(), "Problem reading list of markers.", Toast.LENGTH_LONG).show();
-        }
-
         Location location = lm.getLastKnownLocation(LocationManager.GPS_PROVIDER); // 設定定位資訊由 GPS提供
         double lat = 23.4471421,lng = 120.9861134;
         if(location != null){
@@ -196,13 +196,8 @@ public class mapFragment extends Fragment implements OnMapReadyCallback, Locatio
         LatLng HOME = new LatLng(lat, lng);
         mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(HOME,zoom));
         mMap.setOnMapClickListener(mapClickListener);
-    }
 
-    private void readItems() throws JSONException {
-//        InputStream inputStream = getResources().openRawResource(R.raw.radar_search);
-//        List<MyItem> items = new MyItemReader().read(inputStream);
-//        mClusterManager.addItems(items);
-        //mClusterManager.addItems(items);
+        readFireBaseData("battery");
 
     }
 
