@@ -90,7 +90,7 @@ public class InformationFragment extends Fragment {
         });
 
         Firebase.setAndroidContext(getActivity());
-        Firebase myFirebaseRef  = new Firebase("https://motorcycle-cc0fe.firebaseio.com/Warranty/1");
+        Firebase myFirebaseRef  = new Firebase("https://motorcycle-cc0fe.firebaseio.com/Warranty");
         Query queryRef = myFirebaseRef.orderByChild("day");
 
         queryRef.addChildEventListener(new ChildEventListener() {
