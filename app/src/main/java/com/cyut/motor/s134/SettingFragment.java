@@ -11,9 +11,12 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.RelativeLayout;
+import android.widget.Spinner;
 
+import com.cyut.motor.Activity.MainActivity;
 import com.cyut.motor.R;
 
 import java.util.Calendar;
@@ -111,18 +114,21 @@ public class SettingFragment extends Fragment {
             public void onClick(View v) {
                 LayoutInflater inflater = getActivity().getLayoutInflater();
                 AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
-                RelativeLayout relativeLayout = (RelativeLayout) inflater.inflate(R.layout.dialog_setting,null);
+                View view = (RelativeLayout) inflater.inflate(R.layout.dialog_setting,null);
 
                 builder.setTitle("請輸入查詢的種類與車牌")
-                        .setView(relativeLayout)
+                        .setView(view)
                         .setPositiveButton("確定",new DialogInterface.OnClickListener(){
                             public void onClick(DialogInterface dialog,int id){
 
                             }
                         }
-
-                 ).setNegativeButton("取消",null)
-                ;
+                 ).setNegativeButton("取消",null);
+                Spinner spinner = (Spinner) view.findViewById(R.id.dialog_spinner);
+                ArrayAdapter<CharSequence> kind = ArrayAdapter.createFromResource(getActivity(),
+                        R.array.kind,
+                        android.R.layout.simple_spinner_dropdown_item);
+                spinner.setAdapter(kind);
                 AlertDialog dialog =builder.create();
                 dialog.show();
             }
