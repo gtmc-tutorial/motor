@@ -131,7 +131,7 @@ public class MapFragment extends Fragment implements OnMapReadyCallback, Locatio
     }
 
 
-    private void readFireBaseData(){
+    private void readFireBaseData() {
         handler.post(runnable);
     }
 
@@ -289,8 +289,6 @@ public class MapFragment extends Fragment implements OnMapReadyCallback, Locatio
             queryRef.addChildEventListener(new ChildEventListener() {
                 @Override
                 public void onChildAdded(DataSnapshot snapshot, String previousChild) {
-//                    Log.e("previousChild",previousChild);
-
                     MapStructure mapStructure = snapshot.getValue(MapStructure.class);
 //                Log.e("FireBaseTraining", "lat = " + mapStructure.lat +"lng = " + mapStructure.lng+ " , Name = " + mapStructure.name+" , add = " + mapStructure.add);
                     LatLng latLng = null;
@@ -304,12 +302,18 @@ public class MapFragment extends Fragment implements OnMapReadyCallback, Locatio
                         mClusterManager.addItem(myitem);
                     }
 
-//                mMap.addMarker(new MarkerOptions().position(latLng).title(mapStructure.name).snippet(mapStructure.add));
-//                Log.e("previousChild",previousChild);
+                    java.util.Collection<Marker> userCollection = mClusterManager.getMarkerCollection().getMarkers();
+
+
+//                ClusterMarker newCM = new ClusterMarker(marker.getPosition().latitude,marker.getPosition().longitude,marker.getTitle(),marker.getSnippet());
+//                mMap.addMarker(new MarkerOptions().position(latLng)
+//                        .title(mapStructure.name)
+//                        .icon(BitmapDescriptorFactory.fromResource(R.drawable.placeholder4))
+//                        .snippet(mapStructure.add));
+                    //Log.e("previousChild",previousChild);
 
                 }
                 public void onChildChanged(DataSnapshot dataSnapshot, String s) {
-                    Log.e("s",s);
                     Log.e("onChildChanged","onChildChanged");
                 }
                 public void onChildRemoved(DataSnapshot dataSnapshot) {
