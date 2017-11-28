@@ -20,78 +20,24 @@ import static android.content.Context.MODE_PRIVATE;
  * Created by aunt on 2017/8/24.
  */
 
-public class OilFragment extends Fragment {
+public class OilFragment extends Fragment implements View.OnClickListener {
     private Button button1,button2,button3,button4;
-    private android.app.FragmentManager fm;
-    private android.app.FragmentTransaction ft;
-    @Nullable
-    @Override
+    private  SharedPreferences sharedPreferences;
 
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_oil, null);
-        final SharedPreferences sharedPreferences = getActivity().getSharedPreferences("data" , MODE_PRIVATE);
+        sharedPreferences = getActivity().getSharedPreferences("data" , MODE_PRIVATE);
 
         //定義View
-        button1 =(Button) view.findViewById(R.id.button1);
-        button1.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Log.e("in","IN");
-                sharedPreferences.edit().putString("score" , button1.getText().toString()).commit();
-                getActivity().getSupportFragmentManager().beginTransaction()
-                        .replace(R.id.fragment_content,new InformationFragment(), FragmentTag.INFORMATION_TAG)
-                        .commit();
-//                fm = getFragmentManager();
-//                ft = fm.beginTransaction();
-//                ft.replace(R.id.fragment_content,new InformationFragment()).commit();
-            }
-        });
+        button1 =(Button) view.findViewById(R.id.button1_oil);
+        button2 =(Button) view.findViewById(R.id.button2_oil);
+        button3 =(Button) view.findViewById(R.id.button3_oil);
+        button4 =(Button) view.findViewById(R.id.button4_oil);
 
-        button2 =(Button) view.findViewById(R.id.button2);
-        button2.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Log.e("in","IN");
-                sharedPreferences.edit().putString("score" , button2.getText().toString()).commit();
-                getActivity().getSupportFragmentManager().beginTransaction()
-                        .replace(R.id.fragment_content,new InformationFragment(), FragmentTag.INFORMATION_TAG)
-                        .commit();
-//                fm = getFragmentManager();
-//                ft = fm.beginTransaction();
-//                ft.replace(R.id.fragment_content,new InformationFragment()).commit();
-            }
-        });
-
-        button3 =(Button) view.findViewById(R.id.button3);
-        button3.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Log.e("in","IN");
-                sharedPreferences.edit().putString("score" , button3.getText().toString()).commit();
-                getActivity().getSupportFragmentManager().beginTransaction()
-                        .replace(R.id.fragment_content,new InformationFragment(), FragmentTag.INFORMATION_TAG)
-                        .commit();
-//                fm = getFragmentManager();
-//                ft = fm.beginTransaction();
-//                ft.replace(R.id.fragment_content,new InformationFragment()).commit();
-            }
-        });
-
-        button4 =(Button) view.findViewById(R.id.button4);
-        button4.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Log.e("in","IN");
-                sharedPreferences.edit().putString("score" , button4.getText().toString()).commit();
-                getActivity().getSupportFragmentManager().beginTransaction()
-                        .replace(R.id.fragment_content,new InformationFragment(), FragmentTag.INFORMATION_TAG).commit();
-
-//              fm = getFragmentManager();
-//              ft = fm.beginTransaction();
-//              ft.replace(R.id.fragment_content,new InformationFragment()).commit();
-
-            }
-        });
+        button1.setOnClickListener(this);
+        button2.setOnClickListener(this);
+        button3.setOnClickListener(this);
+        button4.setOnClickListener(this);
 
         return view;
     }
@@ -101,5 +47,27 @@ public class OilFragment extends Fragment {
         super.onCreate(savedInstanceState);
         Toast.makeText(getActivity(),"page1",Toast.LENGTH_LONG).show();
 
+    }
+
+    @Override
+    public void onClick(View v) {
+        switch (v.getId()){
+            case R.id.button1_oil :
+                sharedPreferences.edit().putString("score" , button1.getText().toString()).commit();
+                break;
+            case R.id.button2_oil :
+                sharedPreferences.edit().putString("score" , button2.getText().toString()).commit();
+                break;
+            case R.id.button3_oil :
+                sharedPreferences.edit().putString("score" , button3.getText().toString()).commit();
+                break;
+            case R.id.button4_oil :
+                sharedPreferences.edit().putString("score" , button4.getText().toString()).commit();
+                break;
+        }
+
+        getActivity().getSupportFragmentManager().beginTransaction()
+                .replace(R.id.fragment_content,new InformationFragment(), FragmentTag.INFORMATION_TAG)
+                .commit();
     }
 }

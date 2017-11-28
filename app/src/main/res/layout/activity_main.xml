@@ -86,7 +86,7 @@
     </LinearLayout>
 
     <FrameLayout
-        android:id="@+id/fragment_content"
+        android:id="@+id/fragment_main_content"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_above="@+id/button_view_include"

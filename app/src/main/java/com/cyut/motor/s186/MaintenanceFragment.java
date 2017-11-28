@@ -23,11 +23,7 @@ public class MaintenanceFragment extends Fragment {
         nextPageBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                ((MainActivity)getContext()).chageFragment();
-
-//                Intent intent = new Intent();
-//                intent.setClass(maintenance.this  , MainActivity.class);
-//                startActivity(intent);
+                ((MainActivity)getContext()).chageFragment("新增保養");
             }
         });
         return rootView;

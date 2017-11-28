@@ -82,8 +82,6 @@ public class MapFragment extends Fragment implements OnMapReadyCallback, Locatio
         Criteria criteria = new Criteria();
         bestProv = locMgr.getBestProvider(criteria, true);
 
-        Log.e("78","78");
-
         // 如果GPS或網路定位開啟，更新位置
         if (locMgr.isProviderEnabled(LocationManager.GPS_PROVIDER) || locMgr.isProviderEnabled(LocationManager.NETWORK_PROVIDER)) {
             //  確認 ACCESS_FINE_LOCATION 權限是否授權

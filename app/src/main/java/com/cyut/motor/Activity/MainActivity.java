@@ -13,6 +13,7 @@ import com.cyut.motor.Structure.FragmentTag;
 import com.cyut.motor.s065.LoginActivity;
 import com.cyut.motor.s176.HelpFragment;
 import com.cyut.motor.s186.MaintenanceAddFragment;
+import com.cyut.motor.s186.MaintenanceFragment;
 import com.cyut.motor.s192.HomeFragment;
 import com.cyut.motor.s014.MapFragment;
 import com.cyut.motor.s134.SettingFragment;
@@ -27,10 +28,11 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
     private ImageView btn_user;
 
     private HomeFragment homeFragment;
-    private MaintenanceAddFragment maintenanceAddFragment;
+    private MaintenanceFragment maintenanceFragment;
     private MapFragment mapFragment;
     private HelpFragment helpFragment;
     private SettingFragment settingFragment;
+    private MaintenanceAddFragment maintenanceAddFragment;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,24 +43,29 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
         Firebase.setAndroidContext(this);
 
         getSupportFragmentManager().beginTransaction()
-                .add(R.id.fragment_content, homeFragment = new HomeFragment(),FragmentTag.HOME_TAG)
+                .add(R.id.fragment_main_content, homeFragment = new HomeFragment(),FragmentTag.HOME_TAG)
                 .commit();
         getSupportFragmentManager().beginTransaction()
-                .add(R.id.fragment_content, maintenanceAddFragment = new MaintenanceAddFragment(), FragmentTag.MAINTENANCE_TAG)
+                .add(R.id.fragment_main_content, maintenanceFragment = new MaintenanceFragment(), FragmentTag.MAINTENANCE_TAG)
                 .commit();
         getSupportFragmentManager().beginTransaction()
-                .add(R.id.fragment_content, mapFragment = new MapFragment(), FragmentTag.MAP_TAG)
+                .add(R.id.fragment_main_content, mapFragment = new MapFragment(), FragmentTag.MAP_TAG)
                 .commit();
                 getSupportFragmentManager().beginTransaction()
-                .add(R.id.fragment_content, helpFragment = new HelpFragment(), FragmentTag.HELP_TAG)
+                .add(R.id.fragment_main_content, helpFragment = new HelpFragment(), FragmentTag.HELP_TAG)
                 .commit();
         getSupportFragmentManager().beginTransaction()
-                .add(R.id.fragment_content, settingFragment = new SettingFragment(),FragmentTag.FRAGEMENT4)
+                .add(R.id.fragment_main_content, settingFragment = new SettingFragment(),FragmentTag.SETTING_TAG)
                 .commit();
 
 
         getSupportFragmentManager().beginTransaction()
-                .show(homeFragment).hide(maintenanceAddFragment).hide(mapFragment).hide(settingFragment).hide(helpFragment)
+                .add(R.id.fragment_main_content, maintenanceAddFragment = new MaintenanceAddFragment(),FragmentTag.MAINTENANCEADD_TAG)
+                .commit();
+
+
+        getSupportFragmentManager().beginTransaction()
+                .show(homeFragment).hide(maintenanceFragment).hide(mapFragment).hide(settingFragment).hide(helpFragment).hide(maintenanceAddFragment)
                 .commit();
     }
     private void findById() {
@@ -85,31 +92,31 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
         switch (view.getId()) {
             case R.id.movie_btn:
                 getSupportFragmentManager().beginTransaction()
-                        .show(homeFragment).hide(maintenanceAddFragment).hide(mapFragment).hide(settingFragment).hide(helpFragment)
+                        .show(homeFragment).hide(maintenanceFragment).hide(mapFragment).hide(settingFragment).hide(helpFragment).hide(maintenanceAddFragment)
                         .commit();
                 titleTextView.setText("首頁");
                 break;
             case R.id.tv_btn:
                 getSupportFragmentManager().beginTransaction()
-                        .show(maintenanceAddFragment).hide(homeFragment).hide(mapFragment).hide(settingFragment).hide(helpFragment)
+                        .show(maintenanceFragment).hide(homeFragment).hide(mapFragment).hide(settingFragment).hide(helpFragment).hide(maintenanceAddFragment)
                         .commit();
                 titleTextView.setText("保養");
                 break;
             case R.id.anime_btn:
                 getSupportFragmentManager().beginTransaction()
-                        .show(mapFragment).hide(homeFragment).hide(maintenanceAddFragment).hide(settingFragment).hide(helpFragment)
+                        .show(mapFragment).hide(homeFragment).hide(maintenanceFragment).hide(settingFragment).hide(helpFragment).hide(maintenanceAddFragment)
                         .commit();
                 titleTextView.setText("位置服務");
                 break;
             case R.id.variety_btn:
                 getSupportFragmentManager().beginTransaction()
-                        .show(helpFragment).hide(homeFragment).hide(mapFragment).hide(maintenanceAddFragment).hide(settingFragment)
+                        .show(helpFragment).hide(homeFragment).hide(mapFragment).hide(maintenanceFragment).hide(settingFragment).hide(maintenanceAddFragment)
                         .commit();
                 titleTextView.setText("道路救援");
                 break;
             case R.id.setting_btn:
                 getSupportFragmentManager().beginTransaction()
-                        .show(settingFragment).hide(homeFragment).hide(mapFragment).hide(maintenanceAddFragment).hide(helpFragment)
+                        .show(settingFragment).hide(homeFragment).hide(mapFragment).hide(maintenanceFragment).hide(helpFragment).hide(maintenanceAddFragment)
                         .commit();
                 titleTextView.setText("設定");
                 break;
@@ -127,9 +134,40 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
         }
     };
 
-    public void chageFragment(){
-        getSupportFragmentManager().beginTransaction()
-                .hide(homeFragment).hide(maintenanceAddFragment).hide(mapFragment).hide(settingFragment).show(helpFragment)
-                .commit();
+    public void chageFragment(String string){
+        if(string.equals("首頁")){
+            getSupportFragmentManager().beginTransaction()
+                    .show(homeFragment).hide(maintenanceFragment).hide(mapFragment).hide(settingFragment).hide(helpFragment).hide(maintenanceAddFragment)
+                    .commit();
+            titleTextView.setText("首頁");
+        }else if(string.equals("保養")){
+            getSupportFragmentManager().beginTransaction()
+                    .show(maintenanceFragment).hide(homeFragment).hide(mapFragment).hide(settingFragment).hide(helpFragment).hide(maintenanceAddFragment)
+                    .commit();
+            titleTextView.setText("保養");
+        }else if(string.equals("位置服務")){
+            getSupportFragmentManager().beginTransaction()
+                    .show(mapFragment).hide(homeFragment).hide(maintenanceFragment).hide(settingFragment).hide(helpFragment).hide(maintenanceAddFragment)
+                    .commit();
+            titleTextView.setText("位置服務");
+        }else if(string.equals("道路救援")){
+            getSupportFragmentManager().beginTransaction()
+                    .show(helpFragment).hide(homeFragment).hide(mapFragment).hide(maintenanceFragment).hide(settingFragment).hide(maintenanceAddFragment)
+                    .commit();
+            titleTextView.setText("道路救援");
+        }else if(string.equals("設定")) {
+            getSupportFragmentManager().beginTransaction()
+                    .show(helpFragment).hide(homeFragment).hide(mapFragment).hide(maintenanceFragment).hide(settingFragment).hide(maintenanceAddFragment)
+                    .commit();
+            titleTextView.setText("設定");
+        }
+
+        else if(string.equals("新增保養")) {
+            getSupportFragmentManager().beginTransaction()
+                    .show(maintenanceAddFragment).hide(homeFragment).hide(mapFragment).hide(maintenanceFragment).hide(settingFragment)
+                    .commit();
+            titleTextView.setText("設定");
+        }
+
     }
 }
