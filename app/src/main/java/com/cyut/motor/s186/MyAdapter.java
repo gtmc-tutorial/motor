@@ -39,7 +39,7 @@ public class MyAdapter extends BaseAdapter {
         View v = convertView;
         Holder holder;
         if(v == null){
-            v = LayoutInflater.from(getApplicationContext()).inflate(R.layout.list_item, null);
+//            v = LayoutInflater.from(getApplicationContext()).inflate(R.layout.list_item, null);
             holder = new Holder();
             holder.image = (ImageView) v.findViewById(R.id.image);
             holder.text = (TextView) v.findViewById(R.id.text);
@@ -49,18 +49,18 @@ public class MyAdapter extends BaseAdapter {
             holder = (Holder) v.getTag();
         }
         switch(position) {
-            case 0:
-                holder.image.setImageResource(R.drawable.cat);
-                holder.text.setText("cat");
-                break;
-            case 1:
-                holder.image.setImageResource(R.drawable.monkey);
-                holder.text.setText("monkey");
-                break;
-            case 2:
-                holder.image.setImageResource(R.drawable.panda);
-                holder.text.setText("panda");
-                break;
+//            case 0:
+//                holder.image.setImageResource(R.drawable.cat);
+//                holder.text.setText("cat");
+//                break;
+//            case 1:
+//                holder.image.setImageResource(R.drawable.monkey);
+//                holder.text.setText("monkey");
+//                break;
+//            case 2:
+//                holder.image.setImageResource(R.drawable.panda);
+//                holder.text.setText("panda");
+//                break;
         }
         return v;
     }
