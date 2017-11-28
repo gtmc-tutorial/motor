@@ -52,7 +52,6 @@ public class InformationFragment extends Fragment {
         {
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id)
             {
-
                 Log.e("test",((TextView)view).getText().toString());
 
                 String selectedItem = parent.getItemAtPosition(position).toString();
@@ -100,10 +99,8 @@ public class InformationFragment extends Fragment {
         queryRef.addChildEventListener(new ChildEventListener() {
             @Override
             public void onChildAdded(DataSnapshot snapshot, String previousChild) {
-                Log.e("snapshot",snapshot.toString());
                 snapshot.toString();
                 MaintainStructure maintainStructure = snapshot.getValue(MaintainStructure.class);
-
 //                String day = maintainStructure.day;
             }
             public void onChildChanged(DataSnapshot dataSnapshot, String s) {

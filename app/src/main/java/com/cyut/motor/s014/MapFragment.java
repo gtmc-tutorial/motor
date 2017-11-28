@@ -30,6 +30,7 @@ import com.firebase.client.DataSnapshot;
 import com.firebase.client.Firebase;
 import com.firebase.client.FirebaseError;
 import com.firebase.client.Query;
+import com.firebase.client.ValueEventListener;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
@@ -144,7 +145,7 @@ public class MapFragment extends Fragment implements OnMapReadyCallback, Locatio
         mMap.setMapType(GoogleMap.MAP_TYPE_NORMAL);
         //群集map
         mClusterManager = new ClusterManager<MyItem>(getActivity(), mMap);
-
+        mClusterManager.setRenderer(new OwnIconRendered(getContext(),mMap,mClusterManager,"battery"));
         mMap.setOnCameraIdleListener(mClusterManager);
 
         requestPermissions();
@@ -286,6 +287,7 @@ public class MapFragment extends Fragment implements OnMapReadyCallback, Locatio
             }
             Query queryRef = myFirebaseRef.orderByChild("lat");
 
+
             queryRef.addChildEventListener(new ChildEventListener() {
                 @Override
                 public void onChildAdded(DataSnapshot snapshot, String previousChild) {
@@ -301,33 +303,27 @@ public class MapFragment extends Fragment implements OnMapReadyCallback, Locatio
                         MyItem myitem = new MyItem(latLng.latitude,latLng.longitude,mapStructure.name,mapStructure.add);
                         mClusterManager.addItem(myitem);
                     }
-
-                    java.util.Collection<Marker> userCollection = mClusterManager.getMarkerCollection().getMarkers();
-
-
-//                ClusterMarker newCM = new ClusterMarker(marker.getPosition().latitude,marker.getPosition().longitude,marker.getTitle(),marker.getSnippet());
-//                mMap.addMarker(new MarkerOptions().position(latLng)
-//                        .title(mapStructure.name)
-//                        .icon(BitmapDescriptorFactory.fromResource(R.drawable.placeholder4))
-//                        .snippet(mapStructure.add));
-                    //Log.e("previousChild",previousChild);
-
                 }
-                public void onChildChanged(DataSnapshot dataSnapshot, String s) {
-                    Log.e("onChildChanged","onChildChanged");
+
+                public void onChildChanged(DataSnapshot dataSnapshot, String s) {}
+                public void onChildRemoved(DataSnapshot dataSnapshot) {}
+                public void onChildMoved(DataSnapshot dataSnapshot, String s) {}
+                public void onCancelled(FirebaseError firebaseError) {}
+            });
+
+            queryRef.addListenerForSingleValueEvent(new ValueEventListener() {
+                @Override
+                public void onDataChange(DataSnapshot dataSnapshot) { //下載完成
+                    mClusterManager.cluster();
                 }
-                public void onChildRemoved(DataSnapshot dataSnapshot) {
-                    Log.e("onChildRemoved","onChildRemoved");
-                }
-                public void onChildMoved(DataSnapshot dataSnapshot, String s) {
-                    Log.e("onChildMoved","onChildMoved");
-                }
+                @Override
                 public void onCancelled(FirebaseError firebaseError) {
-                    Log.e("onCancelled","onCancelled");
                 }
             });
         }
     };
+
+
     
 }
 

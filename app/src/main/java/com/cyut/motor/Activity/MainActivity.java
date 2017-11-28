@@ -124,7 +124,6 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
                 titleTextView.setText("保養");
                 break;
             case R.id.anime_btn:
-                Log.e("位置服務","位置服務");
                 getSupportFragmentManager().beginTransaction()
                         .show(mapFragment).hide(homeFragment).hide(maintenanceAddFragment).hide(settingFragment).hide(helpFragment)
                         .commit();
