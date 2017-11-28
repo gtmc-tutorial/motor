@@ -6,9 +6,9 @@
     android:orientation="vertical">
 
     <ListView
+        android:id="@+id/maintenance_listview"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
-        
     </ListView>
     <RelativeLayout
         android:layout_width="match_parent"

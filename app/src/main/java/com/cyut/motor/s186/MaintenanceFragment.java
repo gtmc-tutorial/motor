@@ -7,6 +7,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ListView;
 
 import com.cyut.motor.Activity.MainActivity;
 import com.cyut.motor.R;
@@ -26,6 +27,9 @@ public class MaintenanceFragment extends Fragment {
                 ((MainActivity)getContext()).chageFragment("新增保養");
             }
         });
+
+        ListView listView = (ListView) rootView.findViewById(R.id.maintenance_listview);
+
         return rootView;
     }
 

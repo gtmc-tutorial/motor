@@ -24,7 +24,6 @@ import com.firebase.client.Firebase;
 public class MainActivity extends FragmentActivity implements View.OnClickListener  {
     private TextView titleTextView;
     private ImageView movieBtn, tvBtn,animeBtn, varietyBtn,abcBtn;
-
     private ImageView btn_user;
 
     private HomeFragment homeFragment;
