@@ -66,19 +66,24 @@ public class HomeFragment extends Fragment {
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
-                final Elements elements = doc.getElementsByClass("clearfix").select("dl").select("dd").select("strong");
+                Elements elements = null;
+                if(doc != null)
+                    if(doc.getElementsByClass("clearfix")!=null)
+                        elements = doc.getElementsByClass("clearfix").select("dl").select("dd").select("strong");
 //                for (Element headline : elements) {
 //                    Log.e("headline", headline.toString());
 //                }
 
+                final Elements finalElements = elements;
                 getActivity().runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
-
-                        textView_92.setText("92無鉛 : "+elements.get(2).text());
-                        textView_95.setText("95無鉛 : "+elements.get(3).text());
-                        textView_98.setText("98無鉛 : "+elements.get(4).text());
-                        textView_super.setText("超級柴油 : "+elements.get(6).text());
+                        if(finalElements !=null){
+                            textView_92.setText("92無鉛 : "+ finalElements.get(2).text());
+                            textView_95.setText("95無鉛 : "+ finalElements.get(3).text());
+                            textView_98.setText("98無鉛 : "+ finalElements.get(4).text());
+                            textView_super.setText("超級柴油 : "+ finalElements.get(6).text());
+                        }
 
                     }
                 });
