@@ -109,7 +109,7 @@
             android:id="@+id/button8"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_weight="0.82"
+            android:layout_weight="0.8"
             android:background="@drawable/buttonstyle"
             android:text="噴射系統清潔"
             android:textSize="18sp"/>

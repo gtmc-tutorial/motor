@@ -104,21 +104,15 @@ public class InformationFragment extends Fragment {
 //                String day = maintainStructure.day;
             }
             public void onChildChanged(DataSnapshot dataSnapshot, String s) {
-                Log.e("onChildChanged","onChildChanged");
             }
             public void onChildRemoved(DataSnapshot dataSnapshot) {
-                Log.e("onChildRemoved","onChildRemoved");
             }
             public void onChildMoved(DataSnapshot dataSnapshot, String s) {
-                Log.e("onChildMoved","onChildMoved");
             }
             public void onCancelled(FirebaseError firebaseError) {
-                Log.e("onCancelled","onCancelled");
+
             }
         });
-
-
-
 
         super.onStart();
     }

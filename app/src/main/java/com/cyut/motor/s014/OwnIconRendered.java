@@ -18,7 +18,6 @@ public class OwnIconRendered extends DefaultClusterRenderer<MyItem> {
     public OwnIconRendered(Context context, GoogleMap map,ClusterManager<MyItem> clusterManager,String type) {
         super(context, map, clusterManager);
         this.type = type;
-
     }
 
     @Override

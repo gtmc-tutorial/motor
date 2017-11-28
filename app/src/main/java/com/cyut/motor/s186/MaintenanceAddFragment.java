@@ -15,11 +15,7 @@ import com.cyut.motor.R;
  */
 
 public class MaintenanceAddFragment extends Fragment implements View.OnClickListener{
-    private android.app.FragmentManager fm;
-    private android.app.FragmentTransaction ft;
     private Button oilBtn, suppliesBtn;
-    private OilFragment oilFragment;
-    private SuppliesFragment suppliesFragment;
 
     public View onCreateView(LayoutInflater inflater, ViewGroup container,Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.fragment_add_maintenance, container, false);
@@ -27,20 +23,7 @@ public class MaintenanceAddFragment extends Fragment implements View.OnClickList
         suppliesBtn = (Button)rootView.findViewById(R.id.Supplies_btn);
         oilBtn.setOnClickListener(this);
         suppliesBtn.setOnClickListener(this);
-        // 進入系統默認為movie
-//        fm = getActivity().getFragmentManager();
-//        ft = fm.beginTransaction();
-//
-//        ft.replace(R.id.fragment_content,new OilFragment());
-//        ft.commit();
 
-//        getActivity().getSupportFragmentManager().beginTransaction()
-//                .add(R.id.fragment_content, oilFragment = new OilFragment(), FragmentTag.OilFragment_TAG)
-//                .commit();
-//
-//        getActivity().getSupportFragmentManager().beginTransaction()
-//                .add(R.id.fragment_content, suppliesFragment = new SuppliesFragment(), FragmentTag.SUPPLIES_TAG)
-//                .commit();
         getActivity().getSupportFragmentManager().beginTransaction()
                 .replace(R.id.fragment_content_layout,new OilFragment(), FragmentTag.OilFragment_TAG)
                 .commit();
@@ -51,9 +34,6 @@ public class MaintenanceAddFragment extends Fragment implements View.OnClickList
 
     @Override
     public void onClick(View view) {
-        fm = getActivity().getFragmentManager();
-        ft = fm.beginTransaction();
-
         switch (view.getId()) {
             case R.id.oil_btn:
                 getActivity().getSupportFragmentManager().beginTransaction()
@@ -69,6 +49,5 @@ public class MaintenanceAddFragment extends Fragment implements View.OnClickList
             default:
                 break;
         }
-//        ft.commit();
     }
 }

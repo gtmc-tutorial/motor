@@ -3,6 +3,7 @@ package com.cyut.motor.s014;
 import android.Manifest;
 import android.content.Context;
 import android.content.pm.PackageManager;
+import android.graphics.Color;
 import android.location.Criteria;
 import android.location.Location;
 import android.location.LocationListener;
@@ -19,7 +20,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.HeaderViewListAdapter;
 import android.widget.Toast;
 
 import com.cyut.motor.Activity.MainActivity;
@@ -45,6 +45,8 @@ import org.json.JSONObject;
 
 import java.util.ArrayList;
 
+import cn.pedant.SweetAlert.SweetAlertDialog;
+
 /**
  * Created by hipsre720 on 2017/8/17.
  */
@@ -68,7 +70,7 @@ public class MapFragment extends Fragment implements OnMapReadyCallback, Locatio
     @Nullable
     private Button battery_btn,car_dealers_btn,gas_btn;
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_page3, container, false);
+        View view = inflater.inflate(R.layout.fragment_map, container, false);
         findById(view);
         Fragment a = getChildFragmentManager().findFragmentById(R.id.fragment_view_map);
         com.google.android.gms.maps.MapFragment mapFragment = (com.google.android.gms.maps.MapFragment) getActivity().getFragmentManager().findFragmentById(R.id.fragment_view_map);
@@ -92,9 +94,6 @@ public class MapFragment extends Fragment implements OnMapReadyCallback, Locatio
         } else {
             Toast.makeText(((MainActivity) getContext()), "請開啟定位服務", Toast.LENGTH_LONG).show();
         }
-
-        Log.e("91","91");
-
         return view;
     }
     private void findById(View view) {
@@ -273,6 +272,12 @@ public class MapFragment extends Fragment implements OnMapReadyCallback, Locatio
     Runnable runnable = new Runnable() {
         @Override
         public void run() {
+            final SweetAlertDialog pDialog = new SweetAlertDialog(getActivity(), SweetAlertDialog.PROGRESS_TYPE);
+            pDialog.getProgressHelper().setBarColor(Color.parseColor("#A5DC86"));
+            pDialog.setTitleText("Loading");
+            pDialog.setCancelable(false);
+            pDialog.show();
+
             Firebase myFirebaseRef = null;
             switch (tag) {
                 case "battery" :
@@ -286,7 +291,6 @@ public class MapFragment extends Fragment implements OnMapReadyCallback, Locatio
                     break;
             }
             Query queryRef = myFirebaseRef.orderByChild("lat");
-
 
             queryRef.addChildEventListener(new ChildEventListener() {
                 @Override
@@ -315,6 +319,7 @@ public class MapFragment extends Fragment implements OnMapReadyCallback, Locatio
                 @Override
                 public void onDataChange(DataSnapshot dataSnapshot) { //下載完成
                     mClusterManager.cluster();
+                    pDialog.dismiss();
                 }
                 @Override
                 public void onCancelled(FirebaseError firebaseError) {

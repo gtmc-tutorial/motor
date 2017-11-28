@@ -14,7 +14,6 @@ import com.cyut.motor.s065.LoginActivity;
 import com.cyut.motor.s176.HelpFragment;
 import com.cyut.motor.s186.MaintenanceAddFragment;
 import com.cyut.motor.s192.HomeFragment;
-import com.cyut.motor.s186.MaintenanceFragment;
 import com.cyut.motor.s014.MapFragment;
 import com.cyut.motor.s134.SettingFragment;
 import com.cyut.motor.R;
@@ -23,16 +22,11 @@ import com.firebase.client.Firebase;
 
 public class MainActivity extends FragmentActivity implements View.OnClickListener  {
     private TextView titleTextView;
-    private ImageView movieBtn, tvBtn,animeBtn, varietyBtn,abcBtn,movieBtn2,tvBtn2,animeBtn2;
+    private ImageView movieBtn, tvBtn,animeBtn, varietyBtn,abcBtn;
 
     private ImageView btn_user;
 
-    private android.app.FragmentManager fm;
-    private android.app.FragmentTransaction ft;
-    private MaintenanceFragment mMapFragment;
-
     private HomeFragment homeFragment;
-//    private MaintenanceFragment maintenanceFragment;
     private MaintenanceAddFragment maintenanceAddFragment;
     private MapFragment mapFragment;
     private HelpFragment helpFragment;
@@ -66,16 +60,6 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
         getSupportFragmentManager().beginTransaction()
                 .show(homeFragment).hide(maintenanceAddFragment).hide(mapFragment).hide(settingFragment).hide(helpFragment)
                 .commit();
-
-        // 進入系統默認為movie
-//        fm = getFragmentManager();
-//        ft = fm.beginTransaction();
-
-//        getSupportFragmentManager().beginTransaction()
-//                .replace(R.id.fragment_content, new MapFragment())
-//                .commit();
-//        ft.replace(R.id.fragment_content,new MapFragment());
-//        ft.commit();
     }
     private void findById() {
         titleTextView = (TextView) this.findViewById(R.id.main_title_text);
@@ -95,21 +79,9 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
         abcBtn.setOnClickListener(this);
     }
 
-//    private void setBackgroundColorById(int btnId) {
-//        for (Button btn : btnList) {
-//            if (btn.getId() == btnId){
-//                btn.setBackgroundColor(Color.GREEN);
-//            }else {
-//                btn.setBackgroundColor(Color.BLUE);
-//            }
-//        }
-//    }
-
     @Override
     public void onClick(View view) {
         // TODO Auto-generated methodstub
-        fm = getFragmentManager();
-        ft = fm.beginTransaction();
         switch (view.getId()) {
             case R.id.movie_btn:
                 getSupportFragmentManager().beginTransaction()
@@ -144,8 +116,6 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
             default:
                 break;
         }
-
-        ft.commit();
     }
     private Button.OnClickListener listener = new Button.OnClickListener(){
         @Override
