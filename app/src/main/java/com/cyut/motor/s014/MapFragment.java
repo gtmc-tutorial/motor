@@ -152,8 +152,16 @@ public class MapFragment extends Fragment implements OnMapReadyCallback, Locatio
                     MyItem myitem = new MyItem(latLng.latitude,latLng.longitude,mapStructure.name,mapStructure.add);
                     mClusterManager.addItem(myitem);
                 }
-//                mMap.addMarker(new MarkerOptions().position(latLng).title(mapStructure.name).snippet(mapStructure.add));
-//                Log.e("previousChild",previousChild);
+
+                java.util.Collection<Marker> userCollection = mClusterManager.getMarkerCollection().getMarkers();
+
+
+//                ClusterMarker newCM = new ClusterMarker(marker.getPosition().latitude,marker.getPosition().longitude,marker.getTitle(),marker.getSnippet());
+//                mMap.addMarker(new MarkerOptions().position(latLng)
+//                        .title(mapStructure.name)
+//                        .icon(BitmapDescriptorFactory.fromResource(R.drawable.placeholder4))
+//                        .snippet(mapStructure.add));
+                //Log.e("previousChild",previousChild);
 
             }
             public void onChildChanged(DataSnapshot dataSnapshot, String s) {
