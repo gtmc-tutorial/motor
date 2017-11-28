@@ -11,10 +11,11 @@ public class MaintainStructure {
     public String Oil_gearoil_trip;
 
     public MaintainStructure() {
-        // Default constructor required for calls to DataSnapshot.getValue(MapStructure.class)
+        // Default constructor required for calls to DataSnapshot.getValue(MaintainStructure.class)
     }
 
-    public MaintainStructure(String day, String Oil_gearoil_label, int Oil_gearoil_price,String Oil_gearoil_trip) {
+    public MaintainStructure(String user,String day, String Oil_gearoil_label, int Oil_gearoil_price,String Oil_gearoil_trip
+    ) {
         this.day = day;
         this.Oil_gearoil_label = Oil_gearoil_label;
         this.Oil_gearoil_price = Oil_gearoil_price;

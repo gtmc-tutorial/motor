@@ -19,6 +19,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.HeaderViewListAdapter;
 import android.widget.Toast;
 
 import com.cyut.motor.Activity.MainActivity;
@@ -60,6 +61,9 @@ public class MapFragment extends Fragment implements OnMapReadyCallback, Locatio
     public static LatLng latLng2;
     private static final int MESSAGE_CHECKED = 0;
 
+    private Handler handler = new Handler();
+    private String tag;
+
     @Nullable
     private Button battery_btn,car_dealers_btn,gas_btn;
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, Bundle savedInstanceState) {
@@ -100,75 +104,35 @@ public class MapFragment extends Fragment implements OnMapReadyCallback, Locatio
         battery_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                mMap.clear();
                 mClusterManager.clearItems();
-                readFireBaseData("battery");
+                tag = "battery";
+                readFireBaseData();
             }
         });
         car_dealers_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                mMap.clear();
                 mClusterManager.clearItems();
-                readFireBaseData("car_dealers");
+                tag = "car_dealers";
+                readFireBaseData();
             }
         });
         gas_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                mMap.clear();
                 mClusterManager.clearItems();
-                readFireBaseData("gas");
+                tag = "gas";
+                readFireBaseData();
             }
         });
     }
 
 
-    private void readFireBaseData(String tag){
-        Firebase.setAndroidContext(getActivity());
-        Firebase myFirebaseRef = null;
-        switch (tag) {
-            case "battery" :
-                myFirebaseRef = new Firebase("https://motorcycle-cc0fe.firebaseio.com/place/battery");
-                break;
-            case "car_dealers" :
-                myFirebaseRef = new Firebase("https://motorcycle-cc0fe.firebaseio.com/place/car_dealers");
-                break;
-            case "gas" :
-                myFirebaseRef= new Firebase("https://motorcycle-cc0fe.firebaseio.com/place/gas");
-                break;
-        }
-        Query queryRef = myFirebaseRef.orderByChild("lat");
-
-        queryRef.addChildEventListener(new ChildEventListener() {
-            @Override
-            public void onChildAdded(DataSnapshot snapshot, String previousChild) {
-                MapStructure mapStructure = snapshot.getValue(MapStructure.class);
-//                Log.e("FireBaseTraining", "lat = " + mapStructure.lat +"lng = " + mapStructure.lng+ " , Name = " + mapStructure.name+" , add = " + mapStructure.add);
-                LatLng latLng = null;
-                try {
-                    latLng = new LatLng(Double.parseDouble(mapStructure.lat), Double.parseDouble(mapStructure.lng));
-                }catch (Exception e){
-
-                }
-                if(latLng != null){
-                    MyItem myitem = new MyItem(latLng.latitude,latLng.longitude,mapStructure.name,mapStructure.add);
-                    mClusterManager.addItem(myitem);
-                }
-//                mMap.addMarker(new MarkerOptions().position(latLng).title(mapStructure.name).snippet(mapStructure.add));
-//                Log.e("previousChild",previousChild);
-
-            }
-            public void onChildChanged(DataSnapshot dataSnapshot, String s) {
-                Log.e("onChildChanged","onChildChanged");
-            }
-            public void onChildRemoved(DataSnapshot dataSnapshot) {
-                Log.e("onChildRemoved","onChildRemoved");
-            }
-            public void onChildMoved(DataSnapshot dataSnapshot, String s) {
-                Log.e("onChildMoved","onChildMoved");
-            }
-            public void onCancelled(FirebaseError firebaseError) {
-                Log.e("onCancelled","onCancelled");
-            }
-        });
+    private void readFireBaseData(){
+        handler.post(runnable);
     }
 
     final Marker[] finalMarker = {null};
@@ -180,6 +144,7 @@ public class MapFragment extends Fragment implements OnMapReadyCallback, Locatio
         mMap.setMapType(GoogleMap.MAP_TYPE_NORMAL);
         //群集map
         mClusterManager = new ClusterManager<MyItem>(getActivity(), mMap);
+
         mMap.setOnCameraIdleListener(mClusterManager);
 
         requestPermissions();
@@ -201,7 +166,8 @@ public class MapFragment extends Fragment implements OnMapReadyCallback, Locatio
         mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(HOME,zoom));
         mMap.setOnMapClickListener(mapClickListener);
 
-        readFireBaseData("battery");
+        tag = "battery";
+        readFireBaseData();
 
     }
 
@@ -299,6 +265,63 @@ public class MapFragment extends Fragment implements OnMapReadyCallback, Locatio
                     finalMarker1[0] =  mMap.addMarker(new MarkerOptions().position(latLng2).title("點選位置海拔"+":"+(int)Float.parseFloat(bundle.getString("elevation"))+"").snippet("單位/公尺"));
                     finalMarker1[0].showInfoWindow();
             }
+        }
+    };
+
+
+    Runnable runnable = new Runnable() {
+        @Override
+        public void run() {
+            Firebase myFirebaseRef = null;
+            switch (tag) {
+                case "battery" :
+                    myFirebaseRef = new Firebase("https://motorcycle-cc0fe.firebaseio.com/place/battery");
+                    break;
+                case "car_dealers" :
+                    myFirebaseRef = new Firebase("https://motorcycle-cc0fe.firebaseio.com/place/car_dealers");
+                    break;
+                case "gas" :
+                    myFirebaseRef= new Firebase("https://motorcycle-cc0fe.firebaseio.com/place/gas");
+                    break;
+            }
+            Query queryRef = myFirebaseRef.orderByChild("lat");
+
+            queryRef.addChildEventListener(new ChildEventListener() {
+                @Override
+                public void onChildAdded(DataSnapshot snapshot, String previousChild) {
+//                    Log.e("previousChild",previousChild);
+
+                    MapStructure mapStructure = snapshot.getValue(MapStructure.class);
+//                Log.e("FireBaseTraining", "lat = " + mapStructure.lat +"lng = " + mapStructure.lng+ " , Name = " + mapStructure.name+" , add = " + mapStructure.add);
+                    LatLng latLng = null;
+                    try {
+                        latLng = new LatLng(Double.parseDouble(mapStructure.lat), Double.parseDouble(mapStructure.lng));
+                    }catch (Exception e){
+
+                    }
+                    if(latLng != null){
+                        MyItem myitem = new MyItem(latLng.latitude,latLng.longitude,mapStructure.name,mapStructure.add);
+                        mClusterManager.addItem(myitem);
+                    }
+
+//                mMap.addMarker(new MarkerOptions().position(latLng).title(mapStructure.name).snippet(mapStructure.add));
+//                Log.e("previousChild",previousChild);
+
+                }
+                public void onChildChanged(DataSnapshot dataSnapshot, String s) {
+                    Log.e("s",s);
+                    Log.e("onChildChanged","onChildChanged");
+                }
+                public void onChildRemoved(DataSnapshot dataSnapshot) {
+                    Log.e("onChildRemoved","onChildRemoved");
+                }
+                public void onChildMoved(DataSnapshot dataSnapshot, String s) {
+                    Log.e("onChildMoved","onChildMoved");
+                }
+                public void onCancelled(FirebaseError firebaseError) {
+                    Log.e("onCancelled","onCancelled");
+                }
+            });
         }
     };
     

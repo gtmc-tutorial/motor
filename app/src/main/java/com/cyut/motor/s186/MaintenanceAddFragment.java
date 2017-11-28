@@ -41,6 +41,10 @@ public class MaintenanceAddFragment extends Fragment implements View.OnClickList
 //        getActivity().getSupportFragmentManager().beginTransaction()
 //                .add(R.id.fragment_content, suppliesFragment = new SuppliesFragment(), FragmentTag.SUPPLIES_TAG)
 //                .commit();
+        getActivity().getSupportFragmentManager().beginTransaction()
+                .replace(R.id.fragment_content_layout,new OilFragment(), FragmentTag.OilFragment_TAG)
+                .commit();
+
         return rootView;
     }
 
@@ -65,6 +69,6 @@ public class MaintenanceAddFragment extends Fragment implements View.OnClickList
             default:
                 break;
         }
-        ft.commit();
+//        ft.commit();
     }
 }

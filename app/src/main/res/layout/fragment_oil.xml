@@ -8,7 +8,7 @@
 
 
     <LinearLayout
-        android:id="@+id/A1"
+        android:id="@+id/liner_oil"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content">
         <TextView
@@ -22,7 +22,7 @@
         android:id="@+id/L1"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/A1">
+        android:layout_below="@+id/liner_oil">
 
         <Button
             android:id="@+id/button1"
@@ -30,12 +30,8 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:background="@drawable/buttonstyle"
-
             android:text="機油"
-            android:textSize="18sp"
-
-
-            />
+            android:textSize="18sp"/>
 
         <Button
             android:id="@+id/button2"
@@ -72,15 +68,13 @@
             android:textSize="18sp" />
     </LinearLayout>
 
-
-
     <RelativeLayout
         android:id="@+id/fragment_content"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_alignParentTop="true"
-        android:layout_toRightOf="@+id/A1"
-        android:layout_toEndOf="@+id/A1">
+        android:layout_toRightOf="@+id/liner_oil"
+        android:layout_toEndOf="@+id/liner_oil">
     </RelativeLayout>
 
 

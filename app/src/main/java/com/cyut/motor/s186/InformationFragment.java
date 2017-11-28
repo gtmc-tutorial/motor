@@ -89,22 +89,23 @@ public class InformationFragment extends Fragment {
             }
         });
 
-        Firebase.setAndroidContext(getActivity());
-        Firebase myFirebaseRef  = new Firebase("https://motorcycle-cc0fe.firebaseio.com/Warranty/1");
-        Query queryRef = myFirebaseRef.orderByChild("day");
 
+        return view;
+    }
+
+    @Override
+    public void onStart() {
+
+        Firebase myFirebaseRef  = new Firebase("https://motorcycle-cc0fe.firebaseio.com/Warranty");
+        Query queryRef = myFirebaseRef.orderByChild("user_id");
         queryRef.addChildEventListener(new ChildEventListener() {
             @Override
             public void onChildAdded(DataSnapshot snapshot, String previousChild) {
+                Log.e("snapshot",snapshot.toString());
+                snapshot.toString();
                 MaintainStructure maintainStructure = snapshot.getValue(MaintainStructure.class);
-//                Log.e("FireBaseTraining", "day = " + maintainStructure.day +"label = " + maintainStructure.Oil_gearoil_label+ " , price = " + maintainStructure.Oil_gearoil_price+" , trip = " + maintainStructure.Oil_gearoil_trip);
-                String day = maintainStructure.day;
-                String label = maintainStructure.Oil_gearoil_label;
-                int price = maintainStructure.Oil_gearoil_price;
-                String trip = maintainStructure.Oil_gearoil_trip;
-//                mClusterManager.addItem(myitem);
-//                mMap.addMarker(new MarkerOptions().position(latLng).title(mapStructure.name).snippet(mapStructure.add));
-//                Log.e("previousChild",previousChild);
+
+//                String day = maintainStructure.day;
             }
             public void onChildChanged(DataSnapshot dataSnapshot, String s) {
                 Log.e("onChildChanged","onChildChanged");
@@ -120,10 +121,11 @@ public class InformationFragment extends Fragment {
             }
         });
 
-        return view;
+
+
+
+        super.onStart();
     }
-
-
 
     public void showDatePickerDialog(View v)
     {

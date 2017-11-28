@@ -18,6 +18,7 @@ import com.cyut.motor.s186.MaintenanceFragment;
 import com.cyut.motor.s014.MapFragment;
 import com.cyut.motor.s134.SettingFragment;
 import com.cyut.motor.R;
+import com.firebase.client.Firebase;
 
 
 public class MainActivity extends FragmentActivity implements View.OnClickListener  {
@@ -42,6 +43,8 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         findById();
+
+        Firebase.setAndroidContext(this);
 
         getSupportFragmentManager().beginTransaction()
                 .add(R.id.fragment_content, homeFragment = new HomeFragment(),FragmentTag.HOME_TAG)
@@ -129,7 +132,7 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
                 break;
             case R.id.variety_btn:
                 getSupportFragmentManager().beginTransaction()
-                        .show(settingFragment).hide(homeFragment).hide(mapFragment).hide(maintenanceAddFragment).hide(helpFragment)
+                        .show(helpFragment).hide(homeFragment).hide(mapFragment).hide(maintenanceAddFragment).hide(settingFragment)
                         .commit();
                 titleTextView.setText("道路救援");
                 break;

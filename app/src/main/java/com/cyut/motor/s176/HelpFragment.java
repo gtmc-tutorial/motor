@@ -27,19 +27,11 @@ public class HelpFragment extends Fragment {
     @Override
 
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_information, null);
+        View view = inflater.inflate(R.layout.fragment_help, null);
+
 
         return view;
     }
 
-    public void showDatePickerDialog(View v)
-    {
-        DialogFragment newFragment = new DatePickerFragment();
-        Bundle bData = new Bundle();
-        bData.putInt("view", v.getId());
-        EditText button = (EditText) v;
-        bData.putString("date", button.getText().toString());
-        newFragment.setArguments(bData);
-        newFragment.show(((MainActivity)getContext()).getSupportFragmentManager(), "日期挑選器");
-    }
+
 }
