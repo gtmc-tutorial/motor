@@ -3,6 +3,7 @@ package com.cyut.motor.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
@@ -10,10 +11,11 @@ import android.widget.TextView;
 
 import com.cyut.motor.Structure.FragmentTag;
 import com.cyut.motor.s065.LoginActivity;
+import com.cyut.motor.s176.HelpFragment;
 import com.cyut.motor.s186.MaintenanceAddFragment;
 import com.cyut.motor.s192.HomeFragment;
 import com.cyut.motor.s186.MaintenanceFragment;
-import com.cyut.motor.s014.mapFragment;
+import com.cyut.motor.s014.MapFragment;
 import com.cyut.motor.s134.SettingFragment;
 import com.cyut.motor.R;
 
@@ -29,10 +31,11 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
     private MaintenanceFragment mMapFragment;
 
     private HomeFragment homeFragment;
-    private MaintenanceFragment maintenanceFragment;
+//    private MaintenanceFragment maintenanceFragment;
     private MaintenanceAddFragment maintenanceAddFragment;
-    private mapFragment mapFragment;
-    private SettingFragment fragment4;
+    private MapFragment mapFragment;
+    private HelpFragment helpFragment;
+    private SettingFragment settingFragment;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,23 +44,24 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
         findById();
 
         getSupportFragmentManager().beginTransaction()
-                .add(R.id.fragment_content, homeFragment = new HomeFragment(),FragmentTag.FRAGEMENT1)
+                .add(R.id.fragment_content, homeFragment = new HomeFragment(),FragmentTag.HOME_TAG)
                 .commit();
         getSupportFragmentManager().beginTransaction()
-                .add(R.id.fragment_content, maintenanceFragment = new MaintenanceFragment(), FragmentTag.MAINTENANCE_TAG)
+                .add(R.id.fragment_content, maintenanceAddFragment = new MaintenanceAddFragment(), FragmentTag.MAINTENANCE_TAG)
                 .commit();
         getSupportFragmentManager().beginTransaction()
-                .add(R.id.fragment_content, mapFragment = new mapFragment(), FragmentTag.MAP_TAG)
+                .add(R.id.fragment_content, mapFragment = new MapFragment(), FragmentTag.MAP_TAG)
+                .commit();
+                getSupportFragmentManager().beginTransaction()
+                .add(R.id.fragment_content, helpFragment = new HelpFragment(), FragmentTag.HELP_TAG)
                 .commit();
         getSupportFragmentManager().beginTransaction()
-                .add(R.id.fragment_content, fragment4 = new SettingFragment(),FragmentTag.FRAGEMENT4)
-                .commit();
-        getSupportFragmentManager().beginTransaction()
-                .add(R.id.fragment_content, maintenanceAddFragment = new MaintenanceAddFragment(), FragmentTag.MAINTENANCEADD_TAG)
+                .add(R.id.fragment_content, settingFragment = new SettingFragment(),FragmentTag.FRAGEMENT4)
                 .commit();
 
+
         getSupportFragmentManager().beginTransaction()
-                .show(homeFragment).hide(maintenanceFragment).hide(mapFragment).hide(fragment4).hide(maintenanceAddFragment)
+                .show(homeFragment).hide(maintenanceAddFragment).hide(mapFragment).hide(settingFragment).hide(helpFragment)
                 .commit();
 
         // 進入系統默認為movie
@@ -65,9 +69,9 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
 //        ft = fm.beginTransaction();
 
 //        getSupportFragmentManager().beginTransaction()
-//                .replace(R.id.fragment_content, new mapFragment())
+//                .replace(R.id.fragment_content, new MapFragment())
 //                .commit();
-//        ft.replace(R.id.fragment_content,new mapFragment());
+//        ft.replace(R.id.fragment_content,new MapFragment());
 //        ft.commit();
     }
     private void findById() {
@@ -106,31 +110,32 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
         switch (view.getId()) {
             case R.id.movie_btn:
                 getSupportFragmentManager().beginTransaction()
-                        .show(homeFragment).hide(maintenanceFragment).hide(mapFragment).hide(fragment4).hide(maintenanceAddFragment)
+                        .show(homeFragment).hide(maintenanceAddFragment).hide(mapFragment).hide(settingFragment).hide(helpFragment)
                         .commit();
                 titleTextView.setText("首頁");
                 break;
             case R.id.tv_btn:
                 getSupportFragmentManager().beginTransaction()
-                        .show(maintenanceFragment).hide(homeFragment).hide(mapFragment).hide(fragment4).hide(maintenanceAddFragment)
+                        .show(maintenanceAddFragment).hide(homeFragment).hide(mapFragment).hide(settingFragment).hide(helpFragment)
                         .commit();
                 titleTextView.setText("保養");
                 break;
             case R.id.anime_btn:
+                Log.e("位置服務","位置服務");
                 getSupportFragmentManager().beginTransaction()
-                        .show(mapFragment).hide(homeFragment).hide(maintenanceFragment).hide(fragment4).hide(maintenanceAddFragment)
+                        .show(mapFragment).hide(homeFragment).hide(maintenanceAddFragment).hide(settingFragment).hide(helpFragment)
                         .commit();
                 titleTextView.setText("位置服務");
                 break;
             case R.id.variety_btn:
                 getSupportFragmentManager().beginTransaction()
-                        .show(fragment4).hide(homeFragment).hide(mapFragment).hide(maintenanceFragment).hide(maintenanceAddFragment)
+                        .show(settingFragment).hide(homeFragment).hide(mapFragment).hide(maintenanceAddFragment).hide(helpFragment)
                         .commit();
                 titleTextView.setText("道路救援");
                 break;
             case R.id.setting_btn:
                 getSupportFragmentManager().beginTransaction()
-                        .show(fragment4).hide(homeFragment).hide(mapFragment).hide(maintenanceFragment).hide(maintenanceAddFragment)
+                        .show(settingFragment).hide(homeFragment).hide(mapFragment).hide(maintenanceAddFragment).hide(helpFragment)
                         .commit();
                 titleTextView.setText("設定");
                 break;
@@ -152,7 +157,7 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
 
     public void chageFragment(){
         getSupportFragmentManager().beginTransaction()
-                .hide(homeFragment).hide(maintenanceFragment).hide(mapFragment).hide(fragment4).show(maintenanceAddFragment)
+                .hide(homeFragment).hide(maintenanceAddFragment).hide(mapFragment).hide(settingFragment).show(helpFragment)
                 .commit();
     }
 }

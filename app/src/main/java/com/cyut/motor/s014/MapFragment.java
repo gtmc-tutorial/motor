@@ -31,30 +31,23 @@ import com.firebase.client.FirebaseError;
 import com.firebase.client.Query;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
-import com.google.android.gms.maps.MapFragment;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
-import com.google.gson.JsonObject;
 import com.google.maps.android.clustering.ClusterManager;
-import com.koushikdutta.async.future.FutureCallback;
-import com.koushikdutta.ion.Ion;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.io.InputStream;
 import java.util.ArrayList;
-import java.util.Collection;
-import java.util.List;
 
 /**
  * Created by hipsre720 on 2017/8/17.
  */
 
-public class mapFragment extends Fragment implements OnMapReadyCallback, LocationListener {
+public class MapFragment extends Fragment implements OnMapReadyCallback, LocationListener {
     private ClusterManager<MyItem> mClusterManager;
 
     private GoogleMap mMap;
@@ -73,7 +66,7 @@ public class mapFragment extends Fragment implements OnMapReadyCallback, Locatio
         View view = inflater.inflate(R.layout.fragment_page3, container, false);
         findById(view);
         Fragment a = getChildFragmentManager().findFragmentById(R.id.fragment_view_map);
-        MapFragment mapFragment = (MapFragment) getActivity().getFragmentManager().findFragmentById(R.id.fragment_view_map);
+        com.google.android.gms.maps.MapFragment mapFragment = (com.google.android.gms.maps.MapFragment) getActivity().getFragmentManager().findFragmentById(R.id.fragment_view_map);
         mapFragment.getMapAsync(this);
 
         // 取得定位服務
@@ -81,6 +74,8 @@ public class mapFragment extends Fragment implements OnMapReadyCallback, Locatio
         // 取得最佳定位
         Criteria criteria = new Criteria();
         bestProv = locMgr.getBestProvider(criteria, true);
+
+        Log.e("78","78");
 
         // 如果GPS或網路定位開啟，更新位置
         if (locMgr.isProviderEnabled(LocationManager.GPS_PROVIDER) || locMgr.isProviderEnabled(LocationManager.NETWORK_PROVIDER)) {
@@ -92,6 +87,8 @@ public class mapFragment extends Fragment implements OnMapReadyCallback, Locatio
         } else {
             Toast.makeText(((MainActivity) getContext()), "請開啟定位服務", Toast.LENGTH_LONG).show();
         }
+
+        Log.e("91","91");
 
         return view;
     }
@@ -121,7 +118,6 @@ public class mapFragment extends Fragment implements OnMapReadyCallback, Locatio
                 readFireBaseData("gas");
             }
         });
-
     }
 
 
@@ -145,12 +141,20 @@ public class mapFragment extends Fragment implements OnMapReadyCallback, Locatio
             @Override
             public void onChildAdded(DataSnapshot snapshot, String previousChild) {
                 MapStructure mapStructure = snapshot.getValue(MapStructure.class);
-                Log.e("FireBaseTraining", "lat = " + mapStructure.lat +"lng = " + mapStructure.lng+ " , Name = " + mapStructure.name+" , add = " + mapStructure.add);
-                LatLng latLng = new LatLng(Double.parseDouble(mapStructure.lat), Double.parseDouble(mapStructure.lng));
-                MyItem myitem = new MyItem(latLng.latitude,latLng.longitude,mapStructure.name,mapStructure.add);
-                mClusterManager.addItem(myitem);
+//                Log.e("FireBaseTraining", "lat = " + mapStructure.lat +"lng = " + mapStructure.lng+ " , Name = " + mapStructure.name+" , add = " + mapStructure.add);
+                LatLng latLng = null;
+                try {
+                    latLng = new LatLng(Double.parseDouble(mapStructure.lat), Double.parseDouble(mapStructure.lng));
+                }catch (Exception e){
+
+                }
+                if(latLng != null){
+                    MyItem myitem = new MyItem(latLng.latitude,latLng.longitude,mapStructure.name,mapStructure.add);
+                    mClusterManager.addItem(myitem);
+                }
 //                mMap.addMarker(new MarkerOptions().position(latLng).title(mapStructure.name).snippet(mapStructure.add));
 //                Log.e("previousChild",previousChild);
+
             }
             public void onChildChanged(DataSnapshot dataSnapshot, String s) {
                 Log.e("onChildChanged","onChildChanged");
@@ -231,13 +235,13 @@ public class mapFragment extends Fragment implements OnMapReadyCallback, Locatio
 
     @Override
     public void onLocationChanged(Location location) {
-        String x = "緯=" + Double.toString(location.getLatitude());
-        String y = "經=" + Double.toString(location.getLongitude());
-
-        LatLng Point = new LatLng(location.getLatitude(),location.getLongitude());
-        zoom = 17;
-        mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(Point,zoom));
-        Toast.makeText(((MainActivity)getContext()),x + "\n" + y,Toast.LENGTH_LONG).show();
+//        String x = "緯=" + Double.toString(location.getLatitude());
+//        String y = "經=" + Double.toString(location.getLongitude());
+//
+//        LatLng Point = new LatLng(location.getLatitude(),location.getLongitude());
+//        zoom = 17;
+//        mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(Point,zoom));
+//        Toast.makeText(((MainActivity)getContext()),x + "\n" + y,Toast.LENGTH_LONG).show();
 
     }
     public void onStatusChanged(String provider, int status, Bundle extras) {
@@ -256,13 +260,12 @@ public class mapFragment extends Fragment implements OnMapReadyCallback, Locatio
 
     private GoogleMap.OnMapClickListener mapClickListener = new GoogleMap.OnMapClickListener() {
         @Override
-
         public void onMapClick(LatLng latLng) {
-            mapFragment.latLng2 = latLng;
+            MapFragment.latLng2 = latLng;
             new Thread(new Runnable(){
                 @Override
                 public void run() {
-                    String result = connecter.getJSONContent("https://maps.googleapis.com/maps/api/elevation/json?locations="+Double.parseDouble(String.valueOf( mapFragment.latLng2.latitude))+","+Double.parseDouble(String.valueOf( mapFragment.latLng2.longitude))+"&key=AIzaSyALcD0X57AVTQJq8GoqK3-62Hia5TpoF2I");
+                    String result = connecter.getJSONContent("https://maps.googleapis.com/maps/api/elevation/json?locations="+Double.parseDouble(String.valueOf( MapFragment.latLng2.latitude))+","+Double.parseDouble(String.valueOf( MapFragment.latLng2.longitude))+"&key=AIzaSyALcD0X57AVTQJq8GoqK3-62Hia5TpoF2I");
                     try {
                         JSONObject jsonObject = new JSONObject(result);
                         JSONArray array = jsonObject.getJSONArray("results");
@@ -284,7 +287,6 @@ public class mapFragment extends Fragment implements OnMapReadyCallback, Locatio
             }).start();
         }
     };
-
 
     private Handler mHandler = new Handler(){
         @Override
