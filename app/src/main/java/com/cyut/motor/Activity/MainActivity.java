@@ -1,6 +1,7 @@
 package com.cyut.motor.Activity;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
 import android.util.Log;
@@ -94,12 +95,10 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
                 titleTextView.setText("首頁");
                 break;
             case R.id.tv_btn:
-
                 if(getSharedPreferences("Data",0).getString("user_id","").equals("")){
                     new SweetAlertDialog(this, SweetAlertDialog.WARNING_TYPE)
                             .setTitleText("請登入")
                             .setContentText("需登入才能使用保養功能")
-//                            .setConfirmText("Yes,delete it!")
                             .setConfirmClickListener(new SweetAlertDialog.OnSweetClickListener() {
                                 @Override
                                 public void onClick(SweetAlertDialog sDialog) {
@@ -108,8 +107,7 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
                                     intent.setClass(MainActivity.this,LoginActivity.class);
                                     startActivity(intent);
                                 }
-                            })
-                            .show();
+                            }).show();
                 }else{
                     getSupportFragmentManager().beginTransaction()
                             .show(maintenanceFragment).hide(homeFragment).hide(mapFragment).hide(settingFragment).hide(helpFragment).hide(maintenanceAddFragment)
@@ -144,19 +142,31 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
         public void onClick(View v) {
             // TODO Auto-generated method stub
             //尚未登入
+            final SharedPreferences sharedPreferences = getSharedPreferences("Data",0);
+            Log.e("xxx",sharedPreferences.getString("user_id",""));
             if(getSharedPreferences("Data",0).getString("user_id","").equals("")){
                 Intent intent = new Intent();
                 intent.setClass(MainActivity.this,LoginActivity.class);
                 startActivity(intent);
             }else{ //登入過
 
-                Intent intent = new Intent();
-                intent.setClass(MainActivity.this,LoginActivity.class);
-                startActivity(intent);
-                getSharedPreferences("Data",0).edit().putString("user_id","").commit();
-            }
+                    new SweetAlertDialog(MainActivity.this, SweetAlertDialog.WARNING_TYPE)
+                            .setTitleText("登出提醒")
+                            .setContentText("是否要登出?")
+                            .setConfirmClickListener(new SweetAlertDialog.OnSweetClickListener() {
+                                @Override
+                                public void onClick(SweetAlertDialog sDialog) {
+                                    Log.e("登出","登出");
+                                    sharedPreferences.edit().remove("user_id").commit();
+                                    sDialog.dismissWithAnimation();
+                                    Intent intent = new Intent();
+                                    intent.setClass(MainActivity.this,LoginActivity.class);
+                                    startActivity(intent);
+                                }
+            }).show();
         }
-    };
+    }};
+
 
     public void chageFragment(String string){
         if(string.equals("首頁")){
@@ -194,8 +204,4 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
         }
     }
 
-//    @Override
-//    protected void onDestroy() {
-//        super.onDestroy();
-//    }
 }

@@ -101,7 +101,7 @@ public class InformationFragment extends Fragment {
                 writeNewPost(date,lable,price,
                         ((EditText)view.findViewById(R.id.editText4)).getText().toString(),
                         ((EditText) view.findViewById(R.id.editText)).getText().toString(),
-                        getActivity().getSharedPreferences("Data",0).getString("user_id",""));
+                        getActivity().getSharedPreferences("Data",MODE_PRIVATE).getString("user_id",""));
             }
         });
 

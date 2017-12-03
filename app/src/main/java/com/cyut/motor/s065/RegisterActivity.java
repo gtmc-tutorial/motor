@@ -58,6 +58,8 @@ public class RegisterActivity extends AppCompatActivity {
                             progressDialog.dismiss();
 
                             if (task.isSuccessful()) {
+                                getSharedPreferences("Data",0).edit().putString("user_id",task.getResult().getUser().getUid()).commit();
+
                                 Toast.makeText(RegisterActivity.this, "註冊成功", Toast.LENGTH_LONG).show();
                                 Intent i = new Intent(RegisterActivity.this, MainActivity.class);
                                 startActivity(i);
@@ -93,9 +95,6 @@ public class RegisterActivity extends AppCompatActivity {
         @Override
         public void onClick(View v) {
             // TODO Auto-generated method stub
-            Intent intent = new Intent();
-            intent.setClass(RegisterActivity.this, ForgetPasswordActivity.LoginActivity.class);
-            startActivity(intent);
             finish();
         }
     };

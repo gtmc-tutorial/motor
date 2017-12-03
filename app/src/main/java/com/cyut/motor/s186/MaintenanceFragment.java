@@ -38,8 +38,8 @@ public class MaintenanceFragment extends Fragment {
     TableAdapter tableAdapter;
     ArrayList<TableAdapter.TableRow> table;
 
-    public  static ArrayList<String> key_array = new ArrayList<>();
-    public  static ArrayList<MaintainStructure> main_arrayList = new ArrayList<>();
+    public static ArrayList<String> key_array = new ArrayList<>();
+    public static ArrayList<MaintainStructure> main_arrayList = new ArrayList<>();
     public View onCreateView(LayoutInflater inflater, ViewGroup container,Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.fragment_maintenance, container, false);
 
@@ -76,16 +76,15 @@ public class MaintenanceFragment extends Fragment {
 
     @Override
     public void onStart() {
-        Log.e("start","start");
         final Firebase myFirebaseRef  = new Firebase("https://motorcycle-cc0fe.firebaseio.com/Warranty");
         Query queryRef = myFirebaseRef.orderByChild("day");
         queryRef.addChildEventListener(new ChildEventListener() {
             @Override
             public void onChildAdded(DataSnapshot snapshot, String previousChild) {
-
+                Log.e("snapshot",snapshot+"");
                 MaintainStructure maintainStructure = snapshot.getValue(MaintainStructure.class);
                 if(maintainStructure != null){
-                    if(maintainStructure.user_id.equals(getActivity().getSharedPreferences("Data",0).getString("user_id",""))){
+                    if(maintainStructure.user_id.equals(getActivity().getSharedPreferences("Data",MODE_PRIVATE).getString("user_id",""))){
                         main_arrayList.add(maintainStructure);
                         key_array.add(snapshot.getKey());
 
@@ -96,7 +95,6 @@ public class MaintenanceFragment extends Fragment {
                         }
 
                         tableAdapter.notifyDataSetChanged();
-
                     }
                 }
             }

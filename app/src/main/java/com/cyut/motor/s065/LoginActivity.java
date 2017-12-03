@@ -2,6 +2,7 @@ package com.cyut.motor.s065;
 
 import android.app.ProgressDialog;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
@@ -75,6 +76,9 @@ public class LoginActivity extends AppCompatActivity implements GoogleApiClient.
         ed_password = (EditText) findViewById(R.id.ed_password);
         firebaseAuth = FirebaseAuth.getInstance();
 
+        final SharedPreferences sharedPreferences = getSharedPreferences("Data",MODE_PRIVATE);
+        Log.e("xxx",sharedPreferences.getString("user_id","")+"123");
+
         // Facebook Login
         FacebookSdk.sdkInitialize(getApplicationContext());
         mCallbackManager = CallbackManager.Factory.create();
@@ -124,7 +128,7 @@ public class LoginActivity extends AppCompatActivity implements GoogleApiClient.
                 FirebaseUser user = firebaseAuth.getCurrentUser();
                 if (user != null) {
                     // User is signed in
-                    getSharedPreferences("Data",0).edit().putString("user_id",user.getUid()).commit();
+                    getSharedPreferences("Data",MODE_PRIVATE).edit().putString("user_id",user.getUid()).commit();
                     Log.d(TAG, "onAuthStateChanged:signed_in:" + user.getUid());
                 } else {
                     // User is signed out
@@ -142,7 +146,7 @@ public class LoginActivity extends AppCompatActivity implements GoogleApiClient.
                 return;
             }
 
-            if(ed_password.getText().length() >=6 || ed_email.getText().toString().length() >=6){
+            if(ed_password.getText().toString().length() <6 && ed_email.getText().toString().length() <6){
                 Toast.makeText(LoginActivity.this, "帳號與密碼需6碼以上", Toast.LENGTH_LONG).show();
                 return;
             }
@@ -153,9 +157,8 @@ public class LoginActivity extends AppCompatActivity implements GoogleApiClient.
                         @Override
                         public void onComplete(@NonNull Task<AuthResult> task) {
                             progressDialog.dismiss();
-
                             if (task.isSuccessful()) {
-                                getSharedPreferences("Data",0).edit().putString("user_id",task.getResult().getUser().getUid()).commit();
+                                getSharedPreferences("Data",MODE_PRIVATE).edit().putString("user_id",task.getResult().getUser().getUid()).commit();
 
                                 Toast.makeText(LoginActivity.this, "登入成功", Toast.LENGTH_LONG).show();
                                 Intent i = new Intent(LoginActivity.this, MainActivity.class);
@@ -163,14 +166,12 @@ public class LoginActivity extends AppCompatActivity implements GoogleApiClient.
                                 startActivity(i);
                             } else {
                                 Toast.makeText(LoginActivity.this, "帳號密碼錯誤", Toast.LENGTH_LONG).show();
-
                             }
                         }
                     });
         }else{
             Toast.makeText(this,"請連接網路",Toast.LENGTH_SHORT);
         }
-
     }
 
     private Button.OnClickListener listener1 = new Button.OnClickListener() {
@@ -237,7 +238,6 @@ public class LoginActivity extends AppCompatActivity implements GoogleApiClient.
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         Log.d(TAG, "signInWithCredential:onComplete:" + task.isSuccessful());
-
                         // If sign in fails, display a message to the user. If sign in succeeds
                         // the auth state listener will be notified and logic to handle the
                         // signed in user can be handled in the listener.
