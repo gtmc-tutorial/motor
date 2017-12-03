@@ -13,8 +13,10 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.RelativeLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.cyut.motor.Activity.MainActivity;
 import com.cyut.motor.R;
@@ -41,6 +43,13 @@ public class InformationFragment extends Fragment {
 
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, Bundle savedInstanceState) {
         final View view = inflater.inflate(R.layout.fragment_information, null);
+        RelativeLayout relativeLayout =(RelativeLayout)  view.findViewById(R.id.R1);
+        relativeLayout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+            }
+        });
 
         final SharedPreferences sharedPreferences = getActivity().getSharedPreferences("data" , MODE_PRIVATE);
         EditText editText =(EditText)  view.findViewById(R.id.editText);
@@ -114,6 +123,23 @@ public class InformationFragment extends Fragment {
         // Create new post at /user-posts/$userid/$postid and at
         // /posts/$postid simultaneously
 
+        if(day.equals("")) {
+            Toast.makeText(getContext(), "請輸入日期", Toast.LENGTH_SHORT).show();
+            return;
+        }
+        if(lable.equals("請選擇廠牌")) {
+            Toast.makeText(getContext(), "請選擇廠牌", Toast.LENGTH_SHORT).show();
+            return;
+        }
+        if(price == 0) {
+            Toast.makeText(getContext(), "請選擇價位", Toast.LENGTH_SHORT).show();
+            return;
+        }
+        if(trip.equals("")) {
+            Toast.makeText(getContext(), "請數入公里數", Toast.LENGTH_SHORT).show();
+            return;
+        }
+
         Firebase myFirebaseRef  = new Firebase("https://motorcycle-cc0fe.firebaseio.com/");
         String key = myFirebaseRef.child("Warranty").push().getKey();
         MaintainStructure maintainStructure = new MaintainStructure(day, lable, price, trip,type,userId);
@@ -124,7 +150,8 @@ public class InformationFragment extends Fragment {
         myFirebaseRef.updateChildren(childUpdates, new Firebase.CompletionListener() {
             @Override
             public void onComplete(FirebaseError firebaseError, Firebase firebase) {
-
+                Toast.makeText(getContext(), "送出成功", Toast.LENGTH_SHORT).show();
+                ((MainActivity)getContext()).chageFragment("保養");
             }
         });
 

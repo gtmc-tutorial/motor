@@ -92,10 +92,15 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
                 titleTextView.setText("首頁");
                 break;
             case R.id.tv_btn:
-                getSupportFragmentManager().beginTransaction()
-                        .show(maintenanceFragment).hide(homeFragment).hide(mapFragment).hide(settingFragment).hide(helpFragment).hide(maintenanceAddFragment)
-                        .commit();
-                titleTextView.setText("保養");
+
+                if(getSharedPreferences("Data",0).getString("user_id","").equals("")){
+
+                }else{
+                    getSupportFragmentManager().beginTransaction()
+                            .show(maintenanceFragment).hide(homeFragment).hide(mapFragment).hide(settingFragment).hide(helpFragment).hide(maintenanceAddFragment)
+                            .commit();
+                    titleTextView.setText("保養");
+                }
                 break;
             case R.id.anime_btn:
                 getSupportFragmentManager().beginTransaction()

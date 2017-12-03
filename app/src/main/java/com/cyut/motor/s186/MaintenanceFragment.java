@@ -2,6 +2,7 @@ package com.cyut.motor.s186;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -41,6 +42,7 @@ public class MaintenanceFragment extends Fragment {
     public  static ArrayList<MaintainStructure> main_arrayList = new ArrayList<>();
     public View onCreateView(LayoutInflater inflater, ViewGroup container,Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.fragment_maintenance, container, false);
+
         Button nextPageBtn = (Button)rootView.findViewById(R.id.button);
         nextPageBtn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -63,6 +65,13 @@ public class MaintenanceFragment extends Fragment {
         listView.setOnItemClickListener(new ItemClickEvent());
 
         return rootView;
+    }
+
+    @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+
+
     }
 
     @Override
