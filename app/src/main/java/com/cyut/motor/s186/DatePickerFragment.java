@@ -28,15 +28,15 @@ public class DatePickerFragment extends DialogFragment implements DatePickerDial
         vid = bData.getInt("view");
         String str = bData.getString("date");
         final Calendar c = Calendar.getInstance();
-        Date date;
-        if(!str.equals(""))
-        {
-            SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
-            //進行轉換
-            ParsePosition pos = new ParsePosition(0);
-            date = sdf.parse(str, pos);
-            c.setTime(date);
-        }
+//        Date date;
+//        if(!str.equals(""))
+//        {
+//            SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+//            //進行轉換
+//            ParsePosition pos = new ParsePosition(0);
+//            date = sdf.parse(str, pos);
+//            c.setTime(date);
+//        }
         int year = c.get(Calendar.YEAR);
         int month = c.get(Calendar.MONTH);
         int day = c.get(Calendar.DAY_OF_MONTH);

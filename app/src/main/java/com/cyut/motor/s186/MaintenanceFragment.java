@@ -82,17 +82,23 @@ public class MaintenanceFragment extends Fragment {
         queryRef.addChildEventListener(new ChildEventListener() {
             @Override
             public void onChildAdded(DataSnapshot snapshot, String previousChild) {
+
                 MaintainStructure maintainStructure = snapshot.getValue(MaintainStructure.class);
-                main_arrayList.add(maintainStructure);
-                key_array.add(snapshot.getKey());
+                if(maintainStructure != null){
+                    if(maintainStructure.user_id.equals(getActivity().getSharedPreferences("Data",0).getString("user_id",""))){
+                        main_arrayList.add(maintainStructure);
+                        key_array.add(snapshot.getKey());
 
-                ArrayList<TableAdapter.TableCell[]> arrayList = new ArrayList<>();
-                arrayList.add(getTableItem(maintainStructure.type,maintainStructure.day,titles));
-                for (int i = 0;i<arrayList.size();i++){
-                    table.add(new TableAdapter.TableRow(arrayList.get(i)));
+                        ArrayList<TableAdapter.TableCell[]> arrayList = new ArrayList<>();
+                        arrayList.add(getTableItem(maintainStructure.type,maintainStructure.day,titles));
+                        for (int i = 0;i<arrayList.size();i++){
+                            table.add(new TableAdapter.TableRow(arrayList.get(i)));
+                        }
+
+                        tableAdapter.notifyDataSetChanged();
+
+                    }
                 }
-                tableAdapter.notifyDataSetChanged();
-
             }
             public void onChildChanged(DataSnapshot dataSnapshot, String s) {
 
@@ -117,30 +123,31 @@ public class MaintenanceFragment extends Fragment {
         final Firebase FirebaseRef  = new Firebase("https://motorcycle-cc0fe.firebaseio.com/");
         myFirebaseRef.addListenerForSingleValueEvent(new ValueEventListener() {
             public void onDataChange(DataSnapshot dataSnapshot) {
-
                 for (int i = 0 ;i<key_array.size();i++){
                     final int finalI1 = i;
-                    tableAdapter.imageViews.get(i).setOnClickListener(new View.OnClickListener() {
-                        @Override
-                        public void onClick(View v) {
-                            FirebaseRef.child("Warranty").orderByKey().equalTo(key_array.get(finalI1));
-                            Query applesQuery = FirebaseRef.child("Warranty").orderByChild("title").equalTo("Apple");
-                            applesQuery.addListenerForSingleValueEvent(new ValueEventListener() {
-                                @Override
-                                public void onDataChange(DataSnapshot dataSnapshot) {
-                                    for (DataSnapshot appleSnapshot: dataSnapshot.getChildren()) {
+                    if(tableAdapter.imageViews.size() != 0){
+                        tableAdapter.imageViews.get(i).setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+                                FirebaseRef.child("Warranty").orderByKey().equalTo(key_array.get(finalI1));
+                                Query applesQuery = FirebaseRef.child("Warranty").orderByChild("title").equalTo("Apple");
+                                applesQuery.addListenerForSingleValueEvent(new ValueEventListener() {
+                                    @Override
+                                    public void onDataChange(DataSnapshot dataSnapshot) {
+                                        for (DataSnapshot appleSnapshot: dataSnapshot.getChildren()) {
                                             appleSnapshot.getRef().removeValue();
+                                        }
                                     }
-                                }
-                                @Override
-                                public void onCancelled(FirebaseError firebaseError) {
+                                    @Override
+                                    public void onCancelled(FirebaseError firebaseError) {
 
-                                }
-                            });
-                        }
-                    });
+                                    }
+                                });
+                            }
+                        });
+                    }
+
                 }
-
             }
             public void onCancelled(FirebaseError firebaseError) { }
         });

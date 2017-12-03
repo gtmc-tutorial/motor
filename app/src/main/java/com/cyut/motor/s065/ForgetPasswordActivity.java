@@ -117,10 +117,10 @@ public class ForgetPasswordActivity extends Activity {
                             } else {
                                 Log.e("登入失敗", task.getException().toString());
                                 Toast.makeText(LoginActivity.this, task.getException().getMessage(), Toast.LENGTH_LONG).show();
-
                             }
                         }
                     });
+
         }
 
         private Button.OnClickListener listener = new Button.OnClickListener() {

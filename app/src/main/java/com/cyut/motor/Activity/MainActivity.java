@@ -20,6 +20,8 @@ import com.cyut.motor.s134.SettingFragment;
 import com.cyut.motor.R;
 import com.firebase.client.Firebase;
 
+import cn.pedant.SweetAlert.SweetAlertDialog;
+
 
 public class MainActivity extends FragmentActivity implements View.OnClickListener  {
     private TextView titleTextView;
@@ -94,7 +96,20 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
             case R.id.tv_btn:
 
                 if(getSharedPreferences("Data",0).getString("user_id","").equals("")){
-
+                    new SweetAlertDialog(this, SweetAlertDialog.WARNING_TYPE)
+                            .setTitleText("請登入")
+                            .setContentText("需登入才能使用保養功能")
+//                            .setConfirmText("Yes,delete it!")
+                            .setConfirmClickListener(new SweetAlertDialog.OnSweetClickListener() {
+                                @Override
+                                public void onClick(SweetAlertDialog sDialog) {
+                                    sDialog.dismissWithAnimation();
+                                    Intent intent = new Intent();
+                                    intent.setClass(MainActivity.this,LoginActivity.class);
+                                    startActivity(intent);
+                                }
+                            })
+                            .show();
                 }else{
                     getSupportFragmentManager().beginTransaction()
                             .show(maintenanceFragment).hide(homeFragment).hide(mapFragment).hide(settingFragment).hide(helpFragment).hide(maintenanceAddFragment)
