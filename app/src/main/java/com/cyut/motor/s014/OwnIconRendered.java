@@ -23,11 +23,10 @@ public class OwnIconRendered extends DefaultClusterRenderer<MyItem> {
     @Override
     protected void onBeforeClusterItemRendered(MyItem item, MarkerOptions markerOptions) {
         if(type.equals("battery")){
-            markerOptions.icon(BitmapDescriptorFactory.fromResource(R.drawable.placeholder4));
-        }else if(type.equals("car_dealers")){
-            markerOptions.icon(BitmapDescriptorFactory.fromResource(R.drawable.placeholder4));
+            markerOptions.icon(BitmapDescriptorFactory.fromResource(R.drawable.oil_gps10));
+            markerOptions.icon(BitmapDescriptorFactory.fromResource(R.drawable.oil_gps10));
         }else if(type.equals("gas")){
-            markerOptions.icon(BitmapDescriptorFactory.fromResource(R.drawable.placeholder4));
+            markerOptions.icon(BitmapDescriptorFactory.fromResource(R.drawable.oil_gps10));
         }
         markerOptions.snippet(item.getSnippet());
         markerOptions.title(item.getTitle());
