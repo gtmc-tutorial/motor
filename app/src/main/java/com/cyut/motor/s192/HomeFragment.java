@@ -70,6 +70,7 @@ public class HomeFragment extends Fragment {
                 if(doc != null)
                     if(doc.getElementsByClass("clearfix")!=null)
                         elements = doc.getElementsByClass("clearfix").select("dl").select("dd").select("strong");
+
 //                for (Element headline : elements) {
 //                    Log.e("headline", headline.toString());
 //                }
