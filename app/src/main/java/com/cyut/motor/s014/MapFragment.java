@@ -67,6 +67,7 @@ public class MapFragment extends Fragment implements OnMapReadyCallback, Locatio
     private Handler handler = new Handler();
     private String tag;
 
+    public static String tpye ="battery";
     @Nullable
     private Button battery_btn,car_dealers_btn,gas_btn;
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, Bundle savedInstanceState) {
@@ -142,7 +143,7 @@ public class MapFragment extends Fragment implements OnMapReadyCallback, Locatio
         mMap.setMapType(GoogleMap.MAP_TYPE_NORMAL);
         //群集map
         mClusterManager = new ClusterManager<MyItem>(getActivity(), mMap);
-        mClusterManager.setRenderer(new OwnIconRendered(getContext(),mMap,mClusterManager,"battery"));
+        mClusterManager.setRenderer(new OwnIconRendered(getContext(),mMap,mClusterManager));
         mMap.setOnCameraIdleListener(mClusterManager);
 
         requestPermissions();
@@ -279,12 +280,15 @@ public class MapFragment extends Fragment implements OnMapReadyCallback, Locatio
             Firebase myFirebaseRef = null;
             switch (tag) {
                 case "battery" :
+                    tpye = "battery";
                     myFirebaseRef = new Firebase("https://motorcycle-cc0fe.firebaseio.com/place/battery");
                     break;
                 case "car_dealers" :
+                    tpye = "car_dealers";
                     myFirebaseRef = new Firebase("https://motorcycle-cc0fe.firebaseio.com/place/car_dealers");
                     break;
                 case "gas" :
+                    tpye = "gas";
                     myFirebaseRef= new Firebase("https://motorcycle-cc0fe.firebaseio.com/place/gas");
                     break;
             }
