@@ -88,7 +88,6 @@ public class LoginActivity extends AppCompatActivity implements GoogleApiClient.
                 Log.d(TAG, "facebook:onSuccess:" + loginResult);
                 firebaseAuthWithFacebook(loginResult.getAccessToken());
             }
-
             @Override
             public void onCancel() {
                 Log.d(TAG, "facebook:onCancel");
@@ -125,6 +124,7 @@ public class LoginActivity extends AppCompatActivity implements GoogleApiClient.
                 FirebaseUser user = firebaseAuth.getCurrentUser();
                 if (user != null) {
                     // User is signed in
+                    getSharedPreferences("Data",0).edit().putString("user_id",user.getUid()).commit();
                     Log.d(TAG, "onAuthStateChanged:signed_in:" + user.getUid());
                 } else {
                     // User is signed out
@@ -137,7 +137,6 @@ public class LoginActivity extends AppCompatActivity implements GoogleApiClient.
 
     public void btnUserLogin_Click(View v) {
         if(StaticMethodPack.isNetworkConnecting(this)){
-
             if(ed_password.getText().toString().equals("") || ed_email.getText().toString().equals("")){
                 Toast.makeText(LoginActivity.this, "不能有空值", Toast.LENGTH_LONG).show();
                 return;
@@ -156,6 +155,8 @@ public class LoginActivity extends AppCompatActivity implements GoogleApiClient.
                             progressDialog.dismiss();
 
                             if (task.isSuccessful()) {
+                                getSharedPreferences("Data",0).edit().putString("user_id",task.getResult().getUser().getUid()).commit();
+
                                 Toast.makeText(LoginActivity.this, "登入成功", Toast.LENGTH_LONG).show();
                                 Intent i = new Intent(LoginActivity.this, MainActivity.class);
                                 i.putExtra("Email", firebaseAuth.getCurrentUser().getEmail());
@@ -284,8 +285,7 @@ public class LoginActivity extends AppCompatActivity implements GoogleApiClient.
         if (requestCode == RC_SIGN_IN) {
             GoogleSignInResult result = Auth.GoogleSignInApi.getSignInResultFromIntent(data);
             if (result.isSuccess()) {
-                Toast.makeText(LoginActivity.this, "登入成功",
-                        Toast.LENGTH_SHORT).show();
+                Toast.makeText(LoginActivity.this, "登入成功",Toast.LENGTH_SHORT).show();
                 // Google Sign In was successful, authenticate with Firebase
                 GoogleSignInAccount account = result.getSignInAccount();
                 firebaseAuthWithGoogle(account);
