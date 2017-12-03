@@ -56,13 +56,9 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
         getSupportFragmentManager().beginTransaction()
                 .add(R.id.fragment_main_content, settingFragment = new SettingFragment(),FragmentTag.SETTING_TAG)
                 .commit();
-
-
         getSupportFragmentManager().beginTransaction()
                 .add(R.id.fragment_main_content, maintenanceAddFragment = new MaintenanceAddFragment(),FragmentTag.MAINTENANCEADD_TAG)
                 .commit();
-
-
         getSupportFragmentManager().beginTransaction()
                 .show(homeFragment).hide(maintenanceFragment).hide(mapFragment).hide(settingFragment).hide(helpFragment).hide(maintenanceAddFragment)
                 .commit();
@@ -127,9 +123,18 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
         @Override
         public void onClick(View v) {
             // TODO Auto-generated method stub
-            Intent intent = new Intent();
-            intent.setClass(MainActivity.this,LoginActivity.class);
-            startActivity(intent);
+            //尚未登入
+            if(getSharedPreferences("Data",0).getString("user_id","").equals("")){
+                Intent intent = new Intent();
+                intent.setClass(MainActivity.this,LoginActivity.class);
+                startActivity(intent);
+            }else{ //登入過
+
+                Intent intent = new Intent();
+                intent.setClass(MainActivity.this,LoginActivity.class);
+                startActivity(intent);
+                getSharedPreferences("Data",0).edit().putString("user_id","").commit();
+            }
         }
     };
 
@@ -167,6 +172,10 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
                     .commit();
             titleTextView.setText("設定");
         }
-
     }
+
+//    @Override
+//    protected void onDestroy() {
+//        super.onDestroy();
+//    }
 }

@@ -21,8 +21,11 @@ import com.firebase.client.DataSnapshot;
 import com.firebase.client.Firebase;
 import com.firebase.client.FirebaseError;
 import com.firebase.client.Query;
+import com.firebase.client.ValueEventListener;
 
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * Created by wubingyu on 2017/8/24.
@@ -33,6 +36,9 @@ public class MaintenanceFragment extends Fragment {
     ListView listView;
     TableAdapter tableAdapter;
     ArrayList<TableAdapter.TableRow> table;
+
+    public  static ArrayList<String> key_array = new ArrayList<>();
+    public  static ArrayList<MaintainStructure> main_arrayList = new ArrayList<>();
     public View onCreateView(LayoutInflater inflater, ViewGroup container,Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.fragment_maintenance, container, false);
         Button nextPageBtn = (Button)rootView.findViewById(R.id.button);
@@ -42,7 +48,6 @@ public class MaintenanceFragment extends Fragment {
                 ((MainActivity)getContext()).chageFragment("新增保養");
             }
         });
-        Log.e("onCreateView","onCreateView");
 
         listView = (ListView) rootView.findViewById(R.id.ListView01);
         table = new ArrayList<TableAdapter.TableRow>();
@@ -53,17 +58,9 @@ public class MaintenanceFragment extends Fragment {
         titles[2] = new TableAdapter.TableCell("刪除",width + 8 * 2,RelativeLayout.LayoutParams.FILL_PARENT,TableAdapter.TableCell.STRING);
         table.add(new TableAdapter.TableRow(titles));
 
-        // 每行的数据
-
-
-        // 把表格的行添加到表格
-//        for (int i = 0; i < 12; i++){
-//            table.add(new TableAdapter.TableRow(cells));
-//        }
         tableAdapter = new TableAdapter(getContext(), table);
         listView.setAdapter(tableAdapter);
         listView.setOnItemClickListener(new ItemClickEvent());
-
 
         return rootView;
     }
@@ -71,28 +68,35 @@ public class MaintenanceFragment extends Fragment {
     @Override
     public void onStart() {
         Log.e("start","start");
-        Firebase myFirebaseRef  = new Firebase("https://motorcycle-cc0fe.firebaseio.com/Warranty");
-        Query queryRef = myFirebaseRef.orderByChild("user_id");
+        final Firebase myFirebaseRef  = new Firebase("https://motorcycle-cc0fe.firebaseio.com/Warranty");
+        Query queryRef = myFirebaseRef.orderByChild("day");
         queryRef.addChildEventListener(new ChildEventListener() {
             @Override
             public void onChildAdded(DataSnapshot snapshot, String previousChild) {
-                snapshot.toString();
                 MaintainStructure maintainStructure = snapshot.getValue(MaintainStructure.class);
-                String day = maintainStructure.day;
+                main_arrayList.add(maintainStructure);
+                key_array.add(snapshot.getKey());
 
                 ArrayList<TableAdapter.TableCell[]> arrayList = new ArrayList<>();
-                arrayList.add(getTableItem(maintainStructure.Oil_oil,maintainStructure.day,titles));
+                arrayList.add(getTableItem(maintainStructure.type,maintainStructure.day,titles));
                 for (int i = 0;i<arrayList.size();i++){
                     table.add(new TableAdapter.TableRow(arrayList.get(i)));
-
                 }
-//                Log.e("day",day);
-                Log.e("in","in");
                 tableAdapter.notifyDataSetChanged();
+
             }
             public void onChildChanged(DataSnapshot dataSnapshot, String s) {
+
             }
             public void onChildRemoved(DataSnapshot dataSnapshot) {
+                for (int i = 0 ; i < key_array.size();i++){
+                    if(key_array.get(i).equals(dataSnapshot.getKey())){
+                        key_array.remove(i);
+                        table.remove(i+1);
+                        tableAdapter.notifyDataSetChanged();
+                    }
+                }
+                MaintainStructure maintainStructure = dataSnapshot.getValue(MaintainStructure.class);
             }
             public void onChildMoved(DataSnapshot dataSnapshot, String s) {
             }
@@ -100,12 +104,43 @@ public class MaintenanceFragment extends Fragment {
 
             }
         });
+
+        final Firebase FirebaseRef  = new Firebase("https://motorcycle-cc0fe.firebaseio.com/");
+        myFirebaseRef.addListenerForSingleValueEvent(new ValueEventListener() {
+            public void onDataChange(DataSnapshot dataSnapshot) {
+
+                for (int i = 0 ;i<key_array.size();i++){
+                    final int finalI1 = i;
+                    tableAdapter.imageViews.get(i).setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            FirebaseRef.child("Warranty").orderByKey().equalTo(key_array.get(finalI1));
+                            Query applesQuery = FirebaseRef.child("Warranty").orderByChild("title").equalTo("Apple");
+                            applesQuery.addListenerForSingleValueEvent(new ValueEventListener() {
+                                @Override
+                                public void onDataChange(DataSnapshot dataSnapshot) {
+                                    for (DataSnapshot appleSnapshot: dataSnapshot.getChildren()) {
+                                            appleSnapshot.getRef().removeValue();
+                                    }
+                                }
+                                @Override
+                                public void onCancelled(FirebaseError firebaseError) {
+
+                                }
+                            });
+                        }
+                    });
+                }
+
+            }
+            public void onCancelled(FirebaseError firebaseError) { }
+        });
         super.onStart();
     }
+
     class ItemClickEvent implements AdapterView.OnItemClickListener {
         @Override
         public void onItemClick(AdapterView<?> arg0, View arg1, int arg2,long arg3) {
-
             Toast.makeText(getActivity(), "选中第"+String.valueOf(arg2)+"行", Toast.LENGTH_SHORT).show();
         }
     }
@@ -115,11 +150,9 @@ public class MaintenanceFragment extends Fragment {
 
         cells[0] = new TableAdapter.TableCell(name, titles[0].width, RelativeLayout.LayoutParams.FILL_PARENT, TableAdapter.TableCell.STRING);
         cells[1] = new TableAdapter.TableCell(date, titles[1].width, RelativeLayout.LayoutParams.FILL_PARENT, TableAdapter.TableCell.STRING);
-
-        cells[2] = new TableAdapter.TableCell(R.drawable.delete,
-                titles[2].width,
-                RelativeLayout.LayoutParams.WRAP_CONTENT,
-                TableAdapter.TableCell.IMAGE);
+        cells[2] = new TableAdapter.TableCell(R.drawable.delete,titles[2].width,RelativeLayout.LayoutParams.WRAP_CONTENT,TableAdapter.TableCell.IMAGE);
         return cells;
     }
+
+
 }

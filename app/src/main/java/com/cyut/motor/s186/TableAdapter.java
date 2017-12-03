@@ -19,10 +19,19 @@ import android.widget.TableRow;
 import android.widget.TextView;
 
 import com.cyut.motor.Util;
+import com.firebase.client.DataSnapshot;
+import com.firebase.client.Firebase;
+import com.firebase.client.FirebaseError;
+import com.firebase.client.Query;
+import com.firebase.client.ValueEventListener;
+
+import static com.cyut.motor.s186.MaintenanceFragment.key_array;
 
 public class TableAdapter extends BaseAdapter {
     private Context context;
     private List<TableRow> table;
+
+    public ArrayList<ImageView> imageViews = new ArrayList<>();
     public TableAdapter(Context context, ArrayList<TableRow> table) {
         this.context = context;
         this.table = table;
@@ -41,17 +50,19 @@ public class TableAdapter extends BaseAdapter {
     }
     public View getView(int position, View convertView, ViewGroup parent) {
         TableRow tableRow = table.get(position);
-        return new TableRowView(this.context, tableRow);
+        return new TableRowView(this.context, tableRow,position);
     }
     /**
      * TableRowView 实现表格行的样式
      * @author hellogv
      */
     class TableRowView extends LinearLayout {
-        public TableRowView(Context context, TableRow tableRow) {
+        public TableRowView(Context context, TableRow tableRow, final int position) {
             super(context);
 
             this.setOrientation(LinearLayout.HORIZONTAL);
+            final Firebase FirebaseRef  = new Firebase("https://motorcycle-cc0fe.firebaseio.com/");
+
             for (int i = 0; i < tableRow.getSize(); i++) {//逐个格单元添加到行
                 TableCell tableCell = tableRow.getCellValue(i);
 
@@ -73,14 +84,34 @@ public class TableAdapter extends BaseAdapter {
                     imgCell.setImageResource((Integer) tableCell.value);
                     imgCell.setForegroundGravity(Gravity.CENTER);
                     imgCell.setScaleType(ImageView.ScaleType.FIT_CENTER);
-//                    imgCell.setPadding(Util.getDP(getContext(),30),Util.getDP(getContext(),30),Util.getDP(getContext(),30),Util.getDP(getContext(),30));
+
                     imgCell.setOnClickListener(new OnClickListener() {
                         @Override
                         public void onClick(View v) {
-                            Log.e("v","v");
+                            Log.e("in","in");
+                            Log.e("position",position+"");
+                            Log.e("key_array",key_array.size()+"");
+
+                            Query applesQuery = FirebaseRef.child("Warranty").orderByKey().equalTo(key_array.get(position-1));
+                            applesQuery.addListenerForSingleValueEvent(new ValueEventListener() {
+                                @Override
+                                public void onDataChange(DataSnapshot dataSnapshot) {
+                                    for (DataSnapshot appleSnapshot: dataSnapshot.getChildren()) {
+                                        appleSnapshot.getRef().removeValue();
+                                    }
+                                }
+                                @Override
+                                public void onCancelled(FirebaseError firebaseError) {
+
+                                }
+                            });
                         }
                     });
+
+                    imageViews.add(imgCell);
                     addView(imgCell, layoutParams);
+
+
                 }
             }
 //            this.setBackgroundColor(Color.WHITE);//背景白色，利用空隙来实现边框
