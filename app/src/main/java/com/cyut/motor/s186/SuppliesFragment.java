@@ -29,7 +29,7 @@ public class SuppliesFragment extends Fragment implements View.OnClickListener {
 
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_supplies, null);
-        sharedPreferences = getActivity().getSharedPreferences("data" , MODE_PRIVATE);
+        sharedPreferences = getActivity().getSharedPreferences("GTCLOUD_Content", MODE_PRIVATE);
         for (int i = 0 ; i <ids.length;i++){
             arrayList.add((Button) view.findViewById(ids[i]));
             arrayList.get(i).setOnClickListener(this);

@@ -35,13 +35,15 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
     private HelpFragment helpFragment;
     private SettingFragment settingFragment;
     private MaintenanceAddFragment maintenanceAddFragment;
+    SharedPreferences sharedPreferences;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         findById();
-
+        sharedPreferences = getSharedPreferences("GTCLOUD_Content", MODE_PRIVATE);
+        Log.e("onCreate","onCreate");
         Firebase.setAndroidContext(this);
 
         getSupportFragmentManager().beginTransaction()
@@ -65,6 +67,9 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
         getSupportFragmentManager().beginTransaction()
                 .show(homeFragment).hide(maintenanceFragment).hide(mapFragment).hide(settingFragment).hide(helpFragment).hide(maintenanceAddFragment)
                 .commit();
+
+        Log.e("xxx",sharedPreferences.getString("userid",""));
+
     }
     private void findById() {
         titleTextView = (TextView) this.findViewById(R.id.main_title_text);
@@ -95,7 +100,7 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
                 titleTextView.setText("首頁");
                 break;
             case R.id.tv_btn:
-                if(getSharedPreferences("Data",0).getString("user_id","").equals("")){
+                if(sharedPreferences.getString("userid","").equals("")){
                     new SweetAlertDialog(this, SweetAlertDialog.WARNING_TYPE)
                             .setTitleText("請登入")
                             .setContentText("需登入才能使用保養功能")
@@ -142,26 +147,24 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
         public void onClick(View v) {
             // TODO Auto-generated method stub
             //尚未登入
-            final SharedPreferences sharedPreferences = getSharedPreferences("Data",0);
-            Log.e("xxx",sharedPreferences.getString("user_id",""));
-            if(getSharedPreferences("Data",0).getString("user_id","").equals("")){
+            String id = sharedPreferences.getString("userid","");
+            if(id.equals("")){
                 Intent intent = new Intent();
                 intent.setClass(MainActivity.this,LoginActivity.class);
                 startActivity(intent);
             }else{ //登入過
-
-                    new SweetAlertDialog(MainActivity.this, SweetAlertDialog.WARNING_TYPE)
+                new SweetAlertDialog(MainActivity.this, SweetAlertDialog.WARNING_TYPE)
                             .setTitleText("登出提醒")
                             .setContentText("是否要登出?")
                             .setConfirmClickListener(new SweetAlertDialog.OnSweetClickListener() {
                                 @Override
                                 public void onClick(SweetAlertDialog sDialog) {
-                                    Log.e("登出","登出");
-                                    sharedPreferences.edit().remove("user_id").commit();
-                                    sDialog.dismissWithAnimation();
+                                    sharedPreferences.edit().clear().commit();
+
                                     Intent intent = new Intent();
                                     intent.setClass(MainActivity.this,LoginActivity.class);
                                     startActivity(intent);
+                                    sDialog.dismissWithAnimation();
                                 }
             }).show();
         }

@@ -26,7 +26,7 @@ public class OilFragment extends Fragment implements View.OnClickListener {
 
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_oil, null);
-        sharedPreferences = getActivity().getSharedPreferences("data" , MODE_PRIVATE);
+        sharedPreferences = getActivity().getSharedPreferences("GTCLOUD_Content", MODE_PRIVATE);
 
         //定義View
         button1 =(Button) view.findViewById(R.id.button1_oil);
@@ -45,8 +45,6 @@ public class OilFragment extends Fragment implements View.OnClickListener {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        Toast.makeText(getActivity(),"page1",Toast.LENGTH_LONG).show();
-
     }
 
     @Override

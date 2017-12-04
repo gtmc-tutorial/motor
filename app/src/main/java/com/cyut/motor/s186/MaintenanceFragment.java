@@ -1,6 +1,7 @@
 package com.cyut.motor.s186;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -27,6 +28,10 @@ import com.firebase.client.ValueEventListener;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
+
+import cn.pedant.SweetAlert.SweetAlertDialog;
+
+import static android.content.Context.MODE_PRIVATE;
 
 /**
  * Created by wubingyu on 2017/8/24.
@@ -70,21 +75,16 @@ public class MaintenanceFragment extends Fragment {
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
-
-    }
-
-    @Override
-    public void onStart() {
+        final SharedPreferences sharedPreferences = getActivity().getSharedPreferences("GTCLOUD_Content", MODE_PRIVATE);
         final Firebase myFirebaseRef  = new Firebase("https://motorcycle-cc0fe.firebaseio.com/Warranty");
         Query queryRef = myFirebaseRef.orderByChild("day");
         queryRef.addChildEventListener(new ChildEventListener() {
             @Override
             public void onChildAdded(DataSnapshot snapshot, String previousChild) {
-                Log.e("snapshot",snapshot+"");
                 MaintainStructure maintainStructure = snapshot.getValue(MaintainStructure.class);
                 if(maintainStructure != null){
-                    if(maintainStructure.user_id.equals(getActivity().getSharedPreferences("Data",MODE_PRIVATE).getString("user_id",""))){
+                    if(maintainStructure.user_id.equals(sharedPreferences.getString("userid",""))){
+                        Log.e("snapshot",snapshot+"");
                         main_arrayList.add(maintainStructure);
                         key_array.add(snapshot.getKey());
 
@@ -116,6 +116,7 @@ public class MaintenanceFragment extends Fragment {
             public void onCancelled(FirebaseError firebaseError) {
 
             }
+
         });
 
         final Firebase FirebaseRef  = new Firebase("https://motorcycle-cc0fe.firebaseio.com/");
@@ -149,13 +150,28 @@ public class MaintenanceFragment extends Fragment {
             }
             public void onCancelled(FirebaseError firebaseError) { }
         });
+    }
+
+    @Override
+    public void onStart() {
+        Log.e("Start","start");
+
         super.onStart();
     }
 
     class ItemClickEvent implements AdapterView.OnItemClickListener {
         @Override
         public void onItemClick(AdapterView<?> arg0, View arg1, int arg2,long arg3) {
-            Toast.makeText(getActivity(), "选中第"+String.valueOf(arg2)+"行", Toast.LENGTH_SHORT).show();
+            if(arg2 != 0 ){
+                new SweetAlertDialog(getActivity())
+                        .setTitleText(main_arrayList.get(arg2-1).type)
+                        .setContentText("日期 : "+main_arrayList.get(arg2-1).day+"\n"+
+                                "廠牌 : "+ main_arrayList.get(arg2-1).label+"\n"+
+                                "公里數 : " + main_arrayList.get(arg2-1).trip+"\n"+
+                                "價錢 : " +main_arrayList.get(arg2-1).price+"\n"
+                        ).show();
+            }
+//            Toast.makeText(getActivity(), "选中第"+String.valueOf(arg2)+"行", Toast.LENGTH_SHORT).show();
         }
     }
 
@@ -168,5 +184,9 @@ public class MaintenanceFragment extends Fragment {
         return cells;
     }
 
-
+    @Override
+    public void onResume() {
+        super.onResume();
+//        Log.e("MaintenanceFragment","onResume");
+    }
 }

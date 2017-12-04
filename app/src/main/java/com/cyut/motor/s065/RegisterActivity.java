@@ -2,6 +2,7 @@ package com.cyut.motor.s065;
 
 import android.app.ProgressDialog;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
@@ -29,6 +30,7 @@ public class RegisterActivity extends AppCompatActivity {
     private EditText ed_email;
     private EditText ed_password;
     private FirebaseAuth firebaseAuth;
+    SharedPreferences sharedPreferences;
 
 
     @Override
@@ -40,6 +42,7 @@ public class RegisterActivity extends AppCompatActivity {
         ed_email = (EditText) findViewById(R.id.ed_email);
         ed_password = (EditText) findViewById(R.id.ed_password);
         firebaseAuth = FirebaseAuth.getInstance();
+        sharedPreferences = getSharedPreferences("GTCLOUD_Content", MODE_PRIVATE);
 
         btn_cencel = (Button)findViewById(R.id.btn_cencel);
         btn_cencel.setOnClickListener(listener);
@@ -58,7 +61,7 @@ public class RegisterActivity extends AppCompatActivity {
                             progressDialog.dismiss();
 
                             if (task.isSuccessful()) {
-                                getSharedPreferences("Data",0).edit().putString("user_id",task.getResult().getUser().getUid()).commit();
+                                sharedPreferences.edit().putString("user_id",task.getResult().getUser().getUid()).commit();
 
                                 Toast.makeText(RegisterActivity.this, "註冊成功", Toast.LENGTH_LONG).show();
                                 Intent i = new Intent(RegisterActivity.this, MainActivity.class);

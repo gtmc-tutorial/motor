@@ -30,7 +30,7 @@ public class HelpFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_help, null);
 
-        final String[] lunch = {"雞腿飯", "魯肉飯", "排骨飯", "水餃", "陽春麵"};
+        final String[] lunch = {"基隆市", "台北市", "新北市", "桃園市", "桃園縣", "新竹市", "新竹縣", "苗栗縣", "台中市", "彰化縣", "南投縣", "雲林縣", "嘉義市", "嘉義縣", "台南市", "高雄市", "屏東縣", "台東縣", "花蓮縣", "宜蘭縣"};
         ArrayAdapter<String> lunchList = new ArrayAdapter<>(getActivity(),
                 android.R.layout.simple_spinner_dropdown_item,
                 lunch);
@@ -40,7 +40,8 @@ public class HelpFragment extends Fragment {
         spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                Toast.makeText(getActivity(), "你選的是" + lunch[position], Toast.LENGTH_SHORT).show();
+//                Toast.makeText(getActivity(), "你選的是" + lunch[position], Toast.LENGTH_SHORT).show();
+
             }
 
             @Override
@@ -59,7 +60,7 @@ public class HelpFragment extends Fragment {
         spinner1.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                Toast.makeText(getActivity(), "你選的是" + dinner[position], Toast.LENGTH_SHORT).show();
+//                Toast.makeText(getActivity(), "你選的是" + dinner[position], Toast.LENGTH_SHORT).show();
             }
 
             @Override

@@ -37,6 +37,7 @@ public class InformationFragment extends Fragment {
     String type ;
     String lable;
     int price = 0;
+    SharedPreferences sharedPreferences;
 
     @Nullable
     @Override
@@ -47,11 +48,10 @@ public class InformationFragment extends Fragment {
         relativeLayout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
             }
         });
 
-        final SharedPreferences sharedPreferences = getActivity().getSharedPreferences("data" , MODE_PRIVATE);
+        sharedPreferences = getActivity().getSharedPreferences("GTCLOUD_Content", MODE_PRIVATE);
         EditText editText =(EditText)  view.findViewById(R.id.editText);
         editText.setText(sharedPreferences.getString("score",""));
         Spinner spinner =(Spinner) view.findViewById(R.id.spinner);
@@ -101,7 +101,7 @@ public class InformationFragment extends Fragment {
                 writeNewPost(date,lable,price,
                         ((EditText)view.findViewById(R.id.editText4)).getText().toString(),
                         ((EditText) view.findViewById(R.id.editText)).getText().toString(),
-                        getActivity().getSharedPreferences("Data",MODE_PRIVATE).getString("user_id",""));
+                        sharedPreferences.getString("userid",""));
             }
         });
 

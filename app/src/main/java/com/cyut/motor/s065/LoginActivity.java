@@ -61,7 +61,7 @@ public class LoginActivity extends AppCompatActivity implements GoogleApiClient.
     private FirebaseAuth.AuthStateListener mAuthListener;
 
     private CallbackManager mCallbackManager;
-
+    SharedPreferences sharedPreferences;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -76,8 +76,9 @@ public class LoginActivity extends AppCompatActivity implements GoogleApiClient.
         ed_password = (EditText) findViewById(R.id.ed_password);
         firebaseAuth = FirebaseAuth.getInstance();
 
-        final SharedPreferences sharedPreferences = getSharedPreferences("Data",MODE_PRIVATE);
-        Log.e("xxx",sharedPreferences.getString("user_id","")+"123");
+        sharedPreferences = getSharedPreferences("GTCLOUD_Content", MODE_PRIVATE);
+
+//        Log.e("xxx",sharedPreferences.getString("user_id","")+"123");
 
         // Facebook Login
         FacebookSdk.sdkInitialize(getApplicationContext());
@@ -128,7 +129,7 @@ public class LoginActivity extends AppCompatActivity implements GoogleApiClient.
                 FirebaseUser user = firebaseAuth.getCurrentUser();
                 if (user != null) {
                     // User is signed in
-                    getSharedPreferences("Data",MODE_PRIVATE).edit().putString("user_id",user.getUid()).commit();
+                    getSharedPreferences("Data",MODE_PRIVATE).edit().putString("userid",user.getUid()).commit();
                     Log.d(TAG, "onAuthStateChanged:signed_in:" + user.getUid());
                 } else {
                     // User is signed out
@@ -158,7 +159,7 @@ public class LoginActivity extends AppCompatActivity implements GoogleApiClient.
                         public void onComplete(@NonNull Task<AuthResult> task) {
                             progressDialog.dismiss();
                             if (task.isSuccessful()) {
-                                getSharedPreferences("Data",MODE_PRIVATE).edit().putString("user_id",task.getResult().getUser().getUid()).commit();
+                                sharedPreferences.edit().putString("userid",task.getResult().getUser().getUid()).commit();
 
                                 Toast.makeText(LoginActivity.this, "登入成功", Toast.LENGTH_LONG).show();
                                 Intent i = new Intent(LoginActivity.this, MainActivity.class);
@@ -222,6 +223,7 @@ public class LoginActivity extends AppCompatActivity implements GoogleApiClient.
                             Log.w(TAG, "signInWithCredential", task.getException());
                             Toast.makeText(LoginActivity.this, "Authentication failed.",Toast.LENGTH_SHORT).show();
                         } else {
+                            sharedPreferences.edit().putString("userid",task.getResult().getUser().getUid()).commit();
                             startActivity(new Intent(LoginActivity.this, MainActivity.class));
                             finish();
                         }
