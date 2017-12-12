@@ -35,14 +35,12 @@
 
         <Spinner
             android:id="@+id/dialog_spinner"
-            android:layout_width="60pt"
+            android:layout_width="80pt"
             android:layout_height="20pt"
-            android:layout_marginTop="22dp"
-            android:layout_below="@+id/dialog_text"
-            android:layout_alignStart="@+id/dialog_text"
+            android:layout_marginTop="23dp"
             style="@android:style/Widget.Spinner"
             android:spinnerMode="dialog"
-            >
+            android:layout_below="@+id/dialog_text">
         </Spinner>
 
         <TextView
