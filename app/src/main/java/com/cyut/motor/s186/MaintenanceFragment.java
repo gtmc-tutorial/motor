@@ -72,9 +72,12 @@ public class MaintenanceFragment extends Fragment {
         return rootView;
     }
 
+
+
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
         final SharedPreferences sharedPreferences = getActivity().getSharedPreferences("GTCLOUD_Content", MODE_PRIVATE);
         final Firebase myFirebaseRef  = new Firebase("https://motorcycle-cc0fe.firebaseio.com/Warranty");
         Query queryRef = myFirebaseRef.orderByChild("day");
@@ -101,12 +104,14 @@ public class MaintenanceFragment extends Fragment {
             public void onChildChanged(DataSnapshot dataSnapshot, String s) {
 
             }
+
             public void onChildRemoved(DataSnapshot dataSnapshot) {
                 for (int i = 0 ; i < key_array.size();i++){
                     if(key_array.get(i).equals(dataSnapshot.getKey())){
                         key_array.remove(i);
                         table.remove(i+1);
                         tableAdapter.notifyDataSetChanged();
+
                     }
                 }
                 MaintainStructure maintainStructure = dataSnapshot.getValue(MaintainStructure.class);

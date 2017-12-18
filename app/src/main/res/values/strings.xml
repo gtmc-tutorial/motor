@@ -90,5 +90,6 @@
         <item>動力機械車</item>
     </string-array>
 
-
+    <string name="j_pickerview_cancel">取消</string>
+    <string name="j_pickerview_submit">確定</string>
 </resources>

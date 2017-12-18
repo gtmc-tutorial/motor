@@ -20,4 +20,7 @@
     <color name="colorblack">#000000</color>
     <color name="colorwhite">#FFFFFF</color>
 
+
+    <color name="j_wheel_timebtn_nor">#54a3fa</color>
+    <color name="j_wheel_timebtn_pre">#FFFFFF</color>
 </resources>

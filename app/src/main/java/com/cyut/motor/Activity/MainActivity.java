@@ -69,7 +69,6 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
                 .commit();
 
         Log.e("xxx",sharedPreferences.getString("userid",""));
-
     }
     private void findById() {
         titleTextView = (TextView) this.findViewById(R.id.main_title_text);
@@ -142,6 +141,7 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
                 break;
         }
     }
+
     private Button.OnClickListener listener = new Button.OnClickListener(){
         @Override
         public void onClick(View v) {
