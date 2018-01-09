@@ -51,7 +51,8 @@ public class HomeFragment extends Fragment {
                 startActivity(intent);
             }
         });
-                //定義View
+
+        //定義View
         return view;
     }
     @Override
@@ -62,19 +63,20 @@ public class HomeFragment extends Fragment {
             public void run() {
                 Document doc = null;
                 try {
-                    doc = Jsoup.connect("http://new.cpc.com.tw/Home/").get();
+                    doc = Jsoup.connect("https://new.cpc.com.tw/Home/").get();
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
                 Elements elements = null;
-                if(doc != null)
-                    if(doc.getElementsByClass("clearfix")!=null)
+                if(doc != null) {
+                    if (doc.getElementsByClass("clearfix") != null) {
                         elements = doc.getElementsByClass("clearfix").select("dl").select("dd").select("strong");
-
-//                for (Element headline : elements) {
+                    }
+                }
+//                for (Element headline : aa) {
 //                    Log.e("headline", headline.toString());
 //                }
-
+//                Log.e("finalElements",elements.size()+"");
                 final Elements finalElements = elements;
                 getActivity().runOnUiThread(new Runnable() {
                     @Override
@@ -85,15 +87,11 @@ public class HomeFragment extends Fragment {
                             textView_98.setText("98無鉛 : "+ finalElements.get(4).text());
                             textView_super.setText("超級柴油 : "+ finalElements.get(6).text());
                         }
-
                     }
                 });
-
             }
         }).start();
-
     }
-
 }
 
 
