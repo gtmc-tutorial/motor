@@ -35,12 +35,11 @@ public class RegisterActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        // TODO Auto-generated method stub
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register);
 
-        ed_email = (EditText) findViewById(R.id.ed_email);
-        ed_password = (EditText) findViewById(R.id.ed_password);
+        ed_email = findViewById(R.id.ed_email);
+        ed_password = findViewById(R.id.ed_password);
         firebaseAuth = FirebaseAuth.getInstance();
         sharedPreferences = getSharedPreferences("GTCLOUD_Content", MODE_PRIVATE);
 

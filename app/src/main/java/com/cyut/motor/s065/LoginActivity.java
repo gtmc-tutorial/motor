@@ -47,7 +47,7 @@ public class LoginActivity extends AppCompatActivity implements GoogleApiClient.
     private Button btn_register;
     private Button btn_forgetpw;
 
-    private ImageView movie_btn;
+    private ImageView btn_home;
 
     private EditText ed_email;
     private EditText ed_password;
@@ -71,6 +71,8 @@ public class LoginActivity extends AppCompatActivity implements GoogleApiClient.
         btn_register.setOnClickListener(listener1);
         btn_forgetpw = (Button) findViewById(R.id.btn_forgetpw);
         btn_forgetpw.setOnClickListener(listener2);
+        btn_home = (ImageView) findViewById(R.id.btn_home);
+        btn_home.setOnClickListener(listener3);
 
         ed_email = (EditText) findViewById(R.id.ed_email);
         ed_password = (EditText) findViewById(R.id.ed_password);
@@ -189,6 +191,15 @@ public class LoginActivity extends AppCompatActivity implements GoogleApiClient.
         public void onClick(View v) {
             Intent intent = new Intent();
             intent.setClass(LoginActivity.this, ForgetPasswordActivity.class);
+            startActivity(intent);
+        }
+    };
+
+    private Button.OnClickListener listener3 = new Button.OnClickListener() {
+        @Override
+        public void onClick(View v) {
+            Intent intent = new Intent();
+            intent.setClass(LoginActivity.this, MainActivity.class);
             startActivity(intent);
         }
     };
