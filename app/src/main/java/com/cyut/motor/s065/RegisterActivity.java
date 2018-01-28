@@ -51,6 +51,14 @@ public class RegisterActivity extends AppCompatActivity {
     public void btnRegistrationUser_Click(View v) {
         //判斷網路狀況
         if(StaticMethodPack.isNetworkConnecting(this)){
+            if(ed_password.getText().toString().equals("") || ed_email.getText().toString().equals("")){
+                Toast.makeText(RegisterActivity.this, "有欄位尚未輸入", Toast.LENGTH_LONG).show();
+                return;
+            }
+            if(ed_password.getText().toString().length() <6 && ed_password.getText().toString().length() <6){
+                Toast.makeText(RegisterActivity.this, "密碼需6碼以上", Toast.LENGTH_LONG).show();
+                return;
+            }
             //process
             final ProgressDialog progressDialog = ProgressDialog.show(RegisterActivity.this, "Please wait...", "Processing...", true);
             (firebaseAuth.createUserWithEmailAndPassword(ed_email.getText().toString(), ed_password.getText().toString()))
@@ -74,18 +82,6 @@ public class RegisterActivity extends AppCompatActivity {
                                 Toast.makeText(RegisterActivity.this, "信箱格式輸入錯誤", Toast.LENGTH_LONG).show();
                                 //If email are in incorret  format
                             }
-                            else if (task.getException() instanceof FirebaseAuthWeakPasswordException) {
-                                Toast.makeText(RegisterActivity.this, "密碼長度不夠", Toast.LENGTH_LONG).show();
-                                //if password not 'stronger'
-                            }
-//                        else
-//                        {
-//                            Log.e("註冊失敗", task.getException().toString());
-//                            Toast.makeText(RegisterActivity.this, task.getException().getMessage(), Toast.LENGTH_LONG).show();
-//                            Intent i = new Intent(RegisterActivity.this, RegisterActivity.class);
-//                            startActivity(i);
-//                        //OTHER THING
-//                        }
                         }
                     });
         }else{

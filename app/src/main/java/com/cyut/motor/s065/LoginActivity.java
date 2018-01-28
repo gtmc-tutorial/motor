@@ -145,12 +145,12 @@ public class LoginActivity extends AppCompatActivity implements GoogleApiClient.
     public void btnUserLogin_Click(View v) {
         if(StaticMethodPack.isNetworkConnecting(this)){
             if(ed_password.getText().toString().equals("") || ed_email.getText().toString().equals("")){
-                Toast.makeText(LoginActivity.this, "不能有空值", Toast.LENGTH_LONG).show();
+                Toast.makeText(LoginActivity.this, "有欄位尚未輸入", Toast.LENGTH_LONG).show();
                 return;
             }
 
-            if(ed_password.getText().toString().length() <6 && ed_email.getText().toString().length() <6){
-                Toast.makeText(LoginActivity.this, "帳號與密碼需6碼以上", Toast.LENGTH_LONG).show();
+            if(ed_password.getText().toString().length() <6 && ed_password.getText().toString().length() <6){
+                Toast.makeText(LoginActivity.this, "密碼需6碼以上", Toast.LENGTH_LONG).show();
                 return;
             }
 
@@ -168,7 +168,7 @@ public class LoginActivity extends AppCompatActivity implements GoogleApiClient.
                                 i.putExtra("Email", firebaseAuth.getCurrentUser().getEmail());
                                 startActivity(i);
                             } else {
-                                Toast.makeText(LoginActivity.this, "帳號密碼錯誤", Toast.LENGTH_LONG).show();
+                                Toast.makeText(LoginActivity.this, "請檢查email和password是否有誤", Toast.LENGTH_LONG).show();
                             }
                         }
                     });
