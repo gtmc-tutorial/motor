@@ -1,7 +1,5 @@
 package com.cyut.motor.Structure;
 
-import android.widget.EditText;
-
 import java.util.HashMap;
 import java.util.Map;
 
@@ -10,26 +8,26 @@ import java.util.Map;
  */
 
 public class UserStructure {
-    public String id;
+    public String ed_name;
     public String email;
     public String password;
+    public String user_id;
    
 
-    public UserStructure(String id,String email,String password) {
-        this.id = id;
+    public UserStructure(String ed_name,String email,String password,String user_id) {
+        this.ed_name = ed_name;
         this.email = email;
         this.password = password;
+        this.user_id= user_id;
 
-    }
-
-    public UserStructure(EditText ed_id, EditText ed_email, EditText ed_password) {
     }
 
     public Map<String, Object> toMap() {
         HashMap<String, Object> result = new HashMap<>();
-        result.put("id", id);
+        result.put("name", ed_name);
         result.put("email", email);
         result.put("password", password);
+        result.put("user_id", user_id);
         return result;
     }
 }

@@ -86,7 +86,7 @@
         android:background="@color/colorWhite"/>
 
     <TextView
-        android:id="@+id/id"
+        android:id="@+id/name"
         android:layout_width="100dp"
         android:layout_height="34dp"
         android:text="暱稱"
@@ -97,7 +97,7 @@
         android:textColor="@color/colorPrimary"/>
 
     <EditText
-        android:id="@+id/ed_id"
+        android:id="@+id/ed_name"
         android:singleLine="true"
         android:hint="登入後所顯示的使用者名稱"
         android:layout_width="300dp"
@@ -157,7 +157,7 @@
         android:layout_height="wrap_content"
         android:background="@color/colorPrimary"
         android:textColor="@color/colorWhite"
-        android:layout_below="@+id/ed_id"
+        android:layout_below="@+id/ed_name"
         android:layout_marginLeft="60dp"
         android:layout_marginTop="20dp"
         android:text="確認"/>
@@ -168,7 +168,7 @@
         android:layout_height="wrap_content"
         android:background="@color/colorPrimary"
         android:textColor="@color/colorWhite"
-        android:layout_below="@+id/ed_id"
+        android:layout_below="@+id/ed_name"
         android:layout_marginLeft="220dp"
         android:layout_marginTop="20dp"
         android:text="取消"/>
