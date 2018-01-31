@@ -86,25 +86,25 @@ public class LoginActivity extends AppCompatActivity implements GoogleApiClient.
         FacebookSdk.sdkInitialize(getApplicationContext());
         mCallbackManager = CallbackManager.Factory.create();
 
-        LoginButton mFacebookSignInButton = (LoginButton) findViewById(R.id.login_with_facebook);
-        mFacebookSignInButton.setReadPermissions("email", "public_profile", "user_birthday", "user_friends");
-
-        mFacebookSignInButton.registerCallback(mCallbackManager, new FacebookCallback<LoginResult>() {
-            @Override
-            public void onSuccess(LoginResult loginResult) {
-                Log.d(TAG, "facebook:onSuccess:" + loginResult);
-                firebaseAuthWithFacebook(loginResult.getAccessToken());
-            }
-            @Override
-            public void onCancel() {
-                Log.d(TAG, "facebook:onCancel");
-            }
-
-            @Override
-            public void onError(FacebookException error) {
-                Log.d(TAG, "facebook:onError", error);
-            }
-        });
+//        LoginButton mFacebookSignInButton = (LoginButton) findViewById(R.id.login_with_facebook);
+//        mFacebookSignInButton.setReadPermissions("email", "public_profile", "user_birthday", "user_friends");
+//
+//        mFacebookSignInButton.registerCallback(mCallbackManager, new FacebookCallback<LoginResult>() {
+//            @Override
+//            public void onSuccess(LoginResult loginResult) {
+//                Log.d(TAG, "facebook:onSuccess:" + loginResult);
+//                firebaseAuthWithFacebook(loginResult.getAccessToken());
+//            }
+//            @Override
+//            public void onCancel() {
+//                Log.d(TAG, "facebook:onCancel");
+//            }
+//
+//            @Override
+//            public void onError(FacebookException error) {
+//                Log.d(TAG, "facebook:onError", error);
+//            }
+//        });
 
         // Google Sign-In
         // Assign fields

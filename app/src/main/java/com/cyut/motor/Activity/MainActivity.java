@@ -73,7 +73,7 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
     private void findById() {
         titleTextView = (TextView) this.findViewById(R.id.main_title_text);
 
-        movieBtn = (ImageView)this.findViewById(R.id.movie_btn);
+        movieBtn = (ImageView)this.findViewById(R.id.home_btn);
         tvBtn = (ImageView)this.findViewById(R.id.tv_btn);
         animeBtn = (ImageView) this.findViewById(R.id.anime_btn);
         varietyBtn = (ImageView)this.findViewById(R.id.variety_btn);
@@ -92,7 +92,7 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
     public void onClick(View view) {
         // TODO Auto-generated methodstub
         switch (view.getId()) {
-            case R.id.movie_btn:
+            case R.id.home_btn:
                 getSupportFragmentManager().beginTransaction()
                         .show(homeFragment).hide(maintenanceFragment).hide(mapFragment).hide(settingFragment).hide(helpFragment).hide(maintenanceAddFragment)
                         .commit();
