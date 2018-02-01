@@ -131,7 +131,7 @@ public class LoginActivity extends AppCompatActivity implements GoogleApiClient.
                 FirebaseUser user = firebaseAuth.getCurrentUser();
                 if (user != null) {
                     // User is signed in
-                    getSharedPreferences("Data",MODE_PRIVATE).edit().putString("userid",user.getUid()).commit();
+                    getSharedPreferences("Data",MODE_PRIVATE).edit().putString("userid",user.getUid()).apply();
                     Log.d(TAG, "onAuthStateChanged:signed_in:" + user.getUid());
                 } else {
                     // User is signed out
@@ -161,7 +161,7 @@ public class LoginActivity extends AppCompatActivity implements GoogleApiClient.
                         public void onComplete(@NonNull Task<AuthResult> task) {
                             progressDialog.dismiss();
                             if (task.isSuccessful()) {
-                                sharedPreferences.edit().putString("userid",task.getResult().getUser().getUid()).commit();
+                                sharedPreferences.edit().putString("userid",task.getResult().getUser().getUid()).apply();
 
                                 Toast.makeText(LoginActivity.this, "登入成功", Toast.LENGTH_LONG).show();
                                 Intent i = new Intent(LoginActivity.this, MainActivity.class);

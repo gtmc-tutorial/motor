@@ -78,14 +78,14 @@ public class RegisterActivity extends AppCompatActivity {
 //                            Log.e(“ed_password”,ed_password.getText().toString());
 
                             if (task.isSuccessful()) {
-                                sharedPreferences.edit().putString("user_id", task.getResult().getUser().getUid()).commit();
+                                sharedPreferences.edit().putString("user_id", task.getResult().getUser().getUid()).apply();
                                 Toast.makeText(RegisterActivity.this, "註冊成功", Toast.LENGTH_LONG).show();
 
-                                writeNewPost(ed_name,ed_email,ed_password,
+                                writeNewPost(
                                         ed_name.getText().toString(),
                                         ed_email.getText().toString(),
                                         ed_password.getText().toString(),
-                                        sharedPreferences.getString("userid",""));
+                                        task.getResult().getUser().getUid());
 //                                Intent i = new Intent(RegisterActivity.this, MainActivity.class);
 //                                startActivity(i);
 
@@ -121,7 +121,7 @@ public class RegisterActivity extends AppCompatActivity {
         }
     };
 
-    private void writeNewPost(EditText edname, EditText edEmail, EditText edPassword, String ed_name, String ed_email, String ed_password, String userId) {
+    private void writeNewPost(String ed_name, String ed_email, String ed_password, String userId) {
         Firebase myFirebaseRef = new Firebase("https://motorcycle-cc0fe.firebaseio.com/");
         String key = myFirebaseRef.child("User").push().getKey();
         UserStructure userStructure = new UserStructure(ed_name, ed_email, ed_password,userId);
