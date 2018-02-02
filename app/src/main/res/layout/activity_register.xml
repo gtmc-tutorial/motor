@@ -129,27 +129,6 @@
         <!--android:layout_marginTop="320dp"-->
         <!--android:background="@color/colorWhite"/>-->
 
-    <!--<TextView-->
-        <!--android:id="@+id/id"-->
-        <!--android:layout_width="100dp"-->
-        <!--android:layout_height="34dp"-->
-        <!--android:text="用戶名稱"-->
-        <!--android:textSize="20dp"-->
-        <!--android:layout_alignParentTop="true"-->
-        <!--android:layout_marginTop="356dp"-->
-        <!--android:layout_marginLeft="30dp"-->
-        <!--android:textColor="@color/colorPrimary"/>-->
-
-    <!--<EditText-->
-        <!--android:id="@+id/ed_id"-->
-        <!--android:singleLine="true"-->
-        <!--android:layout_width="300dp"-->
-        <!--android:layout_height="30dp"-->
-        <!--android:layout_centerHorizontal="true"-->
-        <!--android:layout_alignParentTop="true"-->
-        <!--android:layout_marginTop="380dp"-->
-        <!--android:background="@color/colorWhite"/>-->
-
     <Button
         android:id="@+id/btnRegistrationUser"
         android:onClick="btnRegistrationUser_Click"

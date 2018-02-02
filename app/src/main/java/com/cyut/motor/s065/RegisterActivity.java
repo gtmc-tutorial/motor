@@ -7,7 +7,6 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -73,10 +72,6 @@ public class RegisterActivity extends AppCompatActivity {
                         public void onComplete(@NonNull Task<AuthResult> task) {
                             progressDialog.dismiss();
 
-//                            Log.e(“ed_id”,ed_id.getText().toString());
-//                            Log.e(“ed_email”,ed_email.getText().toString());
-//                            Log.e(“ed_password”,ed_password.getText().toString());
-
                             if (task.isSuccessful()) {
                                 sharedPreferences.edit().putString("user_id", task.getResult().getUser().getUid()).apply();
                                 Toast.makeText(RegisterActivity.this, "註冊成功", Toast.LENGTH_LONG).show();
@@ -86,17 +81,6 @@ public class RegisterActivity extends AppCompatActivity {
                                         ed_email.getText().toString(),
                                         ed_password.getText().toString(),
                                         task.getResult().getUser().getUid());
-//                                Intent i = new Intent(RegisterActivity.this, MainActivity.class);
-//                                startActivity(i);
-
-//                                Firebase myFirebaseRef = new Firebase("https://motorcycle-cc0fe.firebaseio.com/");
-//                                String key = myFirebaseRef.child("User").push().getKey();
-//                                UserStructure userStructure = new UserStructure(ed_id, ed_email, ed_password);
-//                                Map<String, Object> postValues = userStructure.toMap();
-//
-//                                Map<String, Object> childUpdates = new HashMap<>();
-//                                childUpdates.put("/User/" + key, postValues);
-
 
                             } else if (task.getException() instanceof FirebaseAuthUserCollisionException) {
                                 Toast.makeText(RegisterActivity.this, "此信箱已被註冊", Toast.LENGTH_LONG).show();
