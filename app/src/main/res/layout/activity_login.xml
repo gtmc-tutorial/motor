@@ -52,7 +52,7 @@
         android:layout_below="@+id/login_with_google"
         android:layout_marginLeft="220dp"
         android:layout_marginTop="10dp"
-        android:text="修改密碼"/>
+        android:text="忘記密碼"/>
 
     <Button
         android:id="@+id/btn_login"

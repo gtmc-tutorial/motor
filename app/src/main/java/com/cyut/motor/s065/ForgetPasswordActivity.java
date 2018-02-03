@@ -30,9 +30,9 @@ public class ForgetPasswordActivity extends Activity {
         setContentView(R.layout.activity_forget_password);
 
         ed_email = findViewById(R.id.ed_email);
-        btn_cencel = (Button)findViewById(R.id.btn_cencel);
+        btn_cencel = findViewById(R.id.btn_cencel);
         btn_cencel.setOnClickListener(listener);
-        btn_confirm = (Button) findViewById(R.id.btn_confirm);
+        btn_confirm = findViewById(R.id.btn_confirm);
 
         mauth = FirebaseAuth.getInstance();
 
@@ -48,7 +48,7 @@ public class ForgetPasswordActivity extends Activity {
                     @Override
                     public void onComplete(@NonNull Task<Void> task) {
                         if (!task.isSuccessful()) {
-                            Toast.makeText(ForgetPasswordActivity.this, "重設失敗!", Toast.LENGTH_SHORT).show();//done
+                            Toast.makeText(ForgetPasswordActivity.this, "此信箱尚未被註冊！", Toast.LENGTH_SHORT).show();//done
                         } else {
                             Toast.makeText(ForgetPasswordActivity.this,"已經送出修改信件!\n請至你的Email查看!",Toast.LENGTH_SHORT).show();
                         }

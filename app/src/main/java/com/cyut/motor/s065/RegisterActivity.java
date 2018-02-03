@@ -84,11 +84,9 @@ public class RegisterActivity extends AppCompatActivity {
 
                             } else if (task.getException() instanceof FirebaseAuthUserCollisionException) {
                                 Toast.makeText(RegisterActivity.this, "此信箱已被註冊", Toast.LENGTH_LONG).show();
-                                //If email already registered.
 
                             } else if (task.getException() instanceof FirebaseAuthInvalidCredentialsException) {
                                 Toast.makeText(RegisterActivity.this, "信箱格式輸入錯誤", Toast.LENGTH_LONG).show();
-                                //If email are in incorret  format
                             }
                         }
                     });
