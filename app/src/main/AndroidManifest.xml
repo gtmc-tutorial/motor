@@ -38,20 +38,25 @@
 
         <activity
             android:name=".s065.LoginActivity"
-            android:screenOrientation="portrait"
-             />
+            android:screenOrientation="portrait" />
         <activity
             android:name=".s065.RegisterActivity"
-            android:screenOrientation="portrait"
-             />
+            android:screenOrientation="portrait" />
         <activity
             android:name=".s065.ForgetPasswordActivity"
-            android:screenOrientation="portrait"
-             />
-        <activity android:name=".s065.WelcomeActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".s065.BackendActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".s065.UserActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".s065.WelcomeActivity"
             android:screenOrientation="portrait" ></activity>
 
-        <activity android:name=".s192.WebViewActivity"
+        <activity
+            android:name=".s192.WebViewActivity"
             android:screenOrientation="portrait" ></activity>
 
         <receiver android:name=".s134.AlarmInitReceiver">

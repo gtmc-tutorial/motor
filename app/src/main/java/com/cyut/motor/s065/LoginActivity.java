@@ -121,15 +121,27 @@ public class LoginActivity extends AppCompatActivity implements GoogleApiClient.
                         @Override
                         public void onComplete(@NonNull Task<AuthResult> task) {
                             progressDialog.dismiss();
-                            if (task.isSuccessful()) {
-                                sharedPreferences.edit().putString("userid",task.getResult().getUser().getUid()).apply();
-
-                                Toast.makeText(LoginActivity.this,  "登入成功", Toast.LENGTH_LONG).show();
-                                Intent i = new Intent(LoginActivity.this, MainActivity.class);
+                            if (ed_email.getText().toString().equals("cyutmotor@gmail.com") && ed_password.getText().toString().equals("106cyutmotor")){
+//                                ed_email.equals("cyutmotor@gmail.com");
+//                                ed_password.equals("106cyutmotor");
+                                Toast.makeText(LoginActivity.this,  "管理者登入成功", Toast.LENGTH_LONG).show();
+                                Intent i = new Intent(LoginActivity.this, BackendActivity.class);
                                 i.putExtra("Email", firebaseAuth.getCurrentUser().getEmail());
                                 startActivity(i);
-                            } else {
-                                Toast.makeText(LoginActivity.this, "請檢查email和password是否有誤", Toast.LENGTH_LONG).show();
+
+                            }
+                            else {
+
+                                if (task.isSuccessful()) {
+                                    sharedPreferences.edit().putString("userid",task.getResult().getUser().getUid()).apply();
+
+                                    Toast.makeText(LoginActivity.this,  "登入成功", Toast.LENGTH_LONG).show();
+                                    Intent i = new Intent(LoginActivity.this, MainActivity.class);
+                                    i.putExtra("Email", firebaseAuth.getCurrentUser().getEmail());
+                                    startActivity(i);
+                                } else {
+                                    Toast.makeText(LoginActivity.this, "請檢查email和password是否有誤", Toast.LENGTH_LONG).show();
+                                }
                             }
                         }
                     });
