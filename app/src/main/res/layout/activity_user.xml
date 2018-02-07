@@ -7,10 +7,50 @@
     android:orientation="vertical"
     tools:context=".s065.UserActivity">
 
-    <ListView
+    <RelativeLayout
+        android:id="@+id/bottom_m"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:id="@+id/listView1">
-    </ListView>
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true">
+        <Button
+            android:id="@+id/btn_backend_back"
+            android:layout_width="140dp"
+            android:layout_height="50dp"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="42dp"
+            android:backgroundTint="@android:color/black"
+            android:text="返回"
+            android:textColor="@android:color/background_light"
+            android:textSize="20sp" />
+    </RelativeLayout>
+
+    <TextView
+        android:id="@+id/text_backend_user"
+        android:layout_width="fill_parent"
+        android:layout_height="50dp"
+        android:text="會員中心"
+        android:textColor="@color/colorWhite"
+        android:textSize="20dp"
+        android:background="@color/color"
+        android:gravity="center"
+        />
+
+    <ListView
+        android:id="@+id/list_backend_user"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/bottom_m"
+        android:layout_below="@+id/text_backend_user"
+        />
+
+    <ScrollView
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:layout_below="@+id/text_backend_user"
+        android:layout_above="@+id/bottom_m">
+
+    </ScrollView>
+
+
 
 </RelativeLayout>

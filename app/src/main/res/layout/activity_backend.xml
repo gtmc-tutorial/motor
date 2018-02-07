@@ -8,7 +8,7 @@
     tools:context=".s065.BackendActivity">
 
     <TextView
-        android:id="@+id/forgetpw"
+        android:id="@+id/text_backend_admin"
         android:layout_width="fill_parent"
         android:layout_height="50dp"
         android:text="管理者介面"
