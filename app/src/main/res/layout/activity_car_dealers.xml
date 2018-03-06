@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/colorBackground"
+    android:orientation="vertical"
+    tools:context=".s065.Car_dealersActivity">
+
+    <RelativeLayout
+        android:id="@+id/bottom_m"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true">
+        <Button
+            android:id="@+id/btn_backend_back"
+            android:layout_width="140dp"
+            android:layout_height="50dp"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="42dp"
+            android:backgroundTint="@android:color/black"
+            android:text="返回"
+            android:textColor="@android:color/background_light"
+            android:textSize="20sp" />
+    </RelativeLayout>
+
+    <TextView
+        android:id="@+id/text_backend_car_dealers"
+        android:layout_width="fill_parent"
+        android:layout_height="50dp"
+        android:text="機車行管理"
+        android:textColor="@color/colorWhite"
+        android:textSize="20dp"
+        android:background="@color/color"
+        android:gravity="center"
+        />
+
+    <ListView
+        android:id="@+id/list_backend_car_dealers"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/bottom_m"
+        android:layout_below="@+id/text_backend_car_dealers"
+        />
+
+    <ScrollView
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:layout_below="@+id/text_backend_car_dealers"
+        android:layout_above="@+id/bottom_m">
+
+    </ScrollView>
+
+
+
+</RelativeLayout>

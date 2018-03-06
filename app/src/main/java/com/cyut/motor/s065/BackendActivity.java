@@ -9,7 +9,7 @@ import com.cyut.motor.R;
 
 public class BackendActivity extends Activity {
 
-    private Button btn_backend_user, btn_backend_supplies_oil;
+    private Button btn_backend_user, btn_backend_warranty, btn_backend_car_dealers ,btn_backend_gas,btn_backend_battery;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -18,8 +18,14 @@ public class BackendActivity extends Activity {
 
         btn_backend_user = findViewById(R.id.btn_backend_user);
         btn_backend_user.setOnClickListener(listener);
-        btn_backend_supplies_oil = findViewById(R.id.btn_backend_supplies_oil);
-        btn_backend_supplies_oil.setOnClickListener(listener1);
+        btn_backend_warranty = findViewById(R.id.btn_backend_warranty);
+        btn_backend_warranty.setOnClickListener(listener1);
+        btn_backend_car_dealers = findViewById(R.id.btn_backend_car_dealers);
+        btn_backend_car_dealers.setOnClickListener(listener2);
+        btn_backend_gas = findViewById(R.id.btn_backend_gas);
+        btn_backend_gas.setOnClickListener(listener3);
+        btn_backend_battery = findViewById(R.id.btn_backend_battery);
+        btn_backend_battery.setOnClickListener(listener4);
 
     }
 
@@ -36,7 +42,34 @@ public class BackendActivity extends Activity {
         @Override
         public void onClick(View v) {
             Intent intent = new Intent();
-            intent.setClass(BackendActivity.this, UserActivity.class);
+            intent.setClass(BackendActivity.this, WarrantyActivity.class);
+            startActivity(intent);
+        }
+    };
+
+    private Button.OnClickListener listener2 = new Button.OnClickListener() {
+        @Override
+        public void onClick(View v) {
+            Intent intent = new Intent();
+            intent.setClass(BackendActivity.this, Car_dealersActivity.class);
+            startActivity(intent);
+        }
+    };
+
+    private Button.OnClickListener listener3 = new Button.OnClickListener() {
+        @Override
+        public void onClick(View v) {
+            Intent intent = new Intent();
+            intent.setClass(BackendActivity.this, GasActivity.class);
+            startActivity(intent);
+        }
+    };
+
+    private Button.OnClickListener listener4 = new Button.OnClickListener() {
+        @Override
+        public void onClick(View v) {
+            Intent intent = new Intent();
+            intent.setClass(BackendActivity.this, BatteryActivity.class);
             startActivity(intent);
         }
     };
