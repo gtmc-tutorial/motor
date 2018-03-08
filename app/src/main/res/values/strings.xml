@@ -13,6 +13,8 @@
     <string name="facebook_app_id">117753512247154</string>
     <string name="fb_login_protocol_scheme">fb117753512247154</string>
 
+
+
     <string-array name="money">
         <item>請選擇價位</item>
         <item>100</item>

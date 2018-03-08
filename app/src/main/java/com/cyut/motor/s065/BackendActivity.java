@@ -33,7 +33,7 @@ public class BackendActivity extends Activity {
         @Override
         public void onClick(View v) {
             Intent intent = new Intent();
-            intent.setClass(BackendActivity.this, UserActivity.class);
+            intent.setClass(BackendActivity.this,UserActivity.class);
             startActivity(intent);
         }
     };
