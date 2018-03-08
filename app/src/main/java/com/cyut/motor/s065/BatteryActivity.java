@@ -40,7 +40,7 @@ public class BatteryActivity extends AppCompatActivity {
                 new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, android.R.id.text1);
         listView.setAdapter(adapter);
         FirebaseDatabase fbDB = FirebaseDatabase.getInstance();
-        DatabaseReference dbRef_user = fbDB.getReference("place");
+        DatabaseReference dbRef_user = fbDB.getReference("place"+"battery");
         dbRef_user.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
