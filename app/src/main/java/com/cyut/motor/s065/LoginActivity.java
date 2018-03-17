@@ -76,6 +76,9 @@ public class LoginActivity extends AppCompatActivity implements GoogleApiClient.
         ed_name = findViewById(R.id.ed_name);
         firebaseAuth = FirebaseAuth.getInstance();
 
+        ed_email.setText("cyutmotor@gmail.com");
+        ed_password.setText("106cyutmotor");
+
         sharedPreferences = getSharedPreferences("GTCLOUD_Content", MODE_PRIVATE);
 
         //        Log.e("xxx",sharedPreferences.getString("user_id","")+"123");
@@ -157,28 +160,27 @@ public class LoginActivity extends AppCompatActivity implements GoogleApiClient.
                         @Override
                         public void onComplete(@NonNull Task<AuthResult> task) {
                             progressDialog.dismiss();
-                            if (ed_email.getText().toString().equals("cyutmotor@gmail.com") && ed_password.getText().toString().equals("106cyutmotor")){
+                            if (task.isSuccessful()) {
+                                if (ed_email.getText().toString().equals("cyutmotor@gmail.com") && ed_password.getText().toString().equals("106cyutmotor")){
+                                    sharedPreferences.edit().putString("userid","cyutmotor@gmail.com").apply();
 //                                ed_email.equals("cyutmotor@gmail.com");
 //                                ed_password.equals("106cyutmotor");
-                                Toast.makeText(LoginActivity.this,  "管理者登入成功", Toast.LENGTH_LONG).show();
-                                Intent i = new Intent(LoginActivity.this, BackendActivity.class);
-                                i.putExtra("Email", firebaseAuth.getCurrentUser().getEmail());
-                                startActivity(i);
-
-                            }
-                            else {
-
-                                if (task.isSuccessful()) {
+                                    Toast.makeText(LoginActivity.this,  "管理者登入成功", Toast.LENGTH_LONG).show();
+                                    Intent i = new Intent(LoginActivity.this, BackendActivity.class);
+                                    i.putExtra("Email", firebaseAuth.getCurrentUser().getEmail());
+                                    startActivity(i);
+                                }
+                                else {
                                     sharedPreferences.edit().putString("userid",task.getResult().getUser().getUid()).apply();
-
                                     Toast.makeText(LoginActivity.this,  "登入成功", Toast.LENGTH_LONG).show();
                                     Intent i = new Intent(LoginActivity.this, MainActivity.class);
                                     i.putExtra("Email", firebaseAuth.getCurrentUser().getEmail());
                                     startActivity(i);
-                                } else {
-                                    Toast.makeText(LoginActivity.this, "請檢查email和password是否有誤", Toast.LENGTH_LONG).show();
                                 }
+                            } else {
+                                Toast.makeText(LoginActivity.this, "請檢查email和password是否有誤", Toast.LENGTH_LONG).show();
                             }
+
                         }
                     });
         }else{
@@ -189,7 +191,9 @@ public class LoginActivity extends AppCompatActivity implements GoogleApiClient.
     private Button.OnClickListener listener1 = new Button.OnClickListener() {
         @Override
         public void onClick(View v) {
+            finish();
             Intent intent = new Intent();
+            intent.putExtra("LoginActivity_IN","LoginActivity_IN");
             intent.setClass(LoginActivity.this, RegisterActivity.class);
             startActivity(intent);
         }

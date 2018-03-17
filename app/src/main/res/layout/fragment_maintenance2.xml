@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#e7ae16"
+    android:orientation="vertical">
+
+    <RelativeLayout
+        android:id="@+id/bottom_m"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true">
+        <Button
+            android:id="@+id/btn_create"
+            android:layout_width="140dp"
+            android:layout_height="50dp"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="42dp"
+            android:backgroundTint="@android:color/black"
+            android:text="新增"
+            android:textColor="@android:color/background_light"
+            android:textSize="20sp" />
+    </RelativeLayout>
+    <HorizontalScrollView
+        android:id="@+id/HorizontalScrollView01"
+        android:layout_height="fill_parent"
+        android:layout_width="fill_parent"
+        android:layout_above="@+id/bottom_m">
+        <ListView android:id="@+id/ListView01"
+            android:layout_height="wrap_content"
+            android:layout_width="wrap_content">
+        </ListView>
+    </HorizontalScrollView>
+
+</RelativeLayout>

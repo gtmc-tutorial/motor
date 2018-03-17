@@ -17,6 +17,7 @@
         android:label="@string/app_name"
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
+        android:name=".MyApplication"
         tools:replace="android:icon">
 
         <meta-data
@@ -65,6 +66,9 @@
             android:screenOrientation="portrait" />
         <activity
             android:name=".s065.Car_dealersActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".s065.User2Activity"
             android:screenOrientation="portrait" />
 
         <activity

@@ -7,6 +7,7 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -73,15 +74,17 @@ public class RegisterActivity extends AppCompatActivity {
                             progressDialog.dismiss();
 
                             if (task.isSuccessful()) {
-                                sharedPreferences.edit().putString("user_id", task.getResult().getUser().getUid()).apply();
+                                Log.e("1","1");
+                                if(!getIntent().getBooleanExtra("UserActivity_IN",false)){
+                                    Log.e("2","2");
+                                    sharedPreferences.edit().putString("userid", task.getResult().getUser().getUid()).apply();
+                                }
                                 Toast.makeText(RegisterActivity.this, "註冊成功", Toast.LENGTH_LONG).show();
-
                                 writeNewPost(
                                         ed_name.getText().toString(),
                                         ed_email.getText().toString(),
                                         ed_password.getText().toString(),
                                         task.getResult().getUser().getUid());
-
                             } else if (task.getException() instanceof FirebaseAuthUserCollisionException) {
                                 Toast.makeText(RegisterActivity.this, "此信箱已被註冊", Toast.LENGTH_LONG).show();
 
@@ -114,9 +117,25 @@ public class RegisterActivity extends AppCompatActivity {
         myFirebaseRef.updateChildren(childUpdates, new Firebase.CompletionListener() {
             @Override
             public void onComplete(FirebaseError firebaseError, Firebase firebase) {
-                Intent i = new Intent(RegisterActivity.this, MainActivity.class);
-                startActivity(i);
+                if(getIntent().getBooleanExtra("UserActivity_IN",false)){
+                    finish();
+                }else{
+                    Intent i = new Intent(RegisterActivity.this, MainActivity.class);
+                    i.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                    startActivity(i);
+                }
             }
         });
     }
+
+
+    @Override
+    public void onBackPressed() {
+        String result = getIntent().getStringExtra("LoginActivity_IN");
+        if(result != null && result.equals("LoginActivity_IN")){
+            startActivity(new Intent(RegisterActivity.this, LoginActivity.class));
+        }
+        super.onBackPressed();
+    }
+
 }

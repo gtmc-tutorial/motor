@@ -1,12 +1,9 @@
-package com.cyut.motor.s186;
+package com.cyut.motor.s065;
 
-/**
- * Created by wubingyu on 2017/12/3.
- */
-import java.util.ArrayList;
-import java.util.List;
 import android.content.Context;
 import android.graphics.Color;
+import android.media.MediaPlayer;
+import android.support.annotation.NonNull;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.View;
@@ -14,8 +11,6 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.RelativeLayout;
-import android.widget.TableRow;
 import android.widget.TextView;
 
 import com.cyut.motor.Util;
@@ -24,15 +19,27 @@ import com.firebase.client.Firebase;
 import com.firebase.client.FirebaseError;
 import com.firebase.client.Query;
 import com.firebase.client.ValueEventListener;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 
-import static com.cyut.motor.s186.MaintenanceFragment.key_array;
+import java.util.ArrayList;
+import java.util.List;
 
-public class TableAdapter extends BaseAdapter {
+import bolts.Task;
+import cn.pedant.SweetAlert.SweetAlertDialog;
+
+import static com.cyut.motor.s065.User2Activity.key_array;
+
+
+public class TableAdapter2 extends BaseAdapter {
     private Context context;
     private List<TableRow> table;
 
+    FirebaseAuth auth;
+
     public ArrayList<ImageView> imageViews = new ArrayList<>();
-    public TableAdapter(Context context, ArrayList<TableRow> table) {
+    public TableAdapter2(Context context, ArrayList<TableRow> table) {
         this.context = context;
         this.table = table;
     }
@@ -57,8 +64,10 @@ public class TableAdapter extends BaseAdapter {
      * @author hellogv
      */
     class TableRowView extends LinearLayout {
-        public TableRowView(Context context, TableRow tableRow, final int position) {
+        public TableRowView(final Context context, TableRow tableRow, final int position) {
             super(context);
+
+            auth = FirebaseAuth.getInstance();
 
             this.setOrientation(LinearLayout.HORIZONTAL);
             final Firebase FirebaseRef  = new Firebase("https://motorcycle-cc0fe.firebaseio.com/");
@@ -66,7 +75,7 @@ public class TableAdapter extends BaseAdapter {
                 TableCell tableCell = tableRow.getCellValue(i);
 
                 if (tableCell.type == TableCell.STRING) {//如果格单元是文本内容
-                    LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(tableCell.width, LayoutParams.WRAP_CONTENT);//按照格单元指定的大小设置空间
+                    LayoutParams layoutParams = new LayoutParams(tableCell.width, LayoutParams.WRAP_CONTENT);//按照格单元指定的大小设置空间
                     layoutParams.setMargins(0, 0, 4, 4);//预留空隙制造边框
                     TextView textCell = new TextView(context);
                     textCell.setLines(1);
@@ -78,7 +87,7 @@ public class TableAdapter extends BaseAdapter {
                     addView(textCell, layoutParams);
                 } else if (tableCell.type == TableCell.IMAGE) {//如果格单元是图像内容
                     ImageView imgCell = new ImageView(context);
-                    LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(tableCell.width, Util.getDP(getContext(),30));//按照格单元指定的大小设置空间
+                    LayoutParams layoutParams = new LayoutParams(tableCell.width, Util.getDP(getContext(),30));//按照格单元指定的大小设置空间
                     layoutParams.setMargins(0, Util.getDP(getContext(),5), 4, 4);//预留空隙制造边框
                     imgCell.setImageResource((Integer) tableCell.value);
 //                    imgCell.setForegroundGravity(Gravity.CENTER);
@@ -90,27 +99,51 @@ public class TableAdapter extends BaseAdapter {
                             Log.e("in","in");
                             Log.e("position",position+"");
                             Log.e("key_array",key_array.size()+"");
+                            new SweetAlertDialog(context)
+                                    .setTitleText("確認是否刪除")
+                                    .setConfirmText("確認")
+                                    .setCancelText("取消")
+                                    .showCancelButton(true)
+                                    .setCancelClickListener(new SweetAlertDialog.OnSweetClickListener() {
+                                        @Override
+                                        public void onClick(SweetAlertDialog sDialog) {
+                                            sDialog.cancel();
+                                        }
+                                    })
+                                    .setConfirmClickListener(new SweetAlertDialog.OnSweetClickListener() {
 
-                            Query applesQuery = FirebaseRef.child("Warranty").orderByKey().equalTo(key_array.get(position-1));
-                            applesQuery.addListenerForSingleValueEvent(new ValueEventListener() {
-                                @Override
-                                public void onDataChange(DataSnapshot dataSnapshot) {
-                                    for (DataSnapshot appleSnapshot: dataSnapshot.getChildren()) {
-                                        appleSnapshot.getRef().removeValue();
-                                    }
-                                }
-                                @Override
-                                public void onCancelled(FirebaseError firebaseError) {
+                                        @Override
+                                        public void onClick(SweetAlertDialog sweetAlertDialog) {
 
-                                }
-                            });
+//                                            FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+//                                            if (user!=null){
+//                                                user.delete().addOnCompleteListener(new OnCompleteListener<Void>(){
+//                                                    @Override
+//                                                    public void onComplete(@NonNull com.google.android.gms.tasks.Task<Void> task) {
+//                                                        Log.e("9","9");
+//
+//                                                        if(task.isSuccessful()){
+//                                                            Log.e("6","6");
+                                            Query applesQuery = FirebaseRef.child("User").orderByKey().equalTo(key_array.get(position-1));
+                                            applesQuery.addListenerForSingleValueEvent(new ValueEventListener() {
+                                                @Override
+                                                public void onDataChange(DataSnapshot dataSnapshot) {
+                                                    for (DataSnapshot appleSnapshot: dataSnapshot.getChildren()) {
+                                                        appleSnapshot.getRef().removeValue();
+                                                    }
+                                                }
+                                                @Override
+                                                public void onCancelled(FirebaseError firebaseError) {
+                                                }
+                                            });
+                                            sweetAlertDialog.cancel();
+                                        }
+                                    }).show();
                         }
                     });
 
                     imageViews.add(imgCell);
                     addView(imgCell, layoutParams);
-
-
                 }
             }
 //            this.setBackgroundColor(Color.WHITE);//背景白色，利用空隙来实现边框
