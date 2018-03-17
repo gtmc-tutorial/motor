@@ -38,6 +38,7 @@ public class InformationFragment extends Fragment {
     String lable;
     int price = 0;
     SharedPreferences sharedPreferences;
+    int specification_temp = 0;
 
     @Nullable
     @Override
@@ -77,12 +78,14 @@ public class InformationFragment extends Fragment {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 lable = parent.getItemAtPosition(position).toString();
+                specification_temp = position;
             }
             @Override
             public void onNothingSelected(AdapterView<?> parent) {
             }
         });
 
+        spinner2.setSelection(sharedPreferences.getInt("specification_temp",0));
 
         final TextView dateEditText =(TextView) view.findViewById(R.id.tvDate);
         dateEditText.setOnClickListener(new View.OnClickListener() {
@@ -139,6 +142,9 @@ public class InformationFragment extends Fragment {
             Toast.makeText(getContext(), "請數入公里數", Toast.LENGTH_SHORT).show();
             return;
         }
+
+        //用於暫存廠牌資訊，下次進入可以直接呈現廠牌
+        sharedPreferences.edit().putInt("specification_temp",specification_temp).apply();
 
         Firebase myFirebaseRef  = new Firebase("https://motorcycle-cc0fe.firebaseio.com/");
         String key = myFirebaseRef.child("Warranty").push().getKey();

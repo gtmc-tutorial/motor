@@ -19,8 +19,8 @@ public class MaintenanceAddFragment extends Fragment implements View.OnClickList
 
     public View onCreateView(LayoutInflater inflater, ViewGroup container,Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.fragment_add_maintenance, container, false);
-        oilBtn = (Button)rootView.findViewById(R.id.oil_btn);
-        suppliesBtn = (Button)rootView.findViewById(R.id.Supplies_btn);
+        oilBtn = rootView.findViewById(R.id.oil_btn);
+        suppliesBtn = rootView.findViewById(R.id.Supplies_btn);
         oilBtn.setOnClickListener(this);
         suppliesBtn.setOnClickListener(this);
 

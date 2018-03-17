@@ -76,6 +76,10 @@ public class LoginActivity extends AppCompatActivity implements GoogleApiClient.
         ed_name = findViewById(R.id.ed_name);
         firebaseAuth = FirebaseAuth.getInstance();
 
+        ed_email.setText("cyutmotor@gmail.com");
+        ed_password.setText("106cyutmotor");
+
+
         sharedPreferences = getSharedPreferences("GTCLOUD_Content", MODE_PRIVATE);
 
         //        Log.e("xxx",sharedPreferences.getString("user_id","")+"123");

@@ -82,7 +82,7 @@ public class TableAdapter extends BaseAdapter {
                     LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(tableCell.width, Util.getDP(getContext(),30));//按照格单元指定的大小设置空间
                     layoutParams.setMargins(0, Util.getDP(getContext(),5), 4, 4);//预留空隙制造边框
                     imgCell.setImageResource((Integer) tableCell.value);
-                    imgCell.setForegroundGravity(Gravity.CENTER);
+//                    imgCell.setForegroundGravity(Gravity.CENTER);
                     imgCell.setScaleType(ImageView.ScaleType.FIT_CENTER);
 
                     imgCell.setOnClickListener(new OnClickListener() {

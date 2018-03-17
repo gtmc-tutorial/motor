@@ -175,10 +175,8 @@ public class MapFragment extends Fragment implements OnMapReadyCallback, Locatio
         LatLng HOME = new LatLng(lat, lng);
         mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(HOME,zoom));
         mMap.setOnMapClickListener(mapClickListener);
-
         tag = "battery";
         readFireBaseData();
-
     }
 
     private void requestPermissions(){

@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.SharedPreferences;
+import android.os.Message;
 import android.support.v4.app.Fragment;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -13,11 +14,20 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.RelativeLayout;
 import android.widget.Spinner;
+import android.widget.Toast;
 
 import com.cyut.motor.Activity.MainActivity;
 import com.cyut.motor.R;
+import com.cyut.motor.s014.Connecter;
+import com.cyut.motor.s014.MapFragment;
+import com.koushikdutta.ion.Ion;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.util.Calendar;
 
@@ -28,6 +38,7 @@ import java.util.Calendar;
 public class SettingFragment extends Fragment {
     Button notice;
     Button stole;
+    final Connecter connecter  = Connecter.getInstance();
 
     @Nullable
     @Override
@@ -45,7 +56,7 @@ public class SettingFragment extends Fragment {
         int date=mYear*365+mMonth*30+mDate;
         Log.e("date",date+"");
         SharedPreferences dateSharedPreferences = getActivity().getSharedPreferences("date_", Activity.MODE_PRIVATE);
-        SharedPreferences.Editor editor = dateSharedPreferences.edit();
+        final SharedPreferences.Editor editor = dateSharedPreferences.edit();
         editor.putString("date",String.valueOf(date));
         editor.commit();
         SharedPreferences iSharedPreferences = getActivity().getSharedPreferences("test",Activity.MODE_PRIVATE);
@@ -99,32 +110,58 @@ public class SettingFragment extends Fragment {
 
             }});
         stole.setOnClickListener(new View.OnClickListener() {
-
-//            protected void onCreate(Bundle savedInstanceState) {
-//                super.onCreate(savedInstanceState);
-//                setContentView(R.layout.dialog_setting);
-//                Spinner spinner = (Spinner)findViewById(R.id.spinner);
-//                ArrayAdapter<CharSequence> kind = ArrayAdapter.createFromResource(getActivity(),
-//                        R.array.kind,
-//                        android.R.layout.simple_spinner_dropdown_item);
-//                spinner.setAdapter(kind);
-//            }
-
             @Override
             public void onClick(View v) {
                 LayoutInflater inflater = getActivity().getLayoutInflater();
                 AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
                 View view = (RelativeLayout) inflater.inflate(R.layout.dialog_setting,null);
-
+                final EditText editText = view.findViewById(R.id.dialog_input);
+//                editText.setText("RAV-0679");
+                final Spinner spinner = (Spinner) view.findViewById(R.id.dialog_spinner);
                 builder.setTitle("請輸入查詢的種類與車牌")
                         .setView(view)
                         .setPositiveButton("確定",new DialogInterface.OnClickListener(){
                             public void onClick(DialogInterface dialog,int id){
+                                if(editText.getText().toString().length()<5){
+                                    Toast.makeText(getActivity(),"長度不能小於5",Toast.LENGTH_SHORT).show();
+                                }else{
+                                    new Thread(new Runnable(){
+                                        @Override
+                                        public void run() {
+                                            String s = editText.getText().toString();
+                                            String p = "A";
+                                            int postion = spinner.getSelectedItemPosition();
+                                            if(postion == 0)
+                                                p = "A";
+                                            else if(postion == 1)
+                                                p = "B";
+                                            else if(postion == 2)
+                                                p = "C";
+                                            else if(postion == 3)
+                                                p = "D";
 
+                                            String result = connecter.getJSONContent("http://od.moi.gov.tw/adm/veh/query_veh?_m=query&vehType="+p+"&vehNumber="+s);
+                                            if(result.contains("L")){
+                                                getActivity().runOnUiThread(new Runnable() {
+                                                    @Override
+                                                    public void run() {
+                                                        Toast.makeText(getActivity(),"查無此資料",Toast.LENGTH_SHORT).show();
+                                                    }
+                                                });
+                                            }else{
+                                                getActivity().runOnUiThread(new Runnable() {
+                                                    @Override
+                                                    public void run() {
+                                                        Toast.makeText(getActivity(),"此為失竊車輛",Toast.LENGTH_SHORT).show();
+                                                    }
+                                                });
+                                            }
+                                        }
+                                    }).start();
+                                }
                             }
                         }
                  ).setNegativeButton("取消",null);
-                Spinner spinner = (Spinner) view.findViewById(R.id.dialog_spinner);
                 ArrayAdapter<CharSequence> kind = ArrayAdapter.createFromResource(getActivity(),
                         R.array.kind,
                         android.R.layout.simple_spinner_dropdown_item);

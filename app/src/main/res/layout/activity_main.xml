@@ -10,8 +10,7 @@
     <RelativeLayout
         android:id="@+id/main_layout_title"
         android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        >
+        android:layout_height="wrap_content">
         <TextView
             android:id="@+id/main_title_text"
             android:layout_width="match_parent"
@@ -30,7 +29,16 @@
             android:src="@drawable/btn_account"
             android:gravity="center"
             android:padding="4dp"
-            android:layout_alignBottom="@+id/home" />
+            android:layout_alignBottom="@+id/home"/>
+        <ImageView
+            android:id="@+id/btn_chart"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_alignParentRight="true"
+            android:src="@drawable/ic_chart"
+            android:gravity="center"
+            android:padding="8dp"
+            android:layout_alignBottom="@+id/home"/>
     </RelativeLayout>
     <LinearLayout
         android:id="@+id/button_view_include"

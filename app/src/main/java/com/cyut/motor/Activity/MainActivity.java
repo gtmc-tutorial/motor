@@ -27,7 +27,7 @@ import cn.pedant.SweetAlert.SweetAlertDialog;
 public class MainActivity extends FragmentActivity implements View.OnClickListener  {
     private TextView titleTextView;
     private ImageView movieBtn, tvBtn,animeBtn, varietyBtn,abcBtn;
-    private ImageView btn_user;
+    private ImageView btn_user,btn_chart;
 
     private HomeFragment homeFragment;
     private MaintenanceFragment maintenanceFragment;
@@ -79,7 +79,14 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
         varietyBtn = (ImageView)this.findViewById(R.id.variety_btn);
         abcBtn = (ImageView)this.findViewById(R.id.setting_btn);
         btn_user = (ImageView)findViewById(R.id.btn_user);
+        btn_chart = (ImageView)findViewById(R.id.btn_chart);
         btn_user.setOnClickListener(listener);
+        btn_chart.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(MainActivity.this,ChartActivity.class));
+            }
+        });
 
         movieBtn.setOnClickListener(this);
         tvBtn.setOnClickListener(this);
@@ -97,6 +104,7 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
                         .show(homeFragment).hide(maintenanceFragment).hide(mapFragment).hide(settingFragment).hide(helpFragment).hide(maintenanceAddFragment)
                         .commit();
                 titleTextView.setText("首頁");
+                btn_chart.setVisibility(View.VISIBLE);
                 break;
             case R.id.tv_btn:
                 if(sharedPreferences.getString("userid","").equals("")){
@@ -117,6 +125,7 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
                             .show(maintenanceFragment).hide(homeFragment).hide(mapFragment).hide(settingFragment).hide(helpFragment).hide(maintenanceAddFragment)
                             .commit();
                     titleTextView.setText("保養");
+                    btn_chart.setVisibility(View.VISIBLE);
                 }
                 break;
             case R.id.anime_btn:
@@ -124,18 +133,22 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
                         .show(mapFragment).hide(homeFragment).hide(maintenanceFragment).hide(settingFragment).hide(helpFragment).hide(maintenanceAddFragment)
                         .commit();
                 titleTextView.setText("位置服務");
+                btn_chart.setVisibility(View.INVISIBLE);
+
                 break;
             case R.id.variety_btn:
                 getSupportFragmentManager().beginTransaction()
                         .show(helpFragment).hide(homeFragment).hide(mapFragment).hide(maintenanceFragment).hide(settingFragment).hide(maintenanceAddFragment)
                         .commit();
                 titleTextView.setText("道路救援");
+                btn_chart.setVisibility(View.INVISIBLE);
                 break;
             case R.id.setting_btn:
                 getSupportFragmentManager().beginTransaction()
                         .show(settingFragment).hide(homeFragment).hide(mapFragment).hide(maintenanceFragment).hide(helpFragment).hide(maintenanceAddFragment)
                         .commit();
                 titleTextView.setText("設定");
+                btn_chart.setVisibility(View.INVISIBLE);
                 break;
             default:
                 break;
@@ -160,7 +173,6 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
                                 @Override
                                 public void onClick(SweetAlertDialog sDialog) {
                                     sharedPreferences.edit().clear().commit();
-
                                     Intent intent = new Intent();
                                     intent.setClass(MainActivity.this,LoginActivity.class);
                                     startActivity(intent);
@@ -173,26 +185,31 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
 
     public void chageFragment(String string){
         if(string.equals("首頁")){
+            btn_chart.setVisibility(View.INVISIBLE);
             getSupportFragmentManager().beginTransaction()
                     .show(homeFragment).hide(maintenanceFragment).hide(mapFragment).hide(settingFragment).hide(helpFragment).hide(maintenanceAddFragment)
                     .commit();
             titleTextView.setText("首頁");
         }else if(string.equals("保養")){
+            btn_chart.setVisibility(View.VISIBLE);
             getSupportFragmentManager().beginTransaction()
                     .show(maintenanceFragment).hide(homeFragment).hide(mapFragment).hide(settingFragment).hide(helpFragment).hide(maintenanceAddFragment)
                     .commit();
             titleTextView.setText("保養");
         }else if(string.equals("位置服務")){
+            btn_chart.setVisibility(View.INVISIBLE);
             getSupportFragmentManager().beginTransaction()
                     .show(mapFragment).hide(homeFragment).hide(maintenanceFragment).hide(settingFragment).hide(helpFragment).hide(maintenanceAddFragment)
                     .commit();
             titleTextView.setText("位置服務");
         }else if(string.equals("道路救援")){
+            btn_chart.setVisibility(View.INVISIBLE);
             getSupportFragmentManager().beginTransaction()
                     .show(helpFragment).hide(homeFragment).hide(mapFragment).hide(maintenanceFragment).hide(settingFragment).hide(maintenanceAddFragment)
                     .commit();
             titleTextView.setText("道路救援");
         }else if(string.equals("設定")) {
+            btn_chart.setVisibility(View.INVISIBLE);
             getSupportFragmentManager().beginTransaction()
                     .show(helpFragment).hide(homeFragment).hide(mapFragment).hide(maintenanceFragment).hide(settingFragment).hide(maintenanceAddFragment)
                     .commit();
@@ -200,6 +217,7 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
         }
 
         else if(string.equals("新增保養")) {
+            btn_chart.setVisibility(View.INVISIBLE);
             getSupportFragmentManager().beginTransaction()
                     .show(maintenanceAddFragment).hide(homeFragment).hide(mapFragment).hide(maintenanceFragment).hide(settingFragment)
                     .commit();
