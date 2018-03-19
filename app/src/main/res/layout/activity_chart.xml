@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="horizontal"
+    android:background="#000000"
+    tools:context=".Activity.MainActivity">
+    <RelativeLayout
+        android:id="@+id/main_layout_title"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content">
+        <TextView
+            android:id="@+id/main_title_text"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:layout_weight="1"
+            android:background="@color/colorPrimary"
+            android:text="統計圖表"
+            android:gravity="center"
+            android:textAllCaps="false"
+            android:textColor="#FFFFFF"
+            android:textSize="22sp"/>
+        <ImageView
+            android:id="@+id/btn_back"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:src="@drawable/ic_back"
+            android:gravity="center"
+            android:padding="12dp"
+            android:layout_alignBottom="@+id/home"/>
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/fragment_main_content"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/main_layout_title"
+        android:background="#e7ae16">
+        <com.github.mikephil.charting.charts.PieChart
+            android:id="@+id/chart1"
+            android:layout_width="match_parent"
+            android:layout_height="240dp" />
+        <com.github.mikephil.charting.charts.PieChart
+            android:id="@+id/chart2"
+            android:layout_width="match_parent"
+            android:layout_height="260dp"
+            android:layout_below="@+id/chart1"/>
+    </RelativeLayout>
+
+</RelativeLayout>

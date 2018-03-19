@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<TwoLineListItem xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:minHeight="?attr/listPreferredItemHeight"
+    android:mode="twoLine">
+
+    <TextView
+        android:id="@+id/name_tv"
+        android:layout_width="match_parent"
+        android:layout_height="25dp"
+        android:layout_centerVertical="true"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="2dp"
+        android:gravity="center_vertical"
+        android:textColor="#ff2b2b2b"
+        android:lines="1"
+        android:ellipsize="end"
+        android:text="熱水器"
+        android:textSize="18sp"
+        android:textAppearance="?attr/textAppearanceListItem" />
+
+</TwoLineListItem>

@@ -1,75 +1,28 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context="com.cyut.moto.MainActivity">
-
-        <TextView
-            android:id="@+id/dialog_Inquire"
-            android:layout_width="wrap_content"
-            android:layout_height="50dp"
-            android:layout_weight="1"
-            android:background="@color/colorPrimary"
-            android:gravity="center"
-            android:text="失竊車牌查詢"
-            android:textAllCaps="false"
-            android:textColor="#FFFFFF"
-            android:textSize="25sp"
-            android:layout_alignParentTop="true"
-            android:layout_centerHorizontal="true" />
-
-        <TextView
-            android:id="@+id/dialog_text"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:background="@color/colorPrimary"
-            android:gravity="center"
-            android:text="牌照種類"
-            android:textAllCaps="false"
-            android:textColor="#FFFFFF"
-            android:textSize="12sp"
-            android:layout_marginTop="24dp"
-            android:layout_below="@+id/dialog_Inquire"
-            android:layout_alignStart="@+id/dialog_Inquire" />
+    android:layout_height="match_parent">
 
         <Spinner
             android:id="@+id/dialog_spinner"
+            style="@android:style/Widget.Spinner"
             android:layout_width="80pt"
             android:layout_height="20pt"
-            android:layout_marginTop="23dp"
-            style="@android:style/Widget.Spinner"
-            android:spinnerMode="dialog"
-            android:layout_below="@+id/dialog_text">
-        </Spinner>
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="18dp"
+            android:spinnerMode="dialog"/>
 
-        <TextView
-            android:id="@+id/dialog_text1"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:background="@color/colorPrimary"
-            android:gravity="center"
-            android:text="牌照號碼"
-            android:textAllCaps="false"
-            android:textColor="#FFFFFF"
-            android:textSize="12sp"
-            android:layout_alignBaseline="@+id/dialog_text"
-            android:layout_alignBottom="@+id/dialog_text"
-            android:layout_alignEnd="@+id/dialog_Inquire" />
-
-    <EditText
+        <EditText
         android:id="@+id/dialog_input"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignBottom="@+id/dialog_spinner"
-        android:layout_alignStart="@+id/dialog_text1"
-        android:bottomLeftRadius="30dp"
-        android:bottomRightRadius="30dp"
+        android:layout_below="@+id/dialog_spinner"
+        android:layout_centerHorizontal="true"
+            android:layout_marginTop="10dp"
+        android:padding="8dp"
+        android:gravity="center"
+        android:maxLength="10"
         android:color="#FFFFFF"
+        android:hint="請輸入車牌號碼"
         android:singleLine="true"
-        android:textSize="12sp"
-        android:topLeftRadius="30dp"
-        android:topRightRadius="30dp" />
-
-
+        android:textSize="16sp" />
 </RelativeLayout>

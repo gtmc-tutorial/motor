@@ -38,7 +38,6 @@ public class Connecter {
         try {
             Response response = client.newCall(request).execute();
             String jsonString = response.body().string();
-            Log.v("GTService", "getJSONContent Response Message :" + response.message());
             response.close();
             return jsonString;
         } catch (IOException e) {

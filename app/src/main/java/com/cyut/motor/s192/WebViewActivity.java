@@ -18,20 +18,20 @@ public class WebViewActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_webview);
 
-        WebViewClient mWebViewClient = new WebViewClient() {
-            @Override
-            public boolean shouldOverrideUrlLoading(WebView view, String url) {
-                view.loadUrl(url);
-                return true;
-            }
-        };
-
-        WebView webView = (WebView) findViewById(R.id.webview);
-        webView.setWebViewClient(mWebViewClient);
-        webView.loadUrl("http://www.cwb.gov.tw/V7/index.htm");
-
-        webView.getSettings().setBuiltInZoomControls(true);
-        webView.getSettings().setSupportZoom(true);
-        webView.getSettings().setDefaultZoom(WebSettings.ZoomDensity.CLOSE);
+//        WebViewClient mWebViewClient = new WebViewClient() {
+//            @Override
+//            public boolean shouldOverrideUrlLoading(WebView view, String url) {
+//                view.loadUrl(url);
+//                return true;
+//            }
+//        };
+//
+//        WebView webView = (WebView) findViewById(R.id.webview);
+//        webView.setWebViewClient(mWebViewClient);
+//        webView.loadUrl("https://www.windy.com");
+//
+//        webView.getSettings().setBuiltInZoomControls(true);
+//        webView.getSettings().setSupportZoom(true);
+//        webView.getSettings().setDefaultZoom(WebSettings.ZoomDensity.CLOSE);
     }
 }

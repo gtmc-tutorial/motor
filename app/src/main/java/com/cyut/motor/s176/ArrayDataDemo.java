@@ -20,6 +20,7 @@ public class ArrayDataDemo {
         }
         final String[] citys = {"基隆市", "台北市", "新北市", "桃園市", "桃園縣", "新竹市", "新竹縣", "苗栗縣", "台中市", "彰化縣", "南投縣", "雲林縣", "嘉義市", "嘉義縣", "台南市", "高雄市", "屏東縣", "台東縣", "花蓮縣", "宜蘭縣"};
 
+
         for (int i = 0; i < citys.length; i++) {
             Map<String, List<String>> city = new HashMap<>();
             for (int j = 0; j < 30; j++) {

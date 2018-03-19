@@ -21,15 +21,9 @@
             android:textColor="@android:color/background_light"
             android:textSize="20sp" />
     </RelativeLayout>
-    <HorizontalScrollView
-        android:id="@+id/HorizontalScrollView01"
-        android:layout_height="fill_parent"
-        android:layout_width="fill_parent"
-        android:layout_above="@+id/bottom_m">
-        <ListView android:id="@+id/ListView01"
-            android:layout_height="wrap_content"
-            android:layout_width="wrap_content">
-        </ListView>
-    </HorizontalScrollView>
+    <ListView android:id="@+id/ListView01"
+        android:layout_height="wrap_content"
+        android:layout_width="wrap_content">
+    </ListView>
 
 </RelativeLayout>

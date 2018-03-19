@@ -39,6 +39,7 @@ allprojects {
         jcenter()
         maven {
             url "https://maven.google.com"
+            maven { url "https://jitpack.io" }
         }
     }
 }
@@ -75,5 +76,13 @@ dependencies {
 
     compile 'com.github.f0ris.sweetalert:library:1.5.1'
     compile 'org.jsoup:jsoup:1.11.2'
+    //統計圖表
+    compile 'com.github.PhilJay:MPAndroidChart:v3.0.3'
+
+    //RefreshLayout 道路救援
+    compile 'com.scwang.smartrefresh:SmartRefreshLayout:1.1.0-alpha-1'
+    compile 'com.scwang.smartrefresh:SmartRefreshHeader:1.1.0-alpha-1'
+    //dialog library 道路救援
+    implementation 'com.afollestad.material-dialogs:commons:0.9.6.0'
 }
 apply plugin: 'com.google.gms.google-services'
