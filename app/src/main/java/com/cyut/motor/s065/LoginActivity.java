@@ -40,7 +40,7 @@ import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.GoogleAuthProvider;
 
 import com.facebook.FacebookSdk;
-
+import static org.jsoup.Connection.Method.HEAD;
 
 public class LoginActivity extends AppCompatActivity implements GoogleApiClient.OnConnectionFailedListener,
         View.OnClickListener {
@@ -76,53 +76,51 @@ public class LoginActivity extends AppCompatActivity implements GoogleApiClient.
         ed_name = findViewById(R.id.ed_name);
         firebaseAuth = FirebaseAuth.getInstance();
 
-        ed_email.setText("cyutmotor@gmail.com");
-        ed_password.setText("106cyutmotor");
 
         sharedPreferences = getSharedPreferences("GTCLOUD_Content", MODE_PRIVATE);
 
         //        Log.e("xxx",sharedPreferences.getString("user_id","")+"123");
 
         // Facebook Login
-        FacebookSdk.sdkInitialize(getApplicationContext());
-        mCallbackManager = CallbackManager.Factory.create();
-
-        LoginButton mFacebookSignInButton = (LoginButton) findViewById(R.id.login_with_facebook);
-        mFacebookSignInButton.setReadPermissions("email", "public_profile", "user_birthday", "user_friends");
-
-        mFacebookSignInButton.registerCallback(mCallbackManager, new FacebookCallback<LoginResult>() {
-            @Override
-            public void onSuccess(LoginResult loginResult) {
-                Log.d(TAG, "facebook:onSuccess:" + loginResult);
-                firebaseAuthWithFacebook(loginResult.getAccessToken());
-            }
-            @Override
-            public void onCancel() {
-                Log.d(TAG, "facebook:onCancel");
-            }
-
-            @Override
-            public void onError(FacebookException error) {
-                Log.d(TAG, "facebook:onError", error);
-            }
-        });
-
-        // Google Sign-In
-        SignInButton signInButton = (SignInButton)  findViewById(R.id.login_with_google);
-
-        // Set click listeners
-        findViewById(R.id.login_with_google).setOnClickListener(this);
-
-        GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
-                .requestIdToken(getString(R.string.default_web_client_id))
-                .requestEmail()
-                .build();
-        mGoogleApiClient = new GoogleApiClient.Builder(this)
-                .enableAutoManage(this /* FragmentActivity */, this /* OnConnectionFailedListener */)
-                .addApi(Auth.GOOGLE_SIGN_IN_API, gso)
-                .build();
-
-        // Initialize FirebaseAuth
+//        FacebookSdk.sdkInitialize(getApplicationContext());
+//        mCallbackManager = CallbackManager.Factory.create();
+//
+//        LoginButton mFacebookSignInButton = (LoginButton) findViewById(R.id.login_with_facebook);
+//        mFacebookSignInButton.setReadPermissions("email", "public_profile", "user_birthday", "user_friends");
+//
+//        mFacebookSignInButton.registerCallback(mCallbackManager, new FacebookCallback<LoginResult>() {
+//            @Override
+//            public void onSuccess(LoginResult loginResult) {
+//                Log.d(TAG, "facebook:onSuccess:" + loginResult);
+//                firebaseAuthWithFacebook(loginResult.getAccessToken());
+//            }
+//            @Override
+//            public void onCancel() {
+//                Log.d(TAG, "facebook:onCancel");
+//            }
+//
+//            @Override
+//            public void onError(FacebookException error) {
+//                Log.d(TAG, "facebook:onError", error);
+//            }
+//        });
+//
+//        // Google Sign-In
+//        SignInButton signInButton = (SignInButton)  findViewById(R.id.login_with_google);
+//
+//        // Set click listeners
+//        findViewById(R.id.login_with_google).setOnClickListener(this);
+//
+//        GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
+//                .requestIdToken(getString(R.string.default_web_client_id))
+//                .requestEmail()
+//                .build();
+//        mGoogleApiClient = new GoogleApiClient.Builder(this)
+//                .enableAutoManage(this /* FragmentActivity */, this /* OnConnectionFailedListener */)
+//                .addApi(Auth.GOOGLE_SIGN_IN_API, gso)
+//                .build();
+//
+//        // Initialize FirebaseAuth
         mAuth = FirebaseAuth.getInstance();
 
         mAuthListener = new FirebaseAuth.AuthStateListener() {
@@ -163,8 +161,7 @@ public class LoginActivity extends AppCompatActivity implements GoogleApiClient.
                             if (task.isSuccessful()) {
                                 if (ed_email.getText().toString().equals("cyutmotor@gmail.com") && ed_password.getText().toString().equals("106cyutmotor")){
                                     sharedPreferences.edit().putString("userid","cyutmotor@gmail.com").apply();
-//                                ed_email.equals("cyutmotor@gmail.com");
-//                                ed_password.equals("106cyutmotor");
+
                                     Toast.makeText(LoginActivity.this,  "管理者登入成功", Toast.LENGTH_LONG).show();
                                     Intent i = new Intent(LoginActivity.this, BackendActivity.class);
                                     i.putExtra("Email", firebaseAuth.getCurrentUser().getEmail());
