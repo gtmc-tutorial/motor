@@ -2,8 +2,6 @@ package com.cyut.motor.s065;
 
 import android.content.Context;
 import android.graphics.Color;
-import android.media.MediaPlayer;
-import android.support.annotation.NonNull;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.View;
@@ -19,27 +17,24 @@ import com.firebase.client.Firebase;
 import com.firebase.client.FirebaseError;
 import com.firebase.client.Query;
 import com.firebase.client.ValueEventListener;
-import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import bolts.Task;
 import cn.pedant.SweetAlert.SweetAlertDialog;
 
-import static com.cyut.motor.s065.User2Activity.key_array;
+import static com.cyut.motor.s065.UserActivity.key_array;
 
 
-public class TableAdapter2 extends BaseAdapter {
+public class UTableAdapter extends BaseAdapter {
     private Context context;
     private List<TableRow> table;
 
     FirebaseAuth auth;
 
     public ArrayList<ImageView> imageViews = new ArrayList<>();
-    public TableAdapter2(Context context, ArrayList<TableRow> table) {
+    public UTableAdapter(Context context, ArrayList<TableRow> table) {
         this.context = context;
         this.table = table;
     }

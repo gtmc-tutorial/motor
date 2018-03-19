@@ -50,12 +50,6 @@
             android:name=".s065.BackendActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".s065.UserActivity"
-            android:screenOrientation="portrait" />
-        <activity
-            android:name=".s065.WarrantyActivity"
-            android:screenOrientation="portrait" />
-        <activity
             android:name=".s065.WelcomeActivity"
             android:screenOrientation="portrait" />
         <activity
@@ -65,10 +59,13 @@
             android:name=".s065.BatteryActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".s065.Car_dealersActivity"
+            android:name=".s065.WarrantyActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".s065.User2Activity"
+            android:name=".s065.UserActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".s065.Car_dealersActivity"
             android:screenOrientation="portrait" />
 
         <activity
