@@ -12,6 +12,8 @@ import android.text.style.RelativeSizeSpan;
 import android.text.style.StyleSpan;
 import android.util.Log;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.Button;
 
 import com.cyut.motor.R;
 import com.cyut.motor.Structure.MaintainStructure;
@@ -53,6 +55,12 @@ public class ChartActivity extends DemoBase {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_chart);
         Firebase.setAndroidContext(this);
+        findViewById(R.id.btn_back).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
 
         for (MaintainStructure maintainStructure :main_arrayList){
             Log.e("type",maintainStructure.type);
