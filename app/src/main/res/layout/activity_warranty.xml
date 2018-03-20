@@ -10,16 +10,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true">
-        <Button
-            android:id="@+id/btn_create"
-            android:layout_width="140dp"
-            android:layout_height="50dp"
-            android:layout_centerHorizontal="true"
-            android:layout_marginTop="42dp"
-            android:backgroundTint="@android:color/black"
-            android:text="新增"
-            android:textColor="@android:color/background_light"
-            android:textSize="20sp" />
+
     </RelativeLayout>
     <HorizontalScrollView
         android:id="@+id/HorizontalScrollView01"

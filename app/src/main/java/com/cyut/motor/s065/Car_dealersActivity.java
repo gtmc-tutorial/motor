@@ -26,7 +26,6 @@ public class Car_dealersActivity extends AppCompatActivity {
     CTableAdapter.TableCell[] titles;
     ListView listView;
     CTableAdapter CTableAdapter;
-    DatabaseReference myFirebaseRefRef;
     ArrayList<CTableAdapter.TableRow> table = new ArrayList<CTableAdapter.TableRow>();
 
     public static ArrayList<String> key_array = new ArrayList<>();
@@ -49,7 +48,7 @@ public class Car_dealersActivity extends AppCompatActivity {
         listView.setAdapter(CTableAdapter);
 
         final SharedPreferences sharedPreferences = getSharedPreferences("GTCLOUD_Content", MODE_PRIVATE);
-        final Firebase myFirebaseRef  = new Firebase("https://motorcycle-cc0fe.firebaseio.com/Place");
+        final Firebase myFirebaseRef  = new Firebase("https://motorcycle-cc0fe.firebaseio.com/place/car_dealers");
 //        myFirebaseRef.add
 //        Query queryRef = myFirebaseRef.orderByChild("email");
         myFirebaseRef.addChildEventListener(new ChildEventListener() {
@@ -104,8 +103,8 @@ public class Car_dealersActivity extends AppCompatActivity {
                         CTableAdapter.imageViews.get(i).setOnClickListener(new View.OnClickListener() {
                             @Override
                             public void onClick(View v) {
-                                FirebaseRef.child("Car_dealers").orderByKey().equalTo(key_array.get(finalI1));
-                                Query applesQuery = FirebaseRef.child("Car_dealers").orderByChild("title").equalTo("Apple");
+                                FirebaseRef.child("car_dealers").orderByKey().equalTo(key_array.get(finalI1));
+                                Query applesQuery = FirebaseRef.child("car_dealers").orderByChild("title").equalTo("Apple");
                                 applesQuery.addListenerForSingleValueEvent(new ValueEventListener() {
                                     @Override
                                     public void onDataChange(DataSnapshot dataSnapshot) {

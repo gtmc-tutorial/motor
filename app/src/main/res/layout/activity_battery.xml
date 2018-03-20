@@ -1,11 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/colorBackground"
-    android:orientation="vertical"
-    tools:context=".s065.BatteryActivity">
+    android:background="#e7ae16"
+    android:orientation="vertical">
 
     <RelativeLayout
         android:id="@+id/bottom_m"
@@ -13,16 +11,27 @@
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true">
         <Button
-            android:id="@+id/btn_backend_back"
+            android:id="@+id/btn_create"
             android:layout_width="140dp"
             android:layout_height="50dp"
             android:layout_centerHorizontal="true"
             android:layout_marginTop="42dp"
             android:backgroundTint="@android:color/black"
-            android:text="返回"
+            android:text="新增"
             android:textColor="@android:color/background_light"
             android:textSize="20sp" />
     </RelativeLayout>
+    <HorizontalScrollView
+        android:id="@+id/HorizontalScrollView01"
+        android:layout_height="fill_parent"
+        android:layout_width="fill_parent"
+        android:layout_below="@+id/text_backend_battery"
+        android:layout_above="@+id/bottom_m">
+        <ListView android:id="@+id/ListView01"
+            android:layout_height="wrap_content"
+            android:layout_width="wrap_content">
+        </ListView>
+    </HorizontalScrollView>
 
     <TextView
         android:id="@+id/text_backend_battery"
@@ -34,23 +43,5 @@
         android:background="@color/color"
         android:gravity="center"
         />
-
-    <ListView
-        android:id="@+id/list_backend_battery"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_above="@+id/bottom_m"
-        android:layout_below="@+id/text_backend_battery"
-        />
-
-    <ScrollView
-        android:layout_width="fill_parent"
-        android:layout_height="fill_parent"
-        android:layout_below="@+id/text_backend_battery"
-        android:layout_above="@+id/bottom_m">
-
-    </ScrollView>
-
-
 
 </RelativeLayout>
