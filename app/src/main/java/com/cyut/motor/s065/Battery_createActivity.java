@@ -79,7 +79,7 @@ public class Battery_createActivity extends AppCompatActivity {
         myFirebaseRef.updateChildren(childUpdates, new Firebase.CompletionListener() {
             @Override
             public void onComplete(FirebaseError firebaseError, Firebase firebase) {
-                Intent i = new Intent(Battery_createActivity.this, Car_dealersActivity.class);
+                Intent i = new Intent(Battery_createActivity.this, BatteryActivity.class);
                 i.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                 startActivity(i);
             }

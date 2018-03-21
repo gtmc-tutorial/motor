@@ -24,7 +24,7 @@ import java.util.List;
 
 import cn.pedant.SweetAlert.SweetAlertDialog;
 
-import static com.cyut.motor.s065.UserActivity.key_array;
+import static com.cyut.motor.s065.Car_dealersActivity.key_array;
 
 
 public class CTableAdapter extends BaseAdapter {

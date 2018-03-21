@@ -90,7 +90,7 @@ public class Gas_createActivity extends AppCompatActivity {
         @Override
         public void onClick(View v) {
             Intent intent = new Intent();
-            intent.setClass(Gas_createActivity.this, Car_dealersActivity.class);
+            intent.setClass(Gas_createActivity.this, GasActivity.class);
             startActivity(intent);
         }
     };

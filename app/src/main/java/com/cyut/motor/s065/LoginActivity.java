@@ -161,8 +161,6 @@ public class LoginActivity extends AppCompatActivity {
                             progressDialog.dismiss();
                             if (task.isSuccessful()) {
                                 if (ed_email.getText().toString().equals("cyutmotor@gmail.com") && ed_password.getText().toString().equals("106cyutmotor")){
-                                    sharedPreferences.edit().putString("userid","cyutmotor@gmail.com").apply();
-
                                     Toast.makeText(LoginActivity.this,  "管理者登入成功", Toast.LENGTH_LONG).show();
                                     Intent i = new Intent(LoginActivity.this, BackendActivity.class);
                                     i.putExtra("Email", firebaseAuth.getCurrentUser().getEmail());
