@@ -1,14 +1,17 @@
 package com.cyut.motor.s065;
 
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
 
+import com.cyut.motor.Activity.MainActivity;
 import com.cyut.motor.R;
 import com.cyut.motor.Structure.GasStructure;
 import com.cyut.motor.Structure.PlaceStructure;
@@ -22,6 +25,7 @@ import com.firebase.client.ValueEventListener;
 import java.util.ArrayList;
 
 public class BatteryActivity extends AppCompatActivity {
+    Button btn_back,btn_create;
     BTableAdapter.TableCell[] titles;
     ListView listView;
     BTableAdapter BTableAdapter;
@@ -34,6 +38,10 @@ public class BatteryActivity extends AppCompatActivity {
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_battery);
+        btn_back = findViewById(R.id.btn_back);
+        btn_back.setOnClickListener(listener);
+        btn_create = findViewById(R.id.btn_create);
+        btn_create.setOnClickListener(listener1);
 
         listView = findViewById(R.id.ListView01);
         int width = getWindowManager().getDefaultDisplay().getWidth()/3;
@@ -139,5 +147,23 @@ public class BatteryActivity extends AppCompatActivity {
         cells[2] = new BTableAdapter.TableCell(R.drawable.delete,titles[2].width,RelativeLayout.LayoutParams.WRAP_CONTENT, com.cyut.motor.s065.BTableAdapter.TableCell.IMAGE);
         return cells;
     }
+
+    private Button.OnClickListener listener = new Button.OnClickListener() {
+        @Override
+        public void onClick(View v) {
+            Intent intent = new Intent();
+            intent.setClass(BatteryActivity.this, BackendActivity.class);
+            startActivity(intent);
+        }
+    };
+
+    private Button.OnClickListener listener1 = new Button.OnClickListener() {
+        @Override
+        public void onClick(View v) {
+            Intent intent = new Intent();
+            intent.setClass(BatteryActivity.this, Battery_createActivity.class);
+            startActivity(intent);
+        }
+    };
 
 }

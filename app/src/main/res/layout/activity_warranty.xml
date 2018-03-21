@@ -11,18 +11,29 @@
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true">
 
+        <Button
+            android:id="@+id/btn_back"
+            android:layout_width="120dp"
+            android:layout_height="50dp"
+            android:layout_centerHorizontal="true"
+            android:backgroundTint="@android:color/black"
+            android:text="返回"
+            android:textColor="@android:color/background_light"
+            android:textSize="20sp" />
+
     </RelativeLayout>
-    <HorizontalScrollView
-        android:id="@+id/HorizontalScrollView01"
-        android:layout_height="fill_parent"
-        android:layout_width="fill_parent"
+
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:layout_below="@+id/text_backend_warranty"
         android:layout_above="@+id/bottom_m">
         <ListView android:id="@+id/ListView01"
             android:layout_height="wrap_content"
             android:layout_width="wrap_content">
         </ListView>
-    </HorizontalScrollView>
+
+    </RelativeLayout>
 
     <TextView
         android:id="@+id/text_backend_warranty"

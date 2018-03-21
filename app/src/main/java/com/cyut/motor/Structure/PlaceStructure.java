@@ -5,15 +5,15 @@ import java.util.Map;
 
 public class PlaceStructure {
     public String add;
-    public int lat;
-    public int lng;
+    public String lat;
+    public String lng;
     public String name;
 
     public PlaceStructure() {
         // Default constructor required for calls to DataSnapshot.getValue(MaintainStructure.class)
     }
 
-    public PlaceStructure(String add, int lat, int lng, String name) {
+    public PlaceStructure(String add, String lat, String lng, String name) {
         this.add = add;
         this.lat = lat;
         this.lng = lng;

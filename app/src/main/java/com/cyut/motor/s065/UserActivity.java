@@ -27,7 +27,7 @@ public class UserActivity extends AppCompatActivity {
     ListView listView;
     UTableAdapter UTableAdapter;
     ArrayList<UTableAdapter.TableRow> table = new ArrayList<UTableAdapter.TableRow>();
-    Button btn_create;
+    Button btn_create,btn_back;
 
     public static ArrayList<String> key_array = new ArrayList<>();
     public static ArrayList<UserStructure> main_arrayList = new ArrayList<>();
@@ -38,6 +38,8 @@ public class UserActivity extends AppCompatActivity {
         setContentView(R.layout.activity_user);
         btn_create = (Button)findViewById(R.id.btn_create);
         btn_create.setOnClickListener(listener1);
+        btn_back = (Button)findViewById(R.id.btn_back);
+        btn_back.setOnClickListener(listener);
 
         listView = findViewById(R.id.ListView01);
         int width = getWindowManager().getDefaultDisplay().getWidth()/3;
@@ -157,6 +159,16 @@ public class UserActivity extends AppCompatActivity {
             Intent intent = new Intent();
             intent.putExtra("UserActivity_IN",true);
             intent.setClass(UserActivity.this, RegisterActivity.class);
+            startActivity(intent);
+        }
+    };
+
+    private Button.OnClickListener listener = new Button.OnClickListener() {
+        @Override
+        public void onClick(View v) {
+            Intent intent = new Intent();
+            intent.putExtra("UserActivity_IN",true);
+            intent.setClass(UserActivity.this, BackendActivity.class);
             startActivity(intent);
         }
     };

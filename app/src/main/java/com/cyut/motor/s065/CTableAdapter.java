@@ -109,17 +109,7 @@ public class CTableAdapter extends BaseAdapter {
 
                                         @Override
                                         public void onClick(SweetAlertDialog sweetAlertDialog) {
-
-//                                            FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
-//                                            if (user!=null){
-//                                                user.delete().addOnCompleteListener(new OnCompleteListener<Void>(){
-//                                                    @Override
-//                                                    public void onComplete(@NonNull com.google.android.gms.tasks.Task<Void> task) {
-//                                                        Log.e("9","9");
-//
-//                                                        if(task.isSuccessful()){
-//                                                            Log.e("6","6");
-                                            Query applesQuery = FirebaseRef.child("Car_dealers").orderByKey().equalTo(key_array.get(position-1));
+                                            Query applesQuery = FirebaseRef.child("car_dealers").orderByKey().equalTo(key_array.get(position-1));
                                             applesQuery.addListenerForSingleValueEvent(new ValueEventListener() {
                                                 @Override
                                                 public void onDataChange(DataSnapshot dataSnapshot) {

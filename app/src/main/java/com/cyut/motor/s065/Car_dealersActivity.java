@@ -1,11 +1,13 @@
 package com.cyut.motor.s065;
 
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
 
@@ -17,8 +19,6 @@ import com.firebase.client.Firebase;
 import com.firebase.client.FirebaseError;
 import com.firebase.client.Query;
 import com.firebase.client.ValueEventListener;
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
 
 import java.util.ArrayList;
 
@@ -27,6 +27,7 @@ public class Car_dealersActivity extends AppCompatActivity {
     ListView listView;
     CTableAdapter CTableAdapter;
     ArrayList<CTableAdapter.TableRow> table = new ArrayList<CTableAdapter.TableRow>();
+    Button btn_create,btn_back;
 
     public static ArrayList<String> key_array = new ArrayList<>();
     public static ArrayList<PlaceStructure> main_arrayList = new ArrayList<>();
@@ -46,6 +47,11 @@ public class Car_dealersActivity extends AppCompatActivity {
 
         CTableAdapter = new CTableAdapter(this, table);
         listView.setAdapter(CTableAdapter);
+
+        btn_create = findViewById(R.id.btn_create);
+        btn_create.setOnClickListener(listener);
+        btn_back = findViewById(R.id.btn_back);
+        btn_back.setOnClickListener(listener1);
 
         final SharedPreferences sharedPreferences = getSharedPreferences("GTCLOUD_Content", MODE_PRIVATE);
         final Firebase myFirebaseRef  = new Firebase("https://motorcycle-cc0fe.firebaseio.com/place/car_dealers");
@@ -142,5 +148,23 @@ public class Car_dealersActivity extends AppCompatActivity {
         cells[2] = new CTableAdapter.TableCell(R.drawable.delete,titles[2].width,RelativeLayout.LayoutParams.WRAP_CONTENT, com.cyut.motor.s065.CTableAdapter.TableCell.IMAGE);
         return cells;
     }
+
+    private Button.OnClickListener listener = new Button.OnClickListener() {
+        @Override
+        public void onClick(View v) {
+            Intent intent = new Intent();
+            intent.setClass(Car_dealersActivity.this, Car_createActivity.class);
+            startActivity(intent);
+        }
+    };
+
+    private Button.OnClickListener listener1 = new Button.OnClickListener() {
+        @Override
+        public void onClick(View v) {
+            Intent intent = new Intent();
+            intent.setClass(Car_dealersActivity.this, BackendActivity.class);
+            startActivity(intent);
+        }
+    };
 
 }

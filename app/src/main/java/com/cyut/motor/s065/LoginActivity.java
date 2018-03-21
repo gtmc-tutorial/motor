@@ -274,12 +274,9 @@ public class LoginActivity extends AppCompatActivity {
 //                });
 //    }
 
-
-
-//    @Override
 //    public void onClick(View v) {
 //        switch (v.getId()) {
-//            case R.id.login_with_google:
+//            case R.id.btn_login:
 //                signIn();
 //                break;
 //            default:

@@ -62,10 +62,19 @@
             android:name=".s065.Car_dealersActivity"
             android:screenOrientation="portrait" />
         <activity
+            android:name=".s065.Car_createActivity"
+            android:screenOrientation="portrait" />
+        <activity
             android:name=".s065.BatteryActivity"
             android:screenOrientation="portrait" />
         <activity
+            android:name=".s065.Battery_createActivity"
+            android:screenOrientation="portrait" />
+        <activity
             android:name=".s065.GasActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".s065.Gas_createActivity"
             android:screenOrientation="portrait" />
 
         <activity

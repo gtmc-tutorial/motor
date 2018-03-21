@@ -170,7 +170,7 @@ public class HelpFragment extends Fragment implements AdapterView.OnItemClickLis
             builder.items(r);
         }else if(position == 18){
             builder.items(s);
-        }else if(position == 18){
+        }else if(position == 19){
             builder.items(t);
         }
         builder.theme(Theme.LIGHT)

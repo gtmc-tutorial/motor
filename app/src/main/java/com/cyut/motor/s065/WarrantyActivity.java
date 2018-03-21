@@ -1,5 +1,6 @@
 package com.cyut.motor.s065;
 
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -7,9 +8,11 @@ import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.Button;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
 
+import com.cyut.motor.Activity.MainActivity;
 import com.cyut.motor.R;
 import com.cyut.motor.Structure.MaintainStructure;
 import com.firebase.client.ChildEventListener;
@@ -24,6 +27,7 @@ import java.util.ArrayList;
 import cn.pedant.SweetAlert.SweetAlertDialog;
 
 public class WarrantyActivity extends AppCompatActivity {
+    Button btn_back;
     WTableAdapter.TableCell[] titles;
     ListView listView;
     WTableAdapter WTableAdapter;
@@ -36,6 +40,8 @@ public class WarrantyActivity extends AppCompatActivity {
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_warranty);
+        btn_back = findViewById(R.id.btn_back);
+        btn_back.setOnClickListener(listener);
 
         listView = findViewById(R.id.ListView01);
         int width = getWindowManager().getDefaultDisplay().getWidth() / 3;
@@ -170,5 +176,14 @@ public class WarrantyActivity extends AppCompatActivity {
     public void onResume() {
         super.onResume();
     }
+
+    private Button.OnClickListener listener = new Button.OnClickListener() {
+        @Override
+        public void onClick(View v) {
+            Intent intent = new Intent();
+            intent.setClass(WarrantyActivity.this, BackendActivity.class);
+            startActivity(intent);
+        }
+    };
 
 }
