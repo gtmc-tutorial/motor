@@ -145,7 +145,7 @@ public class SettingFragment extends Fragment {
                                                 getActivity().runOnUiThread(new Runnable() {
                                                     @Override
                                                     public void run() {
-                                                        Toast.makeText(getActivity(),"查無此資料",Toast.LENGTH_SHORT).show();
+                                                        Toast.makeText(getActivity(),"查無失竊紀錄",Toast.LENGTH_SHORT).show();
                                                     }
                                                 });
                                             }else{
