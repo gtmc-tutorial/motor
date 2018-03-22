@@ -64,6 +64,7 @@ public class GasActivity extends AppCompatActivity {
                 GasStructure gasStructure = snapshot.getValue(GasStructure.class);
                 if(gasStructure != null){
                     main_arrayList.add(gasStructure);
+                    Log.e("key",snapshot.getKey());
                     key_array.add(snapshot.getKey());
 
                     ArrayList<GTableAdapter.TableCell[]> arrayList = new ArrayList<>();
