@@ -65,7 +65,7 @@ public class BTableAdapter extends BaseAdapter {
             auth = FirebaseAuth.getInstance();
 
             this.setOrientation(LinearLayout.HORIZONTAL);
-            final Firebase FirebaseRef  = new Firebase("https://motorcycle-cc0fe.firebaseio.com/");
+            final Firebase FirebaseRef  = new Firebase("https://motorcycle-cc0fe.firebaseio.com/place");
             for (int i = 0; i < tableRow.getSize(); i++) {//逐个格单元添加到行
                 TableCell tableCell = tableRow.getCellValue(i);
 
