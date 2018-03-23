@@ -45,7 +45,6 @@ import static org.jsoup.Connection.Method.HEAD;
 public class LoginActivity extends AppCompatActivity {
 // implements GoogleApiClient.OnConnectionFailedListener,
 //        View.OnClickListener {
-
     private Button btn_register,btn_forgetpw;
     private ImageView btn_home;
     private EditText ed_email,ed_password,ed_name;

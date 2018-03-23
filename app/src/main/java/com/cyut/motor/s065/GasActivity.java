@@ -28,9 +28,8 @@ public class GasActivity extends AppCompatActivity {
     ListView listView;
     GTableAdapter GTableAdapter;
     ArrayList<GTableAdapter.TableRow> table = new ArrayList<GTableAdapter.TableRow>();
-
+    Firebase myFirebaseRef;
     public static ArrayList<String> key_array = new ArrayList<>();
-    public static ArrayList<GasStructure> main_arrayList = new ArrayList<>();
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -53,90 +52,58 @@ public class GasActivity extends AppCompatActivity {
         GTableAdapter = new GTableAdapter(this, table);
         listView.setAdapter(GTableAdapter);
 
-        final SharedPreferences sharedPreferences = getSharedPreferences("GTCLOUD_Content", MODE_PRIVATE);
-        final Firebase myFirebaseRef  = new Firebase("https://motorcycle-cc0fe.firebaseio.com/place/gas");
-//        myFirebaseRef.add
-//        Query queryRef = myFirebaseRef.orderByChild("email");
-        myFirebaseRef.addChildEventListener(new ChildEventListener() {
-            @Override
-            public void onChildAdded(DataSnapshot snapshot, String previousChild) {
+        myFirebaseRef  = new Firebase("https://motorcycle-cc0fe.firebaseio.com/place/gas");
+        myFirebaseRef.addChildEventListener(childEventListener);
+    }
 
-                GasStructure gasStructure = snapshot.getValue(GasStructure.class);
-                if(gasStructure != null){
-                    main_arrayList.add(gasStructure);
-                    Log.e("key",snapshot.getKey());
-                    key_array.add(snapshot.getKey());
+    private ChildEventListener childEventListener = new ChildEventListener() {
+        @Override
+        public void onChildAdded(DataSnapshot snapshot, String s) {
+            GasStructure gasStructure = snapshot.getValue(GasStructure.class);
+            if(gasStructure != null){
+                key_array.add(snapshot.getKey());
 
-                    ArrayList<GTableAdapter.TableCell[]> arrayList = new ArrayList<>();
-                    arrayList.add(getTableItem(gasStructure.name,gasStructure.add,titles));
-                    for (int i = 0;i<arrayList.size();i++){
-                        table.add(new GTableAdapter.TableRow(arrayList.get(i)));
-                    }
+                ArrayList<GTableAdapter.TableCell[]> arrayList = new ArrayList<>();
+                arrayList.add(getTableItem(gasStructure.name,gasStructure.add,titles));
+                for (int i = 0;i<arrayList.size();i++){
+                    table.add(new GTableAdapter.TableRow(arrayList.get(i)));
+                }
 
+                GTableAdapter.notifyDataSetChanged();
+            }
+        }
+
+        @Override
+        public void onChildChanged(DataSnapshot dataSnapshot, String s) {
+
+        }
+
+        @Override
+        public void onChildRemoved(DataSnapshot dataSnapshot) {
+            for (int i = 0 ; i < key_array.size();i++){
+                if(key_array.get(i).equals(dataSnapshot.getKey())){
+                    key_array.remove(i);
+                    table.remove(i+1);
                     GTableAdapter.notifyDataSetChanged();
                 }
             }
-            public void onChildChanged(DataSnapshot dataSnapshot, String s) {
+        }
 
-            }
+        @Override
+        public void onChildMoved(DataSnapshot dataSnapshot, String s) {
 
-            public void onChildRemoved(DataSnapshot dataSnapshot) {
-                for (int i = 0 ; i < key_array.size();i++){
-                    if(key_array.get(i).equals(dataSnapshot.getKey())){
-                        key_array.remove(i);
-                        table.remove(i+1);
-                        GTableAdapter.notifyDataSetChanged();
+        }
 
-                    }
-                }
-                GasStructure gasStructure = dataSnapshot.getValue(GasStructure.class);
-            }
-            public void onChildMoved(DataSnapshot dataSnapshot, String s) {
-            }
-            public void onCancelled(FirebaseError firebaseError) {
+        @Override
+        public void onCancelled(FirebaseError firebaseError) {
 
-            }
-
-        });
-
-        final Firebase FirebaseRef  = new Firebase("https://motorcycle-cc0fe.firebaseio.com/");
-        myFirebaseRef.addListenerForSingleValueEvent(new ValueEventListener() {
-            public void onDataChange(DataSnapshot dataSnapshot) {
-                for (int i = 0 ;i<key_array.size();i++){
-                    final int finalI1 = i;
-                    if(GTableAdapter.imageViews.size() != 0){
-                        GTableAdapter.imageViews.get(i).setOnClickListener(new View.OnClickListener() {
-                            @Override
-                            public void onClick(View v) {
-                                FirebaseRef.child("gas").orderByKey().equalTo(key_array.get(finalI1));
-                                Query applesQuery = FirebaseRef.child("gas").orderByChild("title").equalTo("Apple");
-                                applesQuery.addListenerForSingleValueEvent(new ValueEventListener() {
-                                    @Override
-                                    public void onDataChange(DataSnapshot dataSnapshot) {
-                                        for (DataSnapshot appleSnapshot: dataSnapshot.getChildren()) {
-                                            appleSnapshot.getRef().removeValue();
-                                        }
-                                    }
-                                    @Override
-                                    public void onCancelled(FirebaseError firebaseError) {
-
-                                    }
-                                });
-                            }
-                        });
-                    }
-
-                }
-            }
-            public void onCancelled(FirebaseError firebaseError) { }
-        });
-    }
+        }
+    };
 
     @Override
     public void onStart() {
-        Log.e("Start","start");
-
         super.onStart();
+        key_array = new ArrayList<>();
     }
 
     private GTableAdapter.TableCell[] getTableItem(String name, String add, GTableAdapter.TableCell[] titles){

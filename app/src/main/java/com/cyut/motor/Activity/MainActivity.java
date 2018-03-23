@@ -1,9 +1,13 @@
 package com.cyut.motor.Activity;
 
+import android.Manifest;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.pm.PackageManager;
 import android.os.Bundle;
+import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.FragmentActivity;
+import android.support.v4.content.ContextCompat;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -43,7 +47,6 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
         setContentView(R.layout.activity_main);
         findById();
         sharedPreferences = getSharedPreferences("GTCLOUD_Content", MODE_PRIVATE);
-        Log.e("onCreate","onCreate");
         Firebase.setAndroidContext(this);
 
         getSupportFragmentManager().beginTransaction()
@@ -68,7 +71,7 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
                 .show(homeFragment).hide(maintenanceFragment).hide(mapFragment).hide(settingFragment).hide(helpFragment).hide(maintenanceAddFragment)
                 .commit();
 
-        Log.e("xxx",sharedPreferences.getString("userid",""));
+        checkPermission();
     }
     private void findById() {
         titleTextView = (TextView) this.findViewById(R.id.main_title_text);
@@ -224,5 +227,13 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
             titleTextView.setText("設定");
         }
     }
-
+    //打電話權限檢查
+    private boolean checkPermission() {
+        if (ContextCompat.checkSelfPermission(this, Manifest.permission.CALL_PHONE) != PackageManager.PERMISSION_GRANTED) {
+            ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.CALL_PHONE}, 10);
+            return false;
+        } else {
+            return true;
+        }
+    }
 }

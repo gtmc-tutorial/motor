@@ -91,9 +91,6 @@ public class GTableAdapter extends BaseAdapter {
                     imgCell.setOnClickListener(new OnClickListener() {
                         @Override
                         public void onClick(View v) {
-                            Log.e("in","in");
-                            Log.e("position",position+"");
-                            Log.e("key_array",key_array.size()+"");
                             new SweetAlertDialog(context)
                                     .setTitleText("確認是否刪除")
                                     .setConfirmText("確認")
@@ -106,7 +103,6 @@ public class GTableAdapter extends BaseAdapter {
                                         }
                                     })
                                     .setConfirmClickListener(new SweetAlertDialog.OnSweetClickListener() {
-
                                         @Override
                                         public void onClick(SweetAlertDialog sweetAlertDialog) {
                                             Query applesQuery = FirebaseRef.child("gas").orderByKey().equalTo(key_array.get(position-1));
@@ -116,6 +112,9 @@ public class GTableAdapter extends BaseAdapter {
                                                     for (DataSnapshot appleSnapshot: dataSnapshot.getChildren()) {
                                                         appleSnapshot.getRef().removeValue();
                                                     }
+                                                    GasActivity.key_array.remove(position-1);
+                                                    table.remove(position);
+                                                    notifyDataSetChanged();
                                                 }
                                                 @Override
                                                 public void onCancelled(FirebaseError firebaseError) {
@@ -126,7 +125,6 @@ public class GTableAdapter extends BaseAdapter {
                                     }).show();
                         }
                     });
-
                     imageViews.add(imgCell);
                     addView(imgCell, layoutParams);
                 }

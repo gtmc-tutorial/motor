@@ -32,7 +32,6 @@ public class BatteryActivity extends AppCompatActivity {
     ArrayList<BTableAdapter.TableRow> table = new ArrayList<BTableAdapter.TableRow>();
 
     public static ArrayList<String> key_array = new ArrayList<>();
-    public static ArrayList<PlaceStructure> main_arrayList = new ArrayList<>();
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -54,17 +53,13 @@ public class BatteryActivity extends AppCompatActivity {
         BTableAdapter = new BTableAdapter(this, table);
         listView.setAdapter(BTableAdapter);
 
-        final SharedPreferences sharedPreferences = getSharedPreferences("GTCLOUD_Content", MODE_PRIVATE);
         final Firebase myFirebaseRef  = new Firebase("https://motorcycle-cc0fe.firebaseio.com/place/battery");
-//        myFirebaseRef.add
-//        Query queryRef = myFirebaseRef.orderByChild("email");
         myFirebaseRef.addChildEventListener(new ChildEventListener() {
             @Override
             public void onChildAdded(DataSnapshot snapshot, String previousChild) {
 
                 PlaceStructure placeStructure = snapshot.getValue(PlaceStructure.class);
                 if(placeStructure != null){
-                    main_arrayList.add(placeStructure);
                     key_array.add(snapshot.getKey());
 
                     ArrayList<BTableAdapter.TableCell[]> arrayList = new ArrayList<>();
@@ -72,7 +67,6 @@ public class BatteryActivity extends AppCompatActivity {
                     for (int i = 0;i<arrayList.size();i++){
                         table.add(new BTableAdapter.TableRow(arrayList.get(i)));
                     }
-
                     BTableAdapter.notifyDataSetChanged();
                 }
             }
@@ -86,56 +80,20 @@ public class BatteryActivity extends AppCompatActivity {
                         key_array.remove(i);
                         table.remove(i+1);
                         BTableAdapter.notifyDataSetChanged();
-
                     }
                 }
-                PlaceStructure placeStructure = dataSnapshot.getValue(PlaceStructure.class);
             }
             public void onChildMoved(DataSnapshot dataSnapshot, String s) {
             }
             public void onCancelled(FirebaseError firebaseError) {
 
             }
-
-        });
-
-        final Firebase FirebaseRef  = new Firebase("https://motorcycle-cc0fe.firebaseio.com/");
-        myFirebaseRef.addListenerForSingleValueEvent(new ValueEventListener() {
-            public void onDataChange(DataSnapshot dataSnapshot) {
-                for (int i = 0 ;i<key_array.size();i++){
-                    final int finalI1 = i;
-                    if(BTableAdapter.imageViews.size() != 0){
-                        BTableAdapter.imageViews.get(i).setOnClickListener(new View.OnClickListener() {
-                            @Override
-                            public void onClick(View v) {
-                                FirebaseRef.child("battery").orderByKey().equalTo(key_array.get(finalI1));
-                                Query applesQuery = FirebaseRef.child("battery").orderByChild("title").equalTo("Apple");
-                                applesQuery.addListenerForSingleValueEvent(new ValueEventListener() {
-                                    @Override
-                                    public void onDataChange(DataSnapshot dataSnapshot) {
-                                        for (DataSnapshot appleSnapshot: dataSnapshot.getChildren()) {
-                                            appleSnapshot.getRef().removeValue();
-                                        }
-                                    }
-                                    @Override
-                                    public void onCancelled(FirebaseError firebaseError) {
-
-                                    }
-                                });
-                            }
-                        });
-                    }
-
-                }
-            }
-            public void onCancelled(FirebaseError firebaseError) { }
         });
     }
 
     @Override
     public void onStart() {
-        Log.e("Start","start");
-
+        key_array = new ArrayList<>();
         super.onStart();
     }
 

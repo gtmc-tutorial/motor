@@ -1,11 +1,16 @@
 package com.cyut.motor.s176;
 
+import android.Manifest;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.content.res.Resources;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.DialogFragment;
 import android.support.v4.app.Fragment;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
@@ -174,7 +179,28 @@ public class HelpFragment extends Fragment implements AdapterView.OnItemClickLis
             builder.items(t);
         }
         builder.theme(Theme.LIGHT)
-                .itemsGravity(GravityEnum.CENTER).show();
+                .itemsGravity(GravityEnum.CENTER)
+                .itemsCallback(new MaterialDialog.ListCallback() {
+                    @Override
+                    public void onSelection(MaterialDialog dialog, View itemView, int position, CharSequence text) {
+                        Log.e("name",text+"");
+                        if(checkPermission()){
+                            String phone_number = text.toString().split(",")[0].replaceAll("-","").replaceAll(" ","");
+                            Intent intent = new Intent(Intent.ACTION_CALL, Uri.parse("tel:" + phone_number));
+                            getActivity().startActivity(intent);
+                        }
+                    }
+                }).show();
+    }
+
+    //打電話權限檢查
+    private boolean checkPermission() {
+        if (ContextCompat.checkSelfPermission(getActivity(), Manifest.permission.CALL_PHONE) != PackageManager.PERMISSION_GRANTED) {
+            ActivityCompat.requestPermissions(getActivity(), new String[]{Manifest.permission.CALL_PHONE}, 10);
+            return false;
+        } else {
+            return true;
+        }
     }
 
 }

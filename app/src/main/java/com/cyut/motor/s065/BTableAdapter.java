@@ -65,7 +65,7 @@ public class BTableAdapter extends BaseAdapter {
             auth = FirebaseAuth.getInstance();
 
             this.setOrientation(LinearLayout.HORIZONTAL);
-            final Firebase FirebaseRef  = new Firebase("https://motorcycle-cc0fe.firebaseio.com/");
+            final Firebase FirebaseRef  = new Firebase("https://motorcycle-cc0fe.firebaseio.com/place");
             for (int i = 0; i < tableRow.getSize(); i++) {//逐个格单元添加到行
                 TableCell tableCell = tableRow.getCellValue(i);
 
@@ -91,9 +91,6 @@ public class BTableAdapter extends BaseAdapter {
                     imgCell.setOnClickListener(new OnClickListener() {
                         @Override
                         public void onClick(View v) {
-                            Log.e("in","in");
-                            Log.e("position",position+"");
-                            Log.e("key_array",key_array.size()+"");
                             new SweetAlertDialog(context)
                                     .setTitleText("確認是否刪除")
                                     .setConfirmText("確認")
@@ -116,9 +113,14 @@ public class BTableAdapter extends BaseAdapter {
                                                     for (DataSnapshot appleSnapshot: dataSnapshot.getChildren()) {
                                                         appleSnapshot.getRef().removeValue();
                                                     }
+                                                    key_array.remove(position-1);
+                                                    table.remove(position);
+                                                    notifyDataSetChanged();
                                                 }
                                                 @Override
                                                 public void onCancelled(FirebaseError firebaseError) {
+                                                    Log.e("onCancelled","onCancelled");
+
                                                 }
                                             });
                                             sweetAlertDialog.cancel();
