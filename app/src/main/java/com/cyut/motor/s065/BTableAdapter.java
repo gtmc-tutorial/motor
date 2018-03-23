@@ -113,7 +113,7 @@ public class BTableAdapter extends BaseAdapter {
                                                     for (DataSnapshot appleSnapshot: dataSnapshot.getChildren()) {
                                                         appleSnapshot.getRef().removeValue();
                                                     }
-                                                    key_array.remove(position-1);
+                                                    BatteryActivity.key_array.remove(position-1);
                                                     table.remove(position);
                                                     notifyDataSetChanged();
                                                 }

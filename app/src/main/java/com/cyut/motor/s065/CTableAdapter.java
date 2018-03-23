@@ -116,6 +116,9 @@ public class CTableAdapter extends BaseAdapter {
                                                     for (DataSnapshot appleSnapshot: dataSnapshot.getChildren()) {
                                                         appleSnapshot.getRef().removeValue();
                                                     }
+                                                    Car_dealersActivity.key_array.remove(position-1);
+                                                    table.remove(position);
+                                                    notifyDataSetChanged();
                                                 }
                                                 @Override
                                                 public void onCancelled(FirebaseError firebaseError) {
