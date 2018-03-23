@@ -76,6 +76,7 @@ public class WTableAdapter extends BaseAdapter {
                     textCell.setGravity(Gravity.CENTER);
                     textCell.setBackgroundColor(0x00000000);
                     textCell.setText(String.valueOf(tableCell.value));
+                    textCell.setTextSize(20);
                     textCell.setTextColor(Color.GRAY);
                     textCell.setPadding(20,50,20,50);
                     addView(textCell, layoutParams);
