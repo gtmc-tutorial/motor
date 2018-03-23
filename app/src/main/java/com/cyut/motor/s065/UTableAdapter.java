@@ -78,7 +78,7 @@ public class UTableAdapter extends BaseAdapter {
                     textCell.setBackgroundColor(0x00000000);
                     textCell.setText(String.valueOf(tableCell.value));
                     textCell.setTextColor(Color.GRAY);
-                    textCell.setPadding(0,30,0,30);
+                    textCell.setPadding(20,50,20,50);
                     addView(textCell, layoutParams);
                 } else if (tableCell.type == TableCell.IMAGE) {//如果格单元是图像内容
                     ImageView imgCell = new ImageView(context);
