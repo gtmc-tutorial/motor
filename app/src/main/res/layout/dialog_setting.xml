@@ -12,17 +12,28 @@
             android:spinnerMode="dialog"/>
 
         <EditText
-        android:id="@+id/dialog_input"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/dialog_spinner"
-        android:layout_centerHorizontal="true"
-            android:layout_marginTop="10dp"
-        android:padding="8dp"
-        android:gravity="center"
-        android:maxLength="10"
-        android:color="#FFFFFF"
-        android:hint="請輸入車牌號碼"
-        android:singleLine="true"
-        android:textSize="16sp" />
+            android:id="@+id/dialog_input"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignStart="@+id/dialog_spinner"
+            android:layout_below="@+id/dialog_spinner"
+            android:layout_marginStart="12dp"
+            android:layout_marginTop="39dp"
+            android:color="#FFFFFF"
+            android:gravity="center"
+            android:hint="請輸入車牌號碼"
+            android:maxLength="10"
+            android:padding="8dp"
+            android:singleLine="true"
+            android:textSize="16sp" />
+
+        <TextView
+            android:id="@+id/textView2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignStart="@+id/dialog_spinner"
+            android:layout_below="@+id/dialog_input"
+            android:layout_marginTop="24dp"
+            android:text="輸入格式範例：ABC-123" />
+
 </RelativeLayout>
