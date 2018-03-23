@@ -83,8 +83,8 @@ public class BTableAdapter extends BaseAdapter {
                     addView(textCell, layoutParams);
                 } else if (tableCell.type == TableCell.IMAGE) {//如果格单元是图像内容
                     ImageView imgCell = new ImageView(context);
-                    LayoutParams layoutParams = new LayoutParams(tableCell.width, Util.getDP(getContext(),30));//按照格单元指定的大小设置空间
-                    layoutParams.setMargins(0, Util.getDP(getContext(),5), 4, 4);//预留空隙制造边框
+                    LayoutParams layoutParams = new LayoutParams(tableCell.width, Util.getDP(getContext(),24));//按照格单元指定的大小设置空间
+                    layoutParams.setMargins(0, Util.getDP(getContext(),18), 4, 4);//预留空隙制造边框
                     imgCell.setImageResource((Integer) tableCell.value);
 //                    imgCell.setForegroundGravity(Gravity.CENTER);
                     imgCell.setScaleType(ImageView.ScaleType.FIT_CENTER);
