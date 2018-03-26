@@ -66,7 +66,7 @@ public class SettingFragment extends Fragment {
 
         notice.setOnClickListener(new Button.OnClickListener(){
             public void onClick (View v){
-                new AlertDialog.Builder(getActivity()).setTitle("請選擇題醒時間").setSingleChoiceItems(
+                new AlertDialog.Builder(getActivity()).setTitle("請選擇提醒時間").setSingleChoiceItems(
                         new String[]{"1週","2週","3週","1個月"},0,
                         new DialogInterface.OnClickListener(){
                             @Override
