@@ -1,10 +1,13 @@
 package com.cyut.motor.s065;
 
+import android.app.Activity;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
@@ -18,6 +21,8 @@ import com.firebase.client.FirebaseError;
 
 import java.util.ArrayList;
 
+import cn.pedant.SweetAlert.SweetAlertDialog;
+
 public class BatteryActivity extends AppCompatActivity {
     Button btn_back,btn_create;
     BTableAdapter.TableCell[] titles;
@@ -26,6 +31,8 @@ public class BatteryActivity extends AppCompatActivity {
     ArrayList<BTableAdapter.TableRow> table = new ArrayList<BTableAdapter.TableRow>();
 
     public static ArrayList<String> key_array = new ArrayList<>();
+    public static ArrayList<PlaceStructure> main_arrayList = new ArrayList<>();
+    private Activity activity;
 
 
     @Override
@@ -38,48 +45,54 @@ public class BatteryActivity extends AppCompatActivity {
         btn_create.setOnClickListener(listener1);
 
         listView = findViewById(R.id.ListView01);
-        int width = getWindowManager().getDefaultDisplay().getWidth()/3;
+        int width = getWindowManager().getDefaultDisplay().getWidth() / 3;
         titles = new BTableAdapter.TableCell[3];// 每行5个单元
-        titles[0] = new BTableAdapter.TableCell("門市",width + 8 * 0,RelativeLayout.LayoutParams.FILL_PARENT, com.cyut.motor.s065.BTableAdapter.TableCell.STRING);
-        titles[1] = new BTableAdapter.TableCell("地址",width + 8 * 1,RelativeLayout.LayoutParams.FILL_PARENT, com.cyut.motor.s065.BTableAdapter.TableCell.STRING);
-        titles[2] = new BTableAdapter.TableCell("刪除",width + 8 * 2,RelativeLayout.LayoutParams.FILL_PARENT, com.cyut.motor.s065.BTableAdapter.TableCell.STRING);
+        titles[0] = new BTableAdapter.TableCell("門市", width + 8 * 0, RelativeLayout.LayoutParams.FILL_PARENT, com.cyut.motor.s065.BTableAdapter.TableCell.STRING);
+        titles[1] = new BTableAdapter.TableCell("地址", width + 8 * 1, RelativeLayout.LayoutParams.FILL_PARENT, com.cyut.motor.s065.BTableAdapter.TableCell.STRING);
+        titles[2] = new BTableAdapter.TableCell("刪除", width + 8 * 2, RelativeLayout.LayoutParams.FILL_PARENT, com.cyut.motor.s065.BTableAdapter.TableCell.STRING);
         table.add(new BTableAdapter.TableRow(titles));
 
         BTableAdapter = new BTableAdapter(this, table);
         listView.setAdapter(BTableAdapter);
+        listView.setOnItemClickListener(new ItemClickEvent());
 
-        final Firebase myFirebaseRef  = new Firebase("https://motorcycle-cc0fe.firebaseio.com/place/battery");
+//        final SharedPreferences sharedPreferences = getActivity().getSharedPreferences("GTCLOUD_Content", MODE_PRIVATE);
+        final Firebase myFirebaseRef = new Firebase("https://motorcycle-cc0fe.firebaseio.com/place/battery");
         myFirebaseRef.addChildEventListener(new ChildEventListener() {
             @Override
             public void onChildAdded(DataSnapshot snapshot, String previousChild) {
 
                 PlaceStructure placeStructure = snapshot.getValue(PlaceStructure.class);
-                if(placeStructure != null){
+                if (placeStructure != null) {
+                    main_arrayList.add(placeStructure);
                     key_array.add(snapshot.getKey());
 
                     ArrayList<BTableAdapter.TableCell[]> arrayList = new ArrayList<>();
-                    arrayList.add(getTableItem(placeStructure.name,placeStructure.add,titles));
-                    for (int i = 0;i<arrayList.size();i++){
+                    arrayList.add(getTableItem(placeStructure.name, placeStructure.add, titles));
+                    for (int i = 0; i < arrayList.size(); i++) {
                         table.add(new BTableAdapter.TableRow(arrayList.get(i)));
                     }
                     BTableAdapter.notifyDataSetChanged();
                 }
             }
+
             public void onChildChanged(DataSnapshot dataSnapshot, String s) {
 
             }
 
             public void onChildRemoved(DataSnapshot dataSnapshot) {
-                for (int i = 0 ; i < key_array.size();i++){
-                    if(key_array.get(i).equals(dataSnapshot.getKey())){
+                for (int i = 0; i < key_array.size(); i++) {
+                    if (key_array.get(i).equals(dataSnapshot.getKey())) {
                         key_array.remove(i);
-                        table.remove(i+1);
+                        table.remove(i + 1);
                         BTableAdapter.notifyDataSetChanged();
                     }
                 }
             }
+
             public void onChildMoved(DataSnapshot dataSnapshot, String s) {
             }
+
             public void onCancelled(FirebaseError firebaseError) {
 
             }
@@ -90,6 +103,26 @@ public class BatteryActivity extends AppCompatActivity {
     public void onStart() {
         key_array = new ArrayList<>();
         super.onStart();
+    }
+
+    public Activity getActivity() {
+        return activity;
+    }
+
+    private final class ItemClickEvent implements AdapterView.OnItemClickListener {
+        @Override
+        public void onItemClick(AdapterView<?> arg0, View arg1, int arg2,long arg3) {
+            if(arg2 != 0 ){
+                new SweetAlertDialog(getActivity())
+                        .setTitleText(main_arrayList.get(arg2-1).name)
+                        .setContentText("店名:"+main_arrayList.get(arg2-1).name+"\n"+
+                                "地址:"+ main_arrayList.get(arg2-1).add+"\n"+
+                                "經度:" + main_arrayList.get(arg2-1).lat+"\n"+
+                                "緯度:" +main_arrayList.get(arg2-1).lng+"\n"
+                        ).show();
+            }
+//            Toast.makeText(getActivity(), "选中第"+String.valueOf(arg2)+"行", Toast.LENGTH_SHORT).show();
+        }
     }
 
     private BTableAdapter.TableCell[] getTableItem(String name, String add, BTableAdapter.TableCell[] titles){
@@ -118,5 +151,4 @@ public class BatteryActivity extends AppCompatActivity {
             startActivity(intent);
         }
     };
-
 }
