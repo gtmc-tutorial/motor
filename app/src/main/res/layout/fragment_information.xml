@@ -6,7 +6,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:orientation="vertical" android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/Background">
+    android:background="#80DEEA">
     <LinearLayout
         android:id="@+id/L1"
         android:layout_width="match_parent"

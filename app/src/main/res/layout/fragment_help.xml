@@ -10,7 +10,7 @@
         android:id="@+id/refreshLayout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@color/Background"
+        android:background="#80DEEA"
         app:srlHeaderMaxDragRate="2.5"
         app:srlPrimaryColor="#ca0000"
         app:srlAccentColor="@android:color/white"

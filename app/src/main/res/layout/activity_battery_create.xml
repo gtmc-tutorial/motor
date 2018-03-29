@@ -3,7 +3,7 @@
     android:id="@+id/car_create"
     android:orientation="vertical" android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/Background">
+    android:background="#80DEEA">
 
     <TextView
         android:id="@+id/text_create_battery"
