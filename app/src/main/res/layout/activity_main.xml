@@ -7,6 +7,7 @@
     android:orientation="horizontal"
     android:background="#fff"
     tools:context=".Activity.MainActivity">
+
     <RelativeLayout
         android:id="@+id/main_layout_title"
         android:layout_width="fill_parent"
@@ -39,6 +40,8 @@
             android:gravity="center"
             android:padding="8dp"
             android:layout_alignBottom="@+id/home"/>
+
+
     </RelativeLayout>
     <LinearLayout
         android:id="@+id/button_view_include"
@@ -51,7 +54,7 @@
         <ImageView
             android:id="@+id/home_btn"
             android:layout_width="60dp"
-            android:layout_height="60.5dp"
+            android:layout_height="55dp"
             android:adjustViewBounds="false"
             android:cropToPadding="false"
             android:gravity="center"
@@ -59,20 +62,19 @@
             android:text="會員中心" />
 
 
-
         <ImageView
             android:id="@+id/tv_btn"
-            android:layout_width="50dp"
-            android:layout_height="60.5dp"
+            android:layout_width="60dp"
+            android:layout_height="55dp"
             android:layout_weight="1"
-            android:src="@drawable/service"
             android:gravity="center"
+            android:src="@drawable/service"
             android:textColor="#FFFFFF" />
 
         <ImageView
             android:id="@+id/anime_btn"
-            android:layout_width="50dp"
-            android:layout_height="60dp"
+            android:layout_width="60dp"
+            android:layout_height="55dp"
             android:layout_weight="1"
             android:gravity="center"
             android:src="@drawable/gps"
@@ -80,8 +82,8 @@
 
         <ImageView
             android:id="@+id/variety_btn"
-            android:layout_width="50dp"
-            android:layout_height="60dp"
+            android:layout_width="60dp"
+            android:layout_height="55dp"
             android:layout_weight="1"
             android:gravity="center"
             android:src="@drawable/help"
@@ -89,8 +91,8 @@
 
         <ImageView
             android:id="@+id/setting_btn"
-            android:layout_width="50dp"
-            android:layout_height="60dp"
+            android:layout_width="60dp"
+            android:layout_height="55dp"
             android:layout_weight="1"
             android:gravity="center"
             android:src="@drawable/setting"
