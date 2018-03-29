@@ -11,6 +11,7 @@ import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
+import android.widget.Toast;
 
 import com.cyut.motor.R;
 import com.cyut.motor.Structure.PlaceStructure;
@@ -94,6 +95,17 @@ public class BatteryActivity extends AppCompatActivity {
             }
 
             public void onCancelled(FirebaseError firebaseError) {
+
+            }
+        });
+
+        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                String name = (String) parent.getItemAtPosition(position);
+
+                Toast.makeText(BatteryActivity.this, "Attending Event", Toast.LENGTH_SHORT).show();
+
 
             }
         });
