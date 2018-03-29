@@ -1,34 +1,21 @@
 package com.cyut.motor.s192;
 
-import android.annotation.SuppressLint;
-import android.content.Context;
-import android.content.Intent;
-import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.os.Handler;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.webkit.WebView;
-import android.widget.Button;
-import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.cyut.motor.Activity.MainActivity;
 import com.cyut.motor.R;
-import com.cyut.motor.s192.WebViewActivity;
 
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
-import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 
 import java.io.IOException;
-
-import static android.content.Intent.getIntent;
 
 
 /**
@@ -125,7 +112,7 @@ public class HomeFragment extends Fragment {
                             textView_92.setText("92無鉛 : "+ finalElements.get(2).text());
                             textView_95.setText("95無鉛 : "+ finalElements.get(3).text());
                             textView_98.setText("98無鉛 : "+ finalElements.get(4).text());
-                            textView_super.setText("超級柴油 : "+ finalElements.get(6).text());
+                            textView_super.setText("柴油 : "+ finalElements.get(6).text());
                         }
                     }
                 });
