@@ -92,9 +92,6 @@ public class UTableAdapter extends BaseAdapter {
                     imgCell.setOnClickListener(new OnClickListener() {
                         @Override
                         public void onClick(View v) {
-                            Log.e("in","in");
-                            Log.e("position",position+"");
-                            Log.e("key_array",key_array.size()+"");
                             new SweetAlertDialog(context)
                                     .setTitleText("確認是否刪除")
                                     .setConfirmText("確認")
@@ -110,16 +107,6 @@ public class UTableAdapter extends BaseAdapter {
 
                                         @Override
                                         public void onClick(SweetAlertDialog sweetAlertDialog) {
-
-//                                            FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
-//                                            if (user!=null){
-//                                                user.delete().addOnCompleteListener(new OnCompleteListener<Void>(){
-//                                                    @Override
-//                                                    public void onComplete(@NonNull com.google.android.gms.tasks.Task<Void> task) {
-//                                                        Log.e("9","9");
-//
-//                                                        if(task.isSuccessful()){
-//                                                            Log.e("6","6");
                                             Query applesQuery = FirebaseRef.child("User").orderByKey().equalTo(key_array.get(position-1));
                                             applesQuery.addListenerForSingleValueEvent(new ValueEventListener() {
                                                 @Override
@@ -127,6 +114,9 @@ public class UTableAdapter extends BaseAdapter {
                                                     for (DataSnapshot appleSnapshot: dataSnapshot.getChildren()) {
                                                         appleSnapshot.getRef().removeValue();
                                                     }
+                                                    UserActivity.key_array.remove(position-1);
+                                                    table.remove(position);
+                                                    notifyDataSetChanged();
                                                 }
                                                 @Override
                                                 public void onCancelled(FirebaseError firebaseError) {

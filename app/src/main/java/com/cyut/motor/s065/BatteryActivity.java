@@ -1,6 +1,7 @@
 package com.cyut.motor.s065;
 
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
@@ -25,6 +26,7 @@ import java.util.ArrayList;
 import cn.pedant.SweetAlert.SweetAlertDialog;
 
 public class BatteryActivity extends AppCompatActivity {
+    private Context context = this;
     Button btn_back,btn_create;
     BTableAdapter.TableCell[] titles;
     ListView listView;
@@ -55,9 +57,8 @@ public class BatteryActivity extends AppCompatActivity {
 
         BTableAdapter = new BTableAdapter(this, table);
         listView.setAdapter(BTableAdapter);
-        listView.setOnItemClickListener(new ItemClickEvent());
+        listView.setOnItemClickListener(onItemClickListener);
 
-//        final SharedPreferences sharedPreferences = getActivity().getSharedPreferences("GTCLOUD_Content", MODE_PRIVATE);
         final Firebase myFirebaseRef = new Firebase("https://motorcycle-cc0fe.firebaseio.com/place/battery");
         myFirebaseRef.addChildEventListener(new ChildEventListener() {
             @Override
@@ -76,11 +77,8 @@ public class BatteryActivity extends AppCompatActivity {
                     BTableAdapter.notifyDataSetChanged();
                 }
             }
-
             public void onChildChanged(DataSnapshot dataSnapshot, String s) {
-
             }
-
             public void onChildRemoved(DataSnapshot dataSnapshot) {
                 for (int i = 0; i < key_array.size(); i++) {
                     if (key_array.get(i).equals(dataSnapshot.getKey())) {
@@ -90,23 +88,9 @@ public class BatteryActivity extends AppCompatActivity {
                     }
                 }
             }
-
             public void onChildMoved(DataSnapshot dataSnapshot, String s) {
             }
-
             public void onCancelled(FirebaseError firebaseError) {
-
-            }
-        });
-
-        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                String name = (String) parent.getItemAtPosition(position);
-
-                Toast.makeText(BatteryActivity.this, "Attending Event", Toast.LENGTH_SHORT).show();
-
-
             }
         });
     }
@@ -117,25 +101,20 @@ public class BatteryActivity extends AppCompatActivity {
         super.onStart();
     }
 
-    public Activity getActivity() {
-        return activity;
-    }
-
-    private final class ItemClickEvent implements AdapterView.OnItemClickListener {
+    private AdapterView.OnItemClickListener onItemClickListener = new AdapterView.OnItemClickListener() {
         @Override
-        public void onItemClick(AdapterView<?> arg0, View arg1, int arg2,long arg3) {
+        public void onItemClick(AdapterView<?> parent, View view, int arg2, long id) {
             if(arg2 != 0 ){
-                new SweetAlertDialog(getActivity())
-                        .setTitleText(main_arrayList.get(arg2-1).name)
-                        .setContentText("店名:"+main_arrayList.get(arg2-1).name+"\n"+
-                                "地址:"+ main_arrayList.get(arg2-1).add+"\n"+
-                                "經度:" + main_arrayList.get(arg2-1).lat+"\n"+
-                                "緯度:" +main_arrayList.get(arg2-1).lng+"\n"
-                        ).show();
+                new SweetAlertDialog(BatteryActivity.this)
+                        .setTitleText("充電站資訊")
+                       .setContentText("店名：" +main_arrayList.get(arg2-1).name+"\n"+
+                                "地址 ： "+ main_arrayList.get(arg2-1).add+"\n"+
+                                "經度 ： "+ main_arrayList.get(arg2-1).lng+"\n"+
+                                "緯度 ： "+ main_arrayList.get(arg2-1).lat+"\n")
+                        .show();
             }
-//            Toast.makeText(getActivity(), "选中第"+String.valueOf(arg2)+"行", Toast.LENGTH_SHORT).show();
         }
-    }
+    };
 
     private BTableAdapter.TableCell[] getTableItem(String name, String add, BTableAdapter.TableCell[] titles){
         BTableAdapter.TableCell[] cells = new BTableAdapter.TableCell[3];

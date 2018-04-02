@@ -77,4 +77,16 @@
         android:layout_marginTop="20dp"
         android:text="充電站管理"/>
 
+    <Button
+        android:id="@+id/btn_backend_homepage"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/colorPrimary"
+        android:textColor="@color/colorWhite"
+        android:layout_below="@+id/btn_backend_battery"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:layout_marginTop="20dp"
+        android:text="登出回首頁"/>
+
 </RelativeLayout>

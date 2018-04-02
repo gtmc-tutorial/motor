@@ -12,7 +12,6 @@ import android.widget.Button;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
 
-import com.cyut.motor.Activity.MainActivity;
 import com.cyut.motor.R;
 import com.cyut.motor.Structure.MaintainStructure;
 import com.firebase.client.ChildEventListener;
@@ -53,19 +52,15 @@ public class WarrantyActivity extends AppCompatActivity {
 
         WTableAdapter = new WTableAdapter(this, table);
         listView.setAdapter(WTableAdapter);
-//        listView.setOnItemClickListener(new WarrantyActivity.ItemClickEvent());
+        listView.setOnItemClickListener(onItemClickListener);
 
-        final SharedPreferences sharedPreferences = getSharedPreferences("GTCLOUD_Content", MODE_PRIVATE);
         final Firebase myFirebaseRef = new Firebase("https://motorcycle-cc0fe.firebaseio.com/Warranty");
-//        myFirebaseRef.add
-//        Query queryRef = myFirebaseRef.orderByChild("email");
         myFirebaseRef.addChildEventListener(new ChildEventListener() {
             @Override
             public void onChildAdded(DataSnapshot snapshot, String previousChild) {
+
                 MaintainStructure maintainStructure = snapshot.getValue(MaintainStructure.class);
-                Log.e("name", maintainStructure.day);
                 if (maintainStructure != null) {
-                    Log.e("snapshot", snapshot + "");
                     main_arrayList.add(maintainStructure);
                     key_array.add(snapshot.getKey());
 
@@ -74,13 +69,11 @@ public class WarrantyActivity extends AppCompatActivity {
                     for (int i = 0; i < arrayList.size(); i++) {
                         table.add(new WTableAdapter.TableRow(arrayList.get(i)));
                     }
-
                     WTableAdapter.notifyDataSetChanged();
                 }
             }
 
             public void onChildChanged(DataSnapshot dataSnapshot, String s) {
-
             }
 
             public void onChildRemoved(DataSnapshot dataSnapshot) {
@@ -89,50 +82,11 @@ public class WarrantyActivity extends AppCompatActivity {
                         key_array.remove(i);
                         table.remove(i + 1);
                         WTableAdapter.notifyDataSetChanged();
-
                     }
                 }
-                MaintainStructure maintainStructure = dataSnapshot.getValue(MaintainStructure.class);
             }
 
             public void onChildMoved(DataSnapshot dataSnapshot, String s) {
-            }
-
-            public void onCancelled(FirebaseError firebaseError) {
-
-            }
-
-        });
-
-        final Firebase FirebaseRef = new Firebase("https://motorcycle-cc0fe.firebaseio.com/");
-        myFirebaseRef.addListenerForSingleValueEvent(new ValueEventListener() {
-            public void onDataChange(DataSnapshot dataSnapshot) {
-                for (int i = 0; i < key_array.size(); i++) {
-                    final int finalI1 = i;
-                    if (WTableAdapter.imageViews.size() != 0) {
-                        WTableAdapter.imageViews.get(i).setOnClickListener(new View.OnClickListener() {
-                            @Override
-                            public void onClick(View v) {
-                                FirebaseRef.child("Warranty").orderByKey().equalTo(key_array.get(finalI1));
-                                Query applesQuery = FirebaseRef.child("Warranty").orderByChild("title").equalTo("Apple");
-                                applesQuery.addListenerForSingleValueEvent(new ValueEventListener() {
-                                    @Override
-                                    public void onDataChange(DataSnapshot dataSnapshot) {
-                                        for (DataSnapshot appleSnapshot : dataSnapshot.getChildren()) {
-                                            appleSnapshot.getRef().removeValue();
-                                        }
-                                    }
-
-                                    @Override
-                                    public void onCancelled(FirebaseError firebaseError) {
-
-                                    }
-                                });
-                            }
-                        });
-                    }
-
-                }
             }
 
             public void onCancelled(FirebaseError firebaseError) {
@@ -142,26 +96,26 @@ public class WarrantyActivity extends AppCompatActivity {
 
     @Override
     public void onStart() {
-        Log.e("Start", "start");
-
         super.onStart();
+        key_array = new ArrayList<>();
     }
 
-//    class ItemClickEvent implements AdapterView.OnItemClickListener {
-//        @Override
-//        public void onItemClick(AdapterView<?> arg0, View arg1, int arg2,long arg3) {
-//            if(arg2 != 0 ){
-//                new SweetAlertDialog(this,SweetAlertDialog.SUCCESS_TYPE)
-//                        .setTitleText(main_arrayList.get(arg2-1).type)
-//                        .setContentText("日期 : "+main_arrayList.get(arg2-1).day+"\n"+
-//                                "廠牌 : "+ main_arrayList.get(arg2-1).label+"\n"+
-//                                "公里數 : " + main_arrayList.get(arg2-1).trip+"\n"+
-//                                "價錢 : " +main_arrayList.get(arg2-1).price+"\n"
-//                        ).show();
-//            }
-////            Toast.makeText(getActivity(), "选中第"+String.valueOf(arg2)+"行", Toast.LENGTH_SHORT).show();
-//        }
-//    }
+    private AdapterView.OnItemClickListener onItemClickListener = new AdapterView.OnItemClickListener() {
+        @Override
+        public void onItemClick(AdapterView<?> parent, View view, int arg2, long id) {
+            if(arg2 != 0 ){
+                new SweetAlertDialog(WarrantyActivity.this)
+                        .setTitleText("保養紀錄資訊")
+                        .setContentText("使用者：" +main_arrayList.get(arg2-1).user_id+"\n"+
+                                "日期 ： "+ main_arrayList.get(arg2-1).day+"\n"+
+                                "廠牌 ： "+ main_arrayList.get(arg2-1).label+"\n"+
+                                "類型 ： "+ main_arrayList.get(arg2-1).type+"\n"+
+                                "價錢 ： "+ main_arrayList.get(arg2-1).price+"\n"+
+                                "公里數 ： "+ main_arrayList.get(arg2-1).trip+"\n")
+                        .show();
+            }
+        }
+    };
 
     private WTableAdapter.TableCell[] getTableItem(String day, String type, WTableAdapter.TableCell[] titles) {
         WTableAdapter.TableCell[] cells = new WTableAdapter.TableCell[3];

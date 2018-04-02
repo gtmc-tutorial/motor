@@ -166,6 +166,7 @@ public class LoginActivity extends AppCompatActivity {
                                     Intent i = new Intent(LoginActivity.this, BackendActivity.class);
                                     i.putExtra("Email", firebaseAuth.getCurrentUser().getEmail());
                                     startActivity(i);
+                                    finish();
                                 }
                                 else {
                                     sharedPreferences.edit().putString("userid",task.getResult().getUser().getUid()).apply();
@@ -173,6 +174,7 @@ public class LoginActivity extends AppCompatActivity {
                                     Intent i = new Intent(LoginActivity.this, MainActivity.class);
                                     i.putExtra("Email", firebaseAuth.getCurrentUser().getEmail());
                                     startActivity(i);
+                                    finish();
                                 }
                             } else {
                                 Toast.makeText(LoginActivity.this, "請檢查email和password是否有誤", Toast.LENGTH_LONG).show();

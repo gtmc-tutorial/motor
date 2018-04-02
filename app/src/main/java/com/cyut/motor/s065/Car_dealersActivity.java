@@ -1,12 +1,11 @@
 package com.cyut.motor.s065;
 
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
@@ -17,10 +16,10 @@ import com.firebase.client.ChildEventListener;
 import com.firebase.client.DataSnapshot;
 import com.firebase.client.Firebase;
 import com.firebase.client.FirebaseError;
-import com.firebase.client.Query;
-import com.firebase.client.ValueEventListener;
 
 import java.util.ArrayList;
+
+import cn.pedant.SweetAlert.SweetAlertDialog;
 
 public class Car_dealersActivity extends AppCompatActivity {
     CTableAdapter.TableCell[] titles;
@@ -47,6 +46,7 @@ public class Car_dealersActivity extends AppCompatActivity {
 
         CTableAdapter = new CTableAdapter(this, table);
         listView.setAdapter(CTableAdapter);
+        listView.setOnItemClickListener(onItemClickListener);
 
         btn_create = findViewById(R.id.btn_create);
         btn_create.setOnClickListener(listener);
@@ -67,15 +67,11 @@ public class Car_dealersActivity extends AppCompatActivity {
                     for (int i = 0; i < arrayList.size(); i++) {
                         table.add(new CTableAdapter.TableRow(arrayList.get(i)));
                     }
-
                     CTableAdapter.notifyDataSetChanged();
                 }
             }
-
             public void onChildChanged(DataSnapshot dataSnapshot, String s) {
-
             }
-
             public void onChildRemoved(DataSnapshot dataSnapshot) {
                 for (int i = 0; i < key_array.size(); i++) {
                     if (key_array.get(i).equals(dataSnapshot.getKey())) {
@@ -88,7 +84,6 @@ public class Car_dealersActivity extends AppCompatActivity {
             public void onChildMoved(DataSnapshot dataSnapshot, String s) {
             }
             public void onCancelled(FirebaseError firebaseError) {
-
             }
         });
     }
@@ -98,6 +93,21 @@ public class Car_dealersActivity extends AppCompatActivity {
         key_array = new ArrayList<>();
         super.onStart();
     }
+
+    private AdapterView.OnItemClickListener onItemClickListener = new AdapterView.OnItemClickListener() {
+        @Override
+        public void onItemClick(AdapterView<?> parent, View view, int arg2, long id) {
+            if(arg2 != 0 ){
+                new SweetAlertDialog(Car_dealersActivity.this)
+                        .setTitleText("機車行資訊")
+                        .setContentText("店名：" +main_arrayList.get(arg2-1).name+"\n"+
+                                "地址 ： "+ main_arrayList.get(arg2-1).add+"\n"+
+                                "經度 ： "+ main_arrayList.get(arg2-1).lng+"\n"+
+                                "緯度 ： "+ main_arrayList.get(arg2-1).lat+"\n")
+                        .show();
+            }
+        }
+    };
 
     private CTableAdapter.TableCell[] getTableItem(String name, String add, CTableAdapter.TableCell[] titles){
         CTableAdapter.TableCell[] cells = new CTableAdapter.TableCell[3];

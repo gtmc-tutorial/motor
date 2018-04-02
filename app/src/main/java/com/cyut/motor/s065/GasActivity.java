@@ -1,26 +1,26 @@
 package com.cyut.motor.s065;
 
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
 
 import com.cyut.motor.R;
 import com.cyut.motor.Structure.GasStructure;
+import com.cyut.motor.Structure.PlaceStructure;
 import com.firebase.client.ChildEventListener;
 import com.firebase.client.DataSnapshot;
 import com.firebase.client.Firebase;
 import com.firebase.client.FirebaseError;
-import com.firebase.client.Query;
-import com.firebase.client.ValueEventListener;
 
 import java.util.ArrayList;
+
+import cn.pedant.SweetAlert.SweetAlertDialog;
 
 public class GasActivity extends AppCompatActivity {
     Button btn_back,btn_create;
@@ -28,8 +28,8 @@ public class GasActivity extends AppCompatActivity {
     ListView listView;
     GTableAdapter GTableAdapter;
     ArrayList<GTableAdapter.TableRow> table = new ArrayList<GTableAdapter.TableRow>();
-    Firebase myFirebaseRef;
     public static ArrayList<String> key_array = new ArrayList<>();
+    public static ArrayList<PlaceStructure> main_arrayList = new ArrayList<>();
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -51,60 +51,63 @@ public class GasActivity extends AppCompatActivity {
 
         GTableAdapter = new GTableAdapter(this, table);
         listView.setAdapter(GTableAdapter);
+        listView.setOnItemClickListener(onItemClickListener);
 
-        myFirebaseRef  = new Firebase("https://motorcycle-cc0fe.firebaseio.com/place/gas");
-        myFirebaseRef.addChildEventListener(childEventListener);
-    }
+        final Firebase myFirebaseRef  = new Firebase("https://motorcycle-cc0fe.firebaseio.com/place/gas");
+        myFirebaseRef.addChildEventListener(new ChildEventListener() {
+            @Override
+            public void onChildAdded(DataSnapshot snapshot, String previousChild) {
 
-    private ChildEventListener childEventListener = new ChildEventListener() {
-        @Override
-        public void onChildAdded(DataSnapshot snapshot, String s) {
-            GasStructure gasStructure = snapshot.getValue(GasStructure.class);
-            if(gasStructure != null){
-                key_array.add(snapshot.getKey());
+                PlaceStructure placeStructure = snapshot.getValue(PlaceStructure.class);
+                if (placeStructure != null) {
+                    key_array.add(snapshot.getKey());
 
-                ArrayList<GTableAdapter.TableCell[]> arrayList = new ArrayList<>();
-                arrayList.add(getTableItem(gasStructure.name,gasStructure.add,titles));
-                for (int i = 0;i<arrayList.size();i++){
-                    table.add(new GTableAdapter.TableRow(arrayList.get(i)));
-                }
-
-                GTableAdapter.notifyDataSetChanged();
-            }
-        }
-
-        @Override
-        public void onChildChanged(DataSnapshot dataSnapshot, String s) {
-
-        }
-
-        @Override
-        public void onChildRemoved(DataSnapshot dataSnapshot) {
-            for (int i = 0 ; i < key_array.size();i++){
-                if(key_array.get(i).equals(dataSnapshot.getKey())){
-                    key_array.remove(i);
-                    table.remove(i+1);
+                    ArrayList<GTableAdapter.TableCell[]> arrayList = new ArrayList<>();
+                    arrayList.add(getTableItem(placeStructure.name, placeStructure.add, titles));
+                    for (int i = 0; i < arrayList.size(); i++) {
+                        table.add(new GTableAdapter.TableRow(arrayList.get(i)));
+                    }
                     GTableAdapter.notifyDataSetChanged();
                 }
             }
-        }
-
-        @Override
-        public void onChildMoved(DataSnapshot dataSnapshot, String s) {
-
-        }
-
-        @Override
-        public void onCancelled(FirebaseError firebaseError) {
-
-        }
-    };
+            public void onChildChanged(DataSnapshot dataSnapshot, String s) {
+            }
+            public void onChildRemoved(DataSnapshot dataSnapshot) {
+                for (int i = 0; i < key_array.size(); i++) {
+                    if (key_array.get(i).equals(dataSnapshot.getKey())) {
+                        key_array.remove(i);
+                        table.remove(i + 1);
+                        GTableAdapter.notifyDataSetChanged();
+                    }
+                }
+            }
+            public void onChildMoved(DataSnapshot dataSnapshot, String s) {
+            }
+            public void onCancelled(FirebaseError firebaseError) {
+            }
+        });
+    }
 
     @Override
     public void onStart() {
         super.onStart();
         key_array = new ArrayList<>();
     }
+
+    private AdapterView.OnItemClickListener onItemClickListener = new AdapterView.OnItemClickListener() {
+        @Override
+        public void onItemClick(AdapterView<?> parent, View view, int arg2, long id) {
+            if(arg2 != 0 ){
+                new SweetAlertDialog(GasActivity.this)
+                        .setTitleText("加油站資訊")
+                        .setContentText("店名：" +main_arrayList.get(arg2-1).name+"\n"+
+                                "地址 ： "+ main_arrayList.get(arg2-1).add+"\n"+
+                                "經度 ： "+ main_arrayList.get(arg2-1).lng+"\n"+
+                                "緯度 ： "+ main_arrayList.get(arg2-1).lat+"\n")
+                        .show();
+            }
+        }
+    };
 
     private GTableAdapter.TableCell[] getTableItem(String name, String add, GTableAdapter.TableCell[] titles){
         GTableAdapter.TableCell[] cells = new GTableAdapter.TableCell[3];
