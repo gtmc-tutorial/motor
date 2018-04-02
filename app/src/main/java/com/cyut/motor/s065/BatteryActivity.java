@@ -108,9 +108,9 @@ public class BatteryActivity extends AppCompatActivity {
                 new SweetAlertDialog(BatteryActivity.this)
                         .setTitleText("充電站資訊")
                        .setContentText("店名：" +main_arrayList.get(arg2-1).name+"\n"+
-                                "地址 ： "+ main_arrayList.get(arg2-1).add+"\n"+
-                                "經度 ： "+ main_arrayList.get(arg2-1).lng+"\n"+
-                                "緯度 ： "+ main_arrayList.get(arg2-1).lat+"\n")
+                                "地址："+ main_arrayList.get(arg2-1).add+"\n"+
+                                "經度："+ main_arrayList.get(arg2-1).lng+"\n"+
+                                "緯度："+ main_arrayList.get(arg2-1).lat+"\n")
                         .show();
             }
         }

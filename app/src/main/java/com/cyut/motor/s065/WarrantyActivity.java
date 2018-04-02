@@ -107,11 +107,11 @@ public class WarrantyActivity extends AppCompatActivity {
                 new SweetAlertDialog(WarrantyActivity.this)
                         .setTitleText("保養紀錄資訊")
                         .setContentText("使用者：" +main_arrayList.get(arg2-1).user_id+"\n"+
-                                "日期 ： "+ main_arrayList.get(arg2-1).day+"\n"+
-                                "廠牌 ： "+ main_arrayList.get(arg2-1).label+"\n"+
-                                "類型 ： "+ main_arrayList.get(arg2-1).type+"\n"+
-                                "價錢 ： "+ main_arrayList.get(arg2-1).price+"\n"+
-                                "公里數 ： "+ main_arrayList.get(arg2-1).trip+"\n")
+                                "日期："+ main_arrayList.get(arg2-1).day+"\n"+
+                                "廠牌："+ main_arrayList.get(arg2-1).label+"\n"+
+                                "類型："+ main_arrayList.get(arg2-1).type+"\n"+
+                                "價錢："+ main_arrayList.get(arg2-1).price+"\n"+
+                                "公里數："+ main_arrayList.get(arg2-1).trip+"\n")
                         .show();
             }
         }

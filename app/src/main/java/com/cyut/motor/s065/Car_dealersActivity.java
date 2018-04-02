@@ -60,6 +60,7 @@ public class Car_dealersActivity extends AppCompatActivity {
 
                 PlaceStructure placeStructure = snapshot.getValue(PlaceStructure.class);
                 if (placeStructure != null) {
+                    main_arrayList.add(placeStructure);
                     key_array.add(snapshot.getKey());
 
                     ArrayList<CTableAdapter.TableCell[]> arrayList = new ArrayList<>();
@@ -101,9 +102,9 @@ public class Car_dealersActivity extends AppCompatActivity {
                 new SweetAlertDialog(Car_dealersActivity.this)
                         .setTitleText("機車行資訊")
                         .setContentText("店名：" +main_arrayList.get(arg2-1).name+"\n"+
-                                "地址 ： "+ main_arrayList.get(arg2-1).add+"\n"+
-                                "經度 ： "+ main_arrayList.get(arg2-1).lng+"\n"+
-                                "緯度 ： "+ main_arrayList.get(arg2-1).lat+"\n")
+                                "地址："+ main_arrayList.get(arg2-1).add+"\n"+
+                                "經度："+ main_arrayList.get(arg2-1).lng+"\n"+
+                                "緯度："+ main_arrayList.get(arg2-1).lat+"\n")
                         .show();
             }
         }

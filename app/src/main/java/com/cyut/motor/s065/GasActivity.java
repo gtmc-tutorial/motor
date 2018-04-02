@@ -60,6 +60,7 @@ public class GasActivity extends AppCompatActivity {
 
                 PlaceStructure placeStructure = snapshot.getValue(PlaceStructure.class);
                 if (placeStructure != null) {
+                    main_arrayList.add(placeStructure);
                     key_array.add(snapshot.getKey());
 
                     ArrayList<GTableAdapter.TableCell[]> arrayList = new ArrayList<>();
@@ -101,9 +102,9 @@ public class GasActivity extends AppCompatActivity {
                 new SweetAlertDialog(GasActivity.this)
                         .setTitleText("加油站資訊")
                         .setContentText("店名：" +main_arrayList.get(arg2-1).name+"\n"+
-                                "地址 ： "+ main_arrayList.get(arg2-1).add+"\n"+
-                                "經度 ： "+ main_arrayList.get(arg2-1).lng+"\n"+
-                                "緯度 ： "+ main_arrayList.get(arg2-1).lat+"\n")
+                                "地址："+ main_arrayList.get(arg2-1).add+"\n"+
+                                "經度："+ main_arrayList.get(arg2-1).lng+"\n"+
+                                "緯度："+ main_arrayList.get(arg2-1).lat+"\n")
                         .show();
             }
         }
