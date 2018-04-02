@@ -1,28 +1,15 @@
 package com.cyut.motor.Activity;
 
-import android.content.SharedPreferences;
 import android.graphics.Color;
-import android.graphics.Typeface;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.support.v7.app.AppCompatActivity;
 import android.text.SpannableString;
-import android.text.style.ForegroundColorSpan;
-import android.text.style.RelativeSizeSpan;
-import android.text.style.StyleSpan;
 import android.util.Log;
-import android.view.MenuItem;
 import android.view.View;
-import android.widget.Button;
 
 import com.cyut.motor.R;
 import com.cyut.motor.Structure.MaintainStructure;
-import com.cyut.motor.s186.TableAdapter;
-import com.firebase.client.ChildEventListener;
-import com.firebase.client.DataSnapshot;
 import com.firebase.client.Firebase;
-import com.firebase.client.FirebaseError;
-import com.firebase.client.Query;
 import com.github.mikephil.charting.animation.Easing;
 import com.github.mikephil.charting.charts.PieChart;
 import com.github.mikephil.charting.components.Legend;
@@ -30,8 +17,6 @@ import com.github.mikephil.charting.data.PieData;
 import com.github.mikephil.charting.data.PieDataSet;
 import com.github.mikephil.charting.data.PieEntry;
 import com.github.mikephil.charting.formatter.PercentFormatter;
-import com.github.mikephil.charting.interfaces.datasets.IDataSet;
-import com.github.mikephil.charting.listener.OnChartValueSelectedListener;
 import com.github.mikephil.charting.utils.ColorTemplate;
 import com.github.mikephil.charting.utils.MPPointF;
 
@@ -158,7 +143,7 @@ public class ChartActivity extends DemoBase {
         PieData data = new PieData(dataSet);
         data.setValueFormatter(new PercentFormatter());
         data.setValueTextSize(11f);
-        data.setValueTextColor(Color.WHITE);
+        data.setValueTextColor(Color.BLACK);
         data.setValueTypeface(mTfLight);
         chart.setData(data);
 
@@ -183,7 +168,7 @@ public class ChartActivity extends DemoBase {
         mChart1.setDrawHoleEnabled(true);
         mChart1.setHoleColor(Color.WHITE);
 
-        mChart1.setTransparentCircleColor(Color.WHITE);
+        mChart1.setTransparentCircleColor(Color.BLACK);
         mChart1.setTransparentCircleAlpha(110);
 
         mChart1.setHoleRadius(58f);
@@ -217,7 +202,7 @@ public class ChartActivity extends DemoBase {
         l.setYOffset(0f);
 
         // entry label styling
-        mChart1.setEntryLabelColor(Color.WHITE);
+        mChart1.setEntryLabelColor(Color.BLACK);
         mChart1.setEntryLabelTypeface(mTfRegular);
         mChart1.setEntryLabelTextSize(12f);
     }
@@ -271,7 +256,7 @@ public class ChartActivity extends DemoBase {
         l.setYOffset(0f);
 
         // entry label styling
-        mChart2.setEntryLabelColor(Color.WHITE);
+        mChart2.setEntryLabelColor(Color.BLACK);
         mChart2.setEntryLabelTypeface(mTfRegular);
         mChart2.setEntryLabelTextSize(12f);
     }

@@ -17,12 +17,13 @@
         <TextView
             android:id="@+id/textView9"
             android:layout_width="64dp"
-            android:layout_height="wrap_content"
+            android:layout_height="65dp"
             android:ems="10"
-            android:text="日期:"
-            android:textColor="@android:color/black"
-            android:textSize="20sp"
+            android:textColor="@android:color/white"
+            android:background="@drawable/calendar_icon"
+            android:textSize="30sp"
             android:textStyle="bold" />
+
 
         <TextView
             android:id="@+id/tvDate"
@@ -31,7 +32,8 @@
             android:layout_weight="1"
             android:editable="false"
             android:textSize="20sp"
-            android:hint="請選擇日期" />
+            android:hint="請點選此處選擇日期"
+            />
 
     </LinearLayout>
 
@@ -49,8 +51,8 @@
             android:layout_weight="1"
             android:ems="10"
             android:text="保養類別:"
-            android:textColor="@android:color/black"
-            android:textSize="20sp"
+            android:textColor="@android:color/white"
+            android:textSize="23sp"
             android:textStyle="bold" />
 
     </LinearLayout>
@@ -88,8 +90,8 @@
             android:layout_weight="1"
             android:ems="10"
             android:text="廠牌:"
-            android:textColor="@android:color/black"
-            android:textSize="20sp"
+            android:textColor="@android:color/white"
+            android:textSize="23sp"
             android:textStyle="bold" />
 
     </LinearLayout>
@@ -104,11 +106,10 @@
 
         <Spinner
             android:id="@+id/spinner2"
+            style="@android:style/Widget.Material.Light.Spinner.Underlined"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
-            style="@android:style/Widget.Spinner"
-            />
+            android:layout_weight="1" />
 
     </LinearLayout>
 
@@ -127,8 +128,8 @@
             android:ems="10"
             android:inputType="textPersonName"
             android:text="價位:"
-            android:textColor="@android:color/black"
-            android:textSize="20sp"
+            android:textColor="@android:color/white"
+            android:textSize="23sp"
             android:textStyle="bold" />
     </LinearLayout>
 
@@ -141,7 +142,7 @@
 
         <Spinner
             android:id="@+id/spinner"
-            style="@android:style/Widget.Spinner"
+            style="@android:style/Widget.Material.Spinner.Underlined"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_weight="1"
@@ -153,7 +154,7 @@
             android:layout_width="98dp"
             android:layout_height="wrap_content"
             android:text="/瓶(個)"
-            android:textSize="26sp" />
+            android:textSize="23sp" />
     </LinearLayout>
 
     <LinearLayout
@@ -171,8 +172,8 @@
             android:ems="10"
             android:inputType="textPersonName"
             android:text="公里:"
-            android:textColor="@android:color/black"
-            android:textSize="20sp"
+            android:textColor="@android:color/white"
+            android:textSize="23sp"
             android:textStyle="bold" />
 
     </LinearLayout>
@@ -216,8 +217,8 @@
             android:layout_centerHorizontal="true"
             android:backgroundTint="@android:color/black"
             android:text="確定"
-            android:textColor="@color/Watercolor"
-            android:textSize="20sp"/>
+            android:textColor="@android:color/white"
+            android:textSize="23sp"/>
     </RelativeLayout>
 
 </RelativeLayout>
