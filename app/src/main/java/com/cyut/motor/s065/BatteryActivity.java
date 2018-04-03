@@ -48,11 +48,12 @@ public class BatteryActivity extends AppCompatActivity {
         btn_create.setOnClickListener(listener1);
 
         listView = findViewById(R.id.ListView01);
-        int width = getWindowManager().getDefaultDisplay().getWidth() / 3;
-        titles = new BTableAdapter.TableCell[3];// 每行5个单元
+        int width = getWindowManager().getDefaultDisplay().getWidth() / 4;
+        titles = new BTableAdapter.TableCell[4];// 每行5个单元
         titles[0] = new BTableAdapter.TableCell("門市", width + 8 * 0, RelativeLayout.LayoutParams.FILL_PARENT, com.cyut.motor.s065.BTableAdapter.TableCell.STRING);
         titles[1] = new BTableAdapter.TableCell("地址", width + 8 * 1, RelativeLayout.LayoutParams.FILL_PARENT, com.cyut.motor.s065.BTableAdapter.TableCell.STRING);
         titles[2] = new BTableAdapter.TableCell("刪除", width + 8 * 2, RelativeLayout.LayoutParams.FILL_PARENT, com.cyut.motor.s065.BTableAdapter.TableCell.STRING);
+        titles[3] = new BTableAdapter.TableCell("修改", width + 8 * 2, RelativeLayout.LayoutParams.FILL_PARENT, com.cyut.motor.s065.BTableAdapter.TableCell.STRING);
         table.add(new BTableAdapter.TableRow(titles));
 
         BTableAdapter = new BTableAdapter(this, table);
@@ -117,11 +118,12 @@ public class BatteryActivity extends AppCompatActivity {
     };
 
     private BTableAdapter.TableCell[] getTableItem(String name, String add, BTableAdapter.TableCell[] titles){
-        BTableAdapter.TableCell[] cells = new BTableAdapter.TableCell[3];
+        BTableAdapter.TableCell[] cells = new BTableAdapter.TableCell[4];
 
         cells[0] = new BTableAdapter.TableCell(name, titles[0].width, RelativeLayout.LayoutParams.FILL_PARENT, com.cyut.motor.s065.BTableAdapter.TableCell.STRING);
         cells[1] = new BTableAdapter.TableCell(add, titles[1].width, RelativeLayout.LayoutParams.FILL_PARENT, com.cyut.motor.s065.BTableAdapter.TableCell.STRING);
         cells[2] = new BTableAdapter.TableCell(R.drawable.delete,titles[2].width,RelativeLayout.LayoutParams.WRAP_CONTENT, com.cyut.motor.s065.BTableAdapter.TableCell.IMAGE);
+        cells[3] = new BTableAdapter.TableCell(R.drawable.update,titles[3].width,RelativeLayout.LayoutParams.WRAP_CONTENT, com.cyut.motor.s065.BTableAdapter.TableCell.IMAGE);
         return cells;
     }
 
