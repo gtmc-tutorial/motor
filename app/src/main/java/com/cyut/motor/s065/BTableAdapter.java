@@ -132,6 +132,38 @@ public class BTableAdapter extends BaseAdapter {
 
                     imageViews.add(imgCell);
                     addView(imgCell, layoutParams);
+                }else if(tableCell.type == TableCell.IMAGE_EDIT){
+                    ImageView imgCell = new ImageView(context);
+                    LayoutParams layoutParams = new LayoutParams(tableCell.width, Util.getDP(getContext(),24));//按照格单元指定的大小设置空间
+                    layoutParams.setMargins(0, Util.getDP(getContext(),18), 4, 4);//预留空隙制造边框
+                    imgCell.setImageResource((Integer) tableCell.value);
+//                    imgCell.setForegroundGravity(Gravity.CENTER);
+                    imgCell.setScaleType(ImageView.ScaleType.FIT_CENTER);
+
+                    imgCell.setOnClickListener(new OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            new SweetAlertDialog(context)
+                                    .setTitleText("確認是否修改此筆資料")
+                                    .setConfirmText("確認")
+                                    .setCancelText("取消")
+                                    .showCancelButton(true)
+                                    .setCancelClickListener(new SweetAlertDialog.OnSweetClickListener() {
+                                        @Override
+                                        public void onClick(SweetAlertDialog sDialog) {
+                                            sDialog.cancel();
+                                        }
+                                    })
+                                    .setConfirmClickListener(new SweetAlertDialog.OnSweetClickListener() {
+                                        @Override
+                                        public void onClick(SweetAlertDialog sweetAlertDialog) {
+                                            //看要如何編輯
+                                        }
+                                    }).show();
+                        }
+                    });
+                    imageViews.add(imgCell);
+                    addView(imgCell, layoutParams);
                 }
             }
 //            this.setBackgroundColor(Color.WHITE);//背景白色，利用空隙来实现边框
@@ -162,6 +194,8 @@ public class BTableAdapter extends BaseAdapter {
     static public class TableCell {
         static public final int STRING = 0;
         static public final int IMAGE = 1;
+        static public final int IMAGE_EDIT = 2;
+
         public Object value;
         public int width;
         public int height;

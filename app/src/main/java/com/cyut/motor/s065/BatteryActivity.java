@@ -123,7 +123,7 @@ public class BatteryActivity extends AppCompatActivity {
         cells[0] = new BTableAdapter.TableCell(name, titles[0].width, RelativeLayout.LayoutParams.FILL_PARENT, com.cyut.motor.s065.BTableAdapter.TableCell.STRING);
         cells[1] = new BTableAdapter.TableCell(add, titles[1].width, RelativeLayout.LayoutParams.FILL_PARENT, com.cyut.motor.s065.BTableAdapter.TableCell.STRING);
         cells[2] = new BTableAdapter.TableCell(R.drawable.delete,titles[2].width,RelativeLayout.LayoutParams.WRAP_CONTENT, com.cyut.motor.s065.BTableAdapter.TableCell.IMAGE);
-        cells[3] = new BTableAdapter.TableCell(R.drawable.update,titles[3].width,RelativeLayout.LayoutParams.WRAP_CONTENT, com.cyut.motor.s065.BTableAdapter.TableCell.IMAGE);
+        cells[3] = new BTableAdapter.TableCell(R.drawable.update,titles[3].width,RelativeLayout.LayoutParams.WRAP_CONTENT, com.cyut.motor.s065.BTableAdapter.TableCell.IMAGE_EDIT);
         return cells;
     }
 
