@@ -85,6 +85,10 @@
             android:name=".Activity.ChartActivity"
             android:screenOrientation="portrait" ></activity>
 
+        <activity
+            android:name=".s065.InfoEditActivity"
+            android:screenOrientation="portrait" ></activity>
+
         <receiver android:name=".s134.AlarmInitReceiver">
             <intent-filter>
                 <action android:name="android.intent.action.BOOT_COMPLETED" />

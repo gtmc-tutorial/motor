@@ -1,6 +1,7 @@
 package com.cyut.motor.s065;
 
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Color;
 import android.util.Log;
 import android.view.Gravity;
@@ -143,23 +144,27 @@ public class BTableAdapter extends BaseAdapter {
                     imgCell.setOnClickListener(new OnClickListener() {
                         @Override
                         public void onClick(View v) {
-                            new SweetAlertDialog(context)
-                                    .setTitleText("確認是否修改此筆資料")
-                                    .setConfirmText("確認")
-                                    .setCancelText("取消")
-                                    .showCancelButton(true)
-                                    .setCancelClickListener(new SweetAlertDialog.OnSweetClickListener() {
-                                        @Override
-                                        public void onClick(SweetAlertDialog sDialog) {
-                                            sDialog.cancel();
-                                        }
-                                    })
-                                    .setConfirmClickListener(new SweetAlertDialog.OnSweetClickListener() {
-                                        @Override
-                                        public void onClick(SweetAlertDialog sweetAlertDialog) {
-                                            //看要如何編輯
-                                        }
-                                    }).show();
+                            Intent intent = new Intent(context, InfoEditActivity.class);
+                            context.startActivity(intent);
+
+//                            new SweetAlertDialog(context)
+//                                    .setTitleText("確認是否修改此筆資料")
+//                                    .setConfirmText("確認")
+//                                    .setCancelText("取消")
+//                                    .showCancelButton(true)
+//                                    .setCancelClickListener(new SweetAlertDialog.OnSweetClickListener() {
+//                                        @Override
+//                                        public void onClick(SweetAlertDialog sDialog) {
+//                                            sDialog.cancel();
+//                                        }
+//                                    })
+//                                    .setConfirmClickListener(new SweetAlertDialog.OnSweetClickListener() {
+//                                        @Override
+//                                        public void onClick(SweetAlertDialog sweetAlertDialog) {
+//                                            //看要如何編輯
+//
+//                                        }
+//                                    }).show();
                         }
                     });
                     imageViews.add(imgCell);
