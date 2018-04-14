@@ -3,15 +3,31 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:padding="16dp"
-    android:background="@drawable/ic_home_black_24dp"
-    android:orientation="horizontal"
+
     tools:context=".Activity.WelcomeActivity">
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="自動跳轉"
-        android:textColor="#000"/>
+    <FrameLayout
+        android:id="@+id/fragment_main_content"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:background="#23bfc8"
+
+        android:backgroundTintMode="multiply">
+
+    </FrameLayout>
+
+    <ImageView
+        android:layout_width="500dp"
+        android:layout_height="200dp"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginTop="165dp"
+        android:gravity="center"
+        android:background="@drawable/home"
+        android:id="@+id/imageView" />
+
+
 
 </RelativeLayout>

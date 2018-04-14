@@ -3,8 +3,6 @@ package com.cyut.motor.s186;
 /**
  * Created by wubingyu on 2017/12/3.
  */
-import java.util.ArrayList;
-import java.util.List;
 import android.content.Context;
 import android.graphics.Color;
 import android.util.Log;
@@ -14,8 +12,6 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.RelativeLayout;
-import android.widget.TableRow;
 import android.widget.TextView;
 
 import com.cyut.motor.Util;
@@ -24,6 +20,9 @@ import com.firebase.client.Firebase;
 import com.firebase.client.FirebaseError;
 import com.firebase.client.Query;
 import com.firebase.client.ValueEventListener;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import static com.cyut.motor.s186.MaintenanceFragment.key_array;
 
@@ -73,7 +72,7 @@ public class TableAdapter extends BaseAdapter {
                     textCell.setGravity(Gravity.CENTER);
                     textCell.setBackgroundColor(0x00000000);
                     textCell.setText(String.valueOf(tableCell.value));
-                    textCell.setTextColor(Color.GRAY);
+                    textCell.setTextColor(Color.WHITE);
                     textCell.setPadding(0,30,0,30);
                     addView(textCell, layoutParams);
                 } else if (tableCell.type == TableCell.IMAGE) {//如果格单元是图像内容
