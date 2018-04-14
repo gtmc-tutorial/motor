@@ -1,9 +1,6 @@
 package com.cyut.motor.s065;
 
-import android.app.Activity;
-import android.content.Context;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
@@ -12,7 +9,6 @@ import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
-import android.widget.Toast;
 
 import com.cyut.motor.R;
 import com.cyut.motor.Structure.PlaceStructure;
@@ -26,7 +22,6 @@ import java.util.ArrayList;
 import cn.pedant.SweetAlert.SweetAlertDialog;
 
 public class BatteryActivity extends AppCompatActivity {
-    private Context context = this;
     Button btn_back,btn_create;
     BTableAdapter.TableCell[] titles;
     ListView listView;
@@ -35,8 +30,6 @@ public class BatteryActivity extends AppCompatActivity {
 
     public static ArrayList<String> key_array = new ArrayList<>();
     public static ArrayList<PlaceStructure> main_arrayList = new ArrayList<>();
-    private Activity activity;
-
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {

@@ -275,15 +275,15 @@ public class LoginActivity extends AppCompatActivity {
 //                });
 //    }
 
-//    public void onClick(View v) {
-//        switch (v.getId()) {
-//            case R.id.btn_login:
-//                signIn();
-//                break;
-//            default:
-//                return;
-//        }
-//    }
+    public void onClick(View v) {
+        switch (v.getId()) {
+            case R.id.btn_login:
+                signIn();
+                break;
+            default:
+                return;
+        }
+    }
 
     private void signIn() {
         if(StaticMethodPack.isNetworkConnecting(this)) {
