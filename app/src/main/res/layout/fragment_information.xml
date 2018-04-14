@@ -154,7 +154,7 @@
             android:layout_width="98dp"
             android:layout_height="wrap_content"
             android:text="/瓶(個)"
-            android:textSize="23sp" />
+            android:textSize="15sp" />
     </LinearLayout>
 
     <LinearLayout
@@ -201,7 +201,7 @@
             android:layout_height="wrap_content"
             android:layout_weight="7.25"
             android:text="Km(上限百萬)"
-            android:textSize="20sp" />
+            android:textSize="15sp" />
 
     </LinearLayout>
 
