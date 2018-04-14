@@ -6,14 +6,12 @@
     android:padding="16dp"
     android:background="@drawable/ic_home_black_24dp"
     android:orientation="horizontal"
-    tools:context="com.cyut.motor.WelcomeActivity">
+    tools:context=".Activity.WelcomeActivity">
 
-    <Button
-        android:id="@+id/btn_start"
-        android:layout_width="220dp"
-        android:layout_height="100dp"
-        android:layout_centerHorizontal="true"
-        android:layout_alignParentBottom="true"
-        android:layout_marginBottom="60dp"
-        android:background="@drawable/welcome_btn_start" />
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="自動跳轉"
+        android:textColor="#000"/>
+
 </RelativeLayout>
