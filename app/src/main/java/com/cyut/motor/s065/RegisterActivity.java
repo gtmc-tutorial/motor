@@ -100,8 +100,9 @@ public class RegisterActivity extends AppCompatActivity {
     private Button.OnClickListener listener = new Button.OnClickListener() {
         @Override
         public void onClick(View v) {
-            // TODO Auto-generated method stub
-            finish();
+            Intent intent = new Intent();
+            intent.setClass(RegisterActivity.this, LoginActivity.class);
+            startActivity(intent);
         }
     };
 

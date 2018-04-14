@@ -1,6 +1,7 @@
 package com.cyut.motor.s065;
 
 import android.app.ProgressDialog;
+import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
@@ -183,7 +184,7 @@ public class LoginActivity extends AppCompatActivity {
                         }
                     });
         }else{
-            Toast.makeText(this,"請連接網路",Toast.LENGTH_SHORT);
+            Toast.makeText(this,"請連接網路",Toast.LENGTH_LONG);
         }
     }
 
@@ -275,26 +276,27 @@ public class LoginActivity extends AppCompatActivity {
 //                });
 //    }
 
-    public void onClick(View v) {
-        switch (v.getId()) {
-            case R.id.btn_login:
-                signIn();
-                break;
-            default:
-                return;
-        }
-    }
+//    public void onClick(View v) {
+//        switch (v.getId()) {
+//            case R.id.btn_login:
+//                signIn();
+//                break;
+//            default:
+//                return;
+//        }
+//    }
 
-    private void signIn() {
-        if(StaticMethodPack.isNetworkConnecting(this)) {
-            Intent signInIntent = Auth.GoogleSignInApi.getSignInIntent(mGoogleApiClient);
-            startActivityForResult(signInIntent, RC_SIGN_IN);
-        }else
-        Toast.makeText(this,"請連接網路",Toast.LENGTH_SHORT);
+//    private void signIn() {
+//        if(StaticMethodPack.isNetworkConnecting(this)) {
+//            Intent signInIntent = Auth.;
+//            startActivityForResult(signInIntent, RC_SIGN_IN);
+//        }else
+//        Toast.makeText(this,"請連接網路",Toast.LENGTH_SHORT);
+//
+//
+//
+//    }
 
-
-
-    }
 
 //    @Override
 //    public void onActivityResult(int requestCode, int resultCode, Intent data) {
