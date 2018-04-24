@@ -1,9 +1,10 @@
 package com.cyut.motor;
 
 import android.app.Activity;
-import android.content.Context;
+import android.content.res.Configuration;
 import android.graphics.Typeface;
 import android.util.DisplayMetrics;
+import android.util.TypedValue;
 
 public class Ruler {
     //多解析度
@@ -11,10 +12,10 @@ public class Ruler {
     public int Height;
     public int densityDpi;
     public static Typeface typeFace;
-    private Context Context;
+    private android.content.Context Context;
 
     // Width & Height
-    public Ruler(Context Context) {
+    public Ruler(android.content.Context Context) {
         this.Context = Context;
         DisplayMetrics dm = new DisplayMetrics();
         ((Activity) this.Context).getWindowManager().getDefaultDisplay()
@@ -54,5 +55,13 @@ public class Ruler {
         Double h = new Double(Height);
         Double w = new Double(Width);
         return new Double(h / w);
+    }
+
+    public static boolean isPad(android.content.Context context) {
+        return (context.getResources().getConfiguration().screenLayout & Configuration.SCREENLAYOUT_SIZE_MASK) >=
+                Configuration.SCREENLAYOUT_SIZE_LARGE;
+    }
+    public static int getDP(android.content.Context context, int dp) {
+        return (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, dp, context.getResources().getDisplayMetrics());
     }
 }
