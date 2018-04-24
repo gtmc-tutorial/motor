@@ -24,6 +24,7 @@ import com.cyut.motor.Activity.MainActivity;
 import com.cyut.motor.R;
 import com.cyut.motor.s014.Connecter;
 import com.cyut.motor.s014.MapFragment;
+import com.kaopiz.kprogresshud.KProgressHUD;
 import com.koushikdutta.ion.Ion;
 
 import org.json.JSONArray;
@@ -40,7 +41,7 @@ public class SettingFragment extends Fragment {
     Button notice;
     Button stole;
     final Connecter connecter  = Connecter.getInstance();
-
+    private KProgressHUD hud;
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, Bundle savedInstanceState) {
@@ -126,37 +127,41 @@ public class SettingFragment extends Fragment {
                                 if(editText.getText().toString().length()<5){
                                     Toast.makeText(getActivity(),"長度不能小於5",Toast.LENGTH_SHORT).show();
                                 }else{
+                                    getActivity().runOnUiThread(new Runnable() {
+                                        @Override
+                                        public void run() {
+                                            hud = KProgressHUD.create(getActivity())
+                                                    .setStyle(KProgressHUD.Style.SPIN_INDETERMINATE)
+                                                    .setDimAmount(0.5f)
+                                                    .show();
+                                        }
+                                    });
+
+                                    final String s = editText.getText().toString();
+                                    String p = "A";
+                                    int postion = spinner.getSelectedItemPosition();
+                                    if(postion == 0)
+                                        p = "A";
+                                    else if(postion == 1)
+                                        p = "B";
+                                    else if(postion == 2)
+                                        p = "C";
+                                    else if(postion == 3)
+                                        p = "D";
+
+                                    final String finalP = p;
                                     new Thread(new Runnable(){
                                         @Override
                                         public void run() {
-                                            String s = editText.getText().toString();
-                                            String p = "A";
-                                            int postion = spinner.getSelectedItemPosition();
-                                            if(postion == 0)
-                                                p = "A";
-                                            else if(postion == 1)
-                                                p = "B";
-                                            else if(postion == 2)
-                                                p = "C";
-                                            else if(postion == 3)
-                                                p = "D";
-
-                                            String result = connecter.getJSONContent("http://od.moi.gov.tw/adm/veh/query_veh?_m=query&vehType="+p+"&vehNumber="+s);
-                                            if(result.contains("L")){
-                                                getActivity().runOnUiThread(new Runnable() {
-                                                    @Override
-                                                    public void run() {
-                                                        Toast.makeText(getActivity(),"查無失竊紀錄",Toast.LENGTH_SHORT).show();
-                                                    }
-                                                });
-                                            }else{
-                                                getActivity().runOnUiThread(new Runnable() {
-                                                    @Override
-                                                    public void run() {
-                                                        Toast.makeText(getActivity(),"此為失竊車輛",Toast.LENGTH_SHORT).show();
-                                                    }
-                                                });
-                                            }
+                                            String result = connecter.getJSONContent("http://od.moi.gov.tw/adm/veh/query_veh?_m=query&vehType="+ finalP +"&vehNumber="+s);
+                                            if(result != null){
+                                                if(result.contains("L"))
+                                                    showToast("查無失竊紀錄");
+                                                else
+                                                    showToast("此為失竊車輛");
+                                            }else
+                                                showToast("伺服器無回應");
+                                            hud.dismiss();
                                         }
                                     }).start();
                                 }
@@ -175,5 +180,14 @@ public class SettingFragment extends Fragment {
 
         return view;
 
+    }
+
+    private void showToast(final String title){
+        getActivity().runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                Toast.makeText(getActivity(),title,Toast.LENGTH_SHORT).show();
+            }
+        });
     }
 }

@@ -84,5 +84,8 @@ dependencies {
     compile 'com.scwang.smartrefresh:SmartRefreshHeader:1.1.0-alpha-1'
     //dialog library 道路救援
     implementation 'com.afollestad.material-dialogs:commons:0.9.6.0'
+
+    compile 'com.kaopiz:kprogresshud:1.0.2'
+
 }
 apply plugin: 'com.google.gms.google-services'
