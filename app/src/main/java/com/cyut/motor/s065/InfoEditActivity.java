@@ -6,8 +6,10 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import com.cyut.motor.R;
+import com.firebase.client.Firebase;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
@@ -15,6 +17,8 @@ public class InfoEditActivity extends AppCompatActivity {
     private EditText edit_name1, edit_add1, edit_lng1, edit_lat1;
     private Button button_cancel, button_save;
     private DatabaseReference mFirebaseDatabase;
+    String mystringdata;
+    Firebase myfirebase;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -33,20 +37,16 @@ public class InfoEditActivity extends AppCompatActivity {
         edit_add1.setText(getIntent().getStringExtra("add"));
         edit_lng1.setText(getIntent().getStringExtra("lng"));
         edit_lat1.setText(getIntent().getStringExtra("lat"));
+        myfirebase = new Firebase("https://motorcycle-cc0fe.firebaseio.com");
 
         mFirebaseDatabase = FirebaseDatabase.getInstance().getReference();
         button_save.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String name = edit_name1.getText().toString();
-                String add = edit_add1.getText().toString();
-                String lng = edit_lng1.getText().toString();
-                String lat = edit_lat1.getText().toString();
-
-                mFirebaseDatabase.child("name").setValue(name);
-                mFirebaseDatabase.child("add").setValue(add);
-                mFirebaseDatabase.child("lng").setValue(lng);
-                mFirebaseDatabase.child("lat").setValue(lat);
+                mystringdata = edit_name1.getText().toString();
+                Firebase myNewChild = myfirebase.child("name");
+                myNewChild.setValue(mystringdata);
+                Toast.makeText(InfoEditActivity.this,"名稱變更為" + mystringdata ,Toast.LENGTH_LONG).show();
             }
         });
 
