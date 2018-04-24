@@ -6,7 +6,6 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.TextView;
 
 import com.cyut.motor.R;
 import com.google.firebase.database.DatabaseReference;
@@ -30,8 +29,12 @@ public class InfoEditActivity extends AppCompatActivity {
         button_cancel = findViewById(R.id.button_cancel);
         button_cancel.setOnClickListener(listener);
 
-        mFirebaseDatabase = FirebaseDatabase.getInstance().getReference();
+        edit_name1.setText(getIntent().getStringExtra("name"));
+        edit_add1.setText(getIntent().getStringExtra("add"));
+        edit_lng1.setText(getIntent().getStringExtra("lng"));
+        edit_lat1.setText(getIntent().getStringExtra("lat"));
 
+        mFirebaseDatabase = FirebaseDatabase.getInstance().getReference();
         button_save.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

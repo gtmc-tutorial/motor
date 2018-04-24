@@ -26,12 +26,12 @@ import java.util.List;
 import cn.pedant.SweetAlert.SweetAlertDialog;
 
 import static com.cyut.motor.s065.BatteryActivity.key_array;
+import static com.cyut.motor.s065.BatteryActivity.main_arrayList;
 
 
 public class BTableAdapter extends BaseAdapter {
     private Context context;
     private List<TableRow> table;
-
     FirebaseAuth auth;
 
     public ArrayList<ImageView> imageViews = new ArrayList<>();
@@ -122,7 +122,6 @@ public class BTableAdapter extends BaseAdapter {
                                                 @Override
                                                 public void onCancelled(FirebaseError firebaseError) {
                                                     Log.e("onCancelled","onCancelled");
-
                                                 }
                                             });
                                             sweetAlertDialog.cancel();
@@ -140,11 +139,14 @@ public class BTableAdapter extends BaseAdapter {
                     imgCell.setImageResource((Integer) tableCell.value);
 //                    imgCell.setForegroundGravity(Gravity.CENTER);
                     imgCell.setScaleType(ImageView.ScaleType.FIT_CENTER);
-
                     imgCell.setOnClickListener(new OnClickListener() {
                         @Override
                         public void onClick(View v) {
                             Intent intent = new Intent(context, InfoEditActivity.class);
+                            intent.putExtra("add", main_arrayList.get(position-1).add);
+                            intent.putExtra("name", main_arrayList.get(position-1).name);
+                            intent.putExtra("lat", main_arrayList.get(position-1).lat+"");
+                            intent.putExtra("lng", main_arrayList.get(position-1).lng+"");
                             context.startActivity(intent);
 
 //                            new SweetAlertDialog(context)

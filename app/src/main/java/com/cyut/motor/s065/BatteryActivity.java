@@ -57,7 +57,6 @@ public class BatteryActivity extends AppCompatActivity {
         myFirebaseRef.addChildEventListener(new ChildEventListener() {
             @Override
             public void onChildAdded(DataSnapshot snapshot, String previousChild) {
-
                 PlaceStructure placeStructure = snapshot.getValue(PlaceStructure.class);
                 if (placeStructure != null) {
                     main_arrayList.add(placeStructure);
