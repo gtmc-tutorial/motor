@@ -77,8 +77,8 @@ public class UTableAdapter extends BaseAdapter {
                     textCell.setGravity(Gravity.CENTER);
                     textCell.setBackgroundColor(0x00000000);
                     textCell.setText(String.valueOf(tableCell.value));
-                    textCell.setTextSize(20);
-                    textCell.setTextColor(Color.GRAY);
+                    textCell.setTextSize(16);
+                    textCell.setTextColor(Color.WHITE);
                     textCell.setPadding(20,50,20,50);
                     addView(textCell, layoutParams);
                 } else if (tableCell.type == TableCell.IMAGE) {//如果格单元是图像内容

@@ -12,8 +12,8 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
 public class InfoEditActivity extends AppCompatActivity {
-    private EditText edit_name1,edit_add1,edit_lng1,edit_lat1;
-    private Button button_cancel,button_save;
+    private EditText edit_name1, edit_add1, edit_lng1, edit_lat1;
+    private Button button_cancel, button_save;
     private DatabaseReference mFirebaseDatabase;
 
     @Override
@@ -55,9 +55,17 @@ public class InfoEditActivity extends AppCompatActivity {
     private Button.OnClickListener listener = new Button.OnClickListener() {
         @Override
         public void onClick(View v) {
-            Intent intent = new Intent();
-            intent.setClass(InfoEditActivity.this, BatteryActivity.class);
-            startActivity(intent);
+            String result = getIntent().getStringExtra("BTableAdapter");
+            String result1 = getIntent().getStringExtra("CTableAdapter");
+            String result2 = getIntent().getStringExtra("GTableAdapter");
+            if (result != null && result.equals("BTableAdapter")) {
+                startActivity(new Intent(InfoEditActivity.this, BatteryActivity.class));
+            } else if (result1 != null && result1.equals("CTableAdapter")) {
+                startActivity(new Intent(InfoEditActivity.this, Car_dealersActivity.class));
+            } else if (result2 != null && result2.equals("GTableAdapter")) {
+                startActivity(new Intent(InfoEditActivity.this, GasActivity.class));
+            }
         }
     };
 }
+

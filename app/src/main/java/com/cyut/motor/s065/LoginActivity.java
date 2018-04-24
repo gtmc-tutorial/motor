@@ -41,6 +41,9 @@ import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.GoogleAuthProvider;
 
 import com.facebook.FacebookSdk;
+
+import cn.pedant.SweetAlert.SweetAlertDialog;
+
 import static org.jsoup.Connection.Method.HEAD;
 
 public class LoginActivity extends AppCompatActivity {
@@ -202,7 +205,9 @@ public class LoginActivity extends AppCompatActivity {
     private Button.OnClickListener listener2 = new Button.OnClickListener() {
         @Override
         public void onClick(View v) {
+            finish();
             Intent intent = new Intent();
+            intent.putExtra("LoginActivity_IN","LoginActivity_IN");
             intent.setClass(LoginActivity.this, ForgetPasswordActivity.class);
             startActivity(intent);
         }
@@ -214,6 +219,7 @@ public class LoginActivity extends AppCompatActivity {
             Intent intent = new Intent();
             intent.setClass(LoginActivity.this, MainActivity.class);
             startActivity(intent);
+            finish();
         }
     };
 
@@ -229,6 +235,19 @@ public class LoginActivity extends AppCompatActivity {
         if (mAuthListener != null) {
             mAuth.removeAuthStateListener(mAuthListener);
         }
+    }
+
+    @Override
+    public void onBackPressed() {
+        String result = getIntent().getStringExtra("RegisterActivity_IN");
+        String result1 = getIntent().getStringExtra("ForgetPasswordActivity_IN");
+        if(result != null && result.equals("RegisterActivity_IN")){
+            startActivity(new Intent(LoginActivity.this, MainActivity.class));
+        }
+        else  if(result1 != null && result1.equals("ForgetPasswordActivity_IN")){
+            startActivity(new Intent(LoginActivity.this, MainActivity.class));
+        }
+        super.onBackPressed();
     }
 
 //    private void firebaseAuthWithGoogle(GoogleSignInAccount acct) {

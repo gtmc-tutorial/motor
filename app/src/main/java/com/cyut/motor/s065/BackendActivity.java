@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 
+import com.cyut.motor.Activity.MainActivity;
 import com.cyut.motor.R;
 
 import cn.pedant.SweetAlert.SweetAlertDialog;
@@ -94,11 +95,33 @@ public class BackendActivity extends Activity {
                             public void onClick(SweetAlertDialog sDialog) {
                                 sharedPreferences.edit().clear().commit();
                                 Intent intent = new Intent();
-                                intent.setClass(BackendActivity.this,LoginActivity.class);
+                                intent.setClass(BackendActivity.this,MainActivity.class);
                                 startActivity(intent);
                                 sDialog.dismissWithAnimation();
+                                finish();
                             }
                         }).show();
             }
         }};
+
+    @Override
+    public void onBackPressed() {
+        String id = sharedPreferences.getString("userid", "");
+        if (id.equals("")) {
+            new SweetAlertDialog(BackendActivity.this, SweetAlertDialog.WARNING_TYPE)
+                    .setTitleText("登出提醒")
+                    .setContentText("是否要登出?")
+                    .setConfirmClickListener(new SweetAlertDialog.OnSweetClickListener() {
+                        @Override
+                        public void onClick(SweetAlertDialog sDialog) {
+                            sharedPreferences.edit().clear().commit();
+                            Intent intent = new Intent();
+                            intent.setClass(BackendActivity.this, MainActivity.class);
+                            startActivity(intent);
+                            sDialog.dismissWithAnimation();
+                            finish();
+                        }
+                    }).show();
+        }
+    }
 }

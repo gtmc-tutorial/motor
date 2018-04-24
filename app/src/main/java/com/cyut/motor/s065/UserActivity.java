@@ -131,8 +131,9 @@ public class UserActivity extends AppCompatActivity {
     private Button.OnClickListener listener1 = new Button.OnClickListener() {
         @Override
         public void onClick(View v) {
+            finish();
             Intent intent = new Intent();
-            intent.putExtra("UserActivity_IN",true);
+            intent.putExtra("UserActivity_IN","UserActivity_IN");
             intent.setClass(UserActivity.this, RegisterActivity.class);
             startActivity(intent);
         }
@@ -142,7 +143,6 @@ public class UserActivity extends AppCompatActivity {
         @Override
         public void onClick(View v) {
             Intent intent = new Intent();
-            intent.putExtra("UserActivity_IN",true);
             intent.setClass(UserActivity.this, BackendActivity.class);
             startActivity(intent);
         }

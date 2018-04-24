@@ -100,11 +100,14 @@ public class RegisterActivity extends AppCompatActivity {
     private Button.OnClickListener listener = new Button.OnClickListener() {
         @Override
         public void onClick(View v) {
+            finish();
             Intent intent = new Intent();
+            intent.putExtra("RegisterActivity_IN","RegisterActivity_IN");
             intent.setClass(RegisterActivity.this, LoginActivity.class);
             startActivity(intent);
         }
     };
+
 
     private void writeNewPost(String ed_name, String ed_email, String ed_password, String userId) {
         Firebase myFirebaseRef = new Firebase("https://motorcycle-cc0fe.firebaseio.com/");
@@ -120,22 +123,11 @@ public class RegisterActivity extends AppCompatActivity {
                 if(getIntent().getBooleanExtra("UserActivity_IN",false)){
                     finish();
                 }else{
-                    Intent i = new Intent(RegisterActivity.this, MainActivity.class);
+                    Intent i = new Intent(RegisterActivity.this, BackendActivity.class);
                     i.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                     startActivity(i);
                 }
             }
         });
     }
-
-
-    @Override
-    public void onBackPressed() {
-        String result = getIntent().getStringExtra("LoginActivity_IN");
-        if(result != null && result.equals("LoginActivity_IN")){
-            startActivity(new Intent(RegisterActivity.this, LoginActivity.class));
-        }
-        super.onBackPressed();
-    }
-
 }

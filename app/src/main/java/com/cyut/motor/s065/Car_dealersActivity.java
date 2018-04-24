@@ -22,11 +22,11 @@ import java.util.ArrayList;
 import cn.pedant.SweetAlert.SweetAlertDialog;
 
 public class Car_dealersActivity extends AppCompatActivity {
+    Button btn_create,btn_back;
     CTableAdapter.TableCell[] titles;
     ListView listView;
     CTableAdapter CTableAdapter;
     ArrayList<CTableAdapter.TableRow> table = new ArrayList<CTableAdapter.TableRow>();
-    Button btn_create,btn_back;
 
     public static ArrayList<String> key_array = new ArrayList<>();
     public static ArrayList<PlaceStructure> main_arrayList = new ArrayList<>();
@@ -35,29 +35,28 @@ public class Car_dealersActivity extends AppCompatActivity {
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_car_dealers);
+        btn_back = findViewById(R.id.btn_back);
+        btn_back.setOnClickListener(listener1);
+        btn_create = findViewById(R.id.btn_create);
+        btn_create.setOnClickListener(listener);
 
         listView = findViewById(R.id.ListView01);
-        int width = getWindowManager().getDefaultDisplay().getWidth() / 3;
-        titles = new CTableAdapter.TableCell[3];// 每行5个单元
+        int width = getWindowManager().getDefaultDisplay().getWidth() / 4;
+        titles = new CTableAdapter.TableCell[4];// 每行5个单元
         titles[0] = new CTableAdapter.TableCell("門市", width + 8 * 0, RelativeLayout.LayoutParams.FILL_PARENT, com.cyut.motor.s065.CTableAdapter.TableCell.STRING);
         titles[1] = new CTableAdapter.TableCell("地址", width + 8 * 1, RelativeLayout.LayoutParams.FILL_PARENT, com.cyut.motor.s065.CTableAdapter.TableCell.STRING);
         titles[2] = new CTableAdapter.TableCell("刪除", width + 8 * 2, RelativeLayout.LayoutParams.FILL_PARENT, com.cyut.motor.s065.CTableAdapter.TableCell.STRING);
+        titles[3] = new CTableAdapter.TableCell("修改", width + 8 * 2, RelativeLayout.LayoutParams.FILL_PARENT, com.cyut.motor.s065.CTableAdapter.TableCell.STRING);
         table.add(new CTableAdapter.TableRow(titles));
 
         CTableAdapter = new CTableAdapter(this, table);
         listView.setAdapter(CTableAdapter);
         listView.setOnItemClickListener(onItemClickListener);
 
-        btn_create = findViewById(R.id.btn_create);
-        btn_create.setOnClickListener(listener);
-        btn_back = findViewById(R.id.btn_back);
-        btn_back.setOnClickListener(listener1);
-
         final Firebase myFirebaseRef = new Firebase("https://motorcycle-cc0fe.firebaseio.com/place/car_dealers");
         myFirebaseRef.addChildEventListener(new ChildEventListener() {
             @Override
             public void onChildAdded(DataSnapshot snapshot, String previousChild) {
-
                 PlaceStructure placeStructure = snapshot.getValue(PlaceStructure.class);
                 if (placeStructure != null) {
                     main_arrayList.add(placeStructure);
@@ -111,11 +110,12 @@ public class Car_dealersActivity extends AppCompatActivity {
     };
 
     private CTableAdapter.TableCell[] getTableItem(String name, String add, CTableAdapter.TableCell[] titles){
-        CTableAdapter.TableCell[] cells = new CTableAdapter.TableCell[3];
+        CTableAdapter.TableCell[] cells = new CTableAdapter.TableCell[4];
 
         cells[0] = new CTableAdapter.TableCell(name, titles[0].width, RelativeLayout.LayoutParams.FILL_PARENT, com.cyut.motor.s065.CTableAdapter.TableCell.STRING);
         cells[1] = new CTableAdapter.TableCell(add, titles[1].width, RelativeLayout.LayoutParams.FILL_PARENT, com.cyut.motor.s065.CTableAdapter.TableCell.STRING);
         cells[2] = new CTableAdapter.TableCell(R.drawable.delete,titles[2].width,RelativeLayout.LayoutParams.WRAP_CONTENT, com.cyut.motor.s065.CTableAdapter.TableCell.IMAGE);
+        cells[3] = new CTableAdapter.TableCell(R.drawable.update,titles[3].width,RelativeLayout.LayoutParams.WRAP_CONTENT, com.cyut.motor.s065.CTableAdapter.TableCell.IMAGE_EDIT);
         return cells;
     }
 

@@ -1,8 +1,8 @@
 package com.cyut.motor.s065;
 
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Color;
-import android.util.Log;
 import android.view.Gravity;
 import android.view.View;
 import android.view.ViewGroup;
@@ -24,6 +24,7 @@ import java.util.List;
 
 import cn.pedant.SweetAlert.SweetAlertDialog;
 
+import static com.cyut.motor.s065.GasActivity.main_arrayList;
 import static com.cyut.motor.s065.GasActivity.key_array;
 
 
@@ -77,8 +78,8 @@ public class GTableAdapter extends BaseAdapter {
                     textCell.setGravity(Gravity.CENTER);
                     textCell.setBackgroundColor(0x00000000);
                     textCell.setText(String.valueOf(tableCell.value));
-                    textCell.setTextSize(20);
-                    textCell.setTextColor(Color.GRAY);
+                    textCell.setTextSize(16);
+                    textCell.setTextColor(Color.WHITE);
                     textCell.setPadding(20,50,20,50);
                     addView(textCell, layoutParams);
                 } else if (tableCell.type == TableCell.IMAGE) {//如果格单元是图像内容
@@ -128,6 +129,46 @@ public class GTableAdapter extends BaseAdapter {
                     });
                     imageViews.add(imgCell);
                     addView(imgCell, layoutParams);
+                }else if(tableCell.type == GTableAdapter.TableCell.IMAGE_EDIT){
+                    ImageView imgCell = new ImageView(context);
+                    LayoutParams layoutParams = new LayoutParams(tableCell.width, Util.getDP(getContext(),24));//按照格单元指定的大小设置空间
+                    layoutParams.setMargins(0, Util.getDP(getContext(),18), 4, 4);//预留空隙制造边框
+                    imgCell.setImageResource((Integer) tableCell.value);
+//                    imgCell.setForegroundGravity(Gravity.CENTER);
+                    imgCell.setScaleType(ImageView.ScaleType.FIT_CENTER);
+                    imgCell.setOnClickListener(new OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            Intent intent = new Intent(context, InfoEditActivity.class);
+                            intent.putExtra("GTableAdapter","GTableAdapter");
+                            intent.putExtra("add", main_arrayList.get(position-1).add);
+                            intent.putExtra("name", main_arrayList.get(position-1).name);
+                            intent.putExtra("lat", main_arrayList.get(position-1).lat+"");
+                            intent.putExtra("lng", main_arrayList.get(position-1).lng+"");
+                            context.startActivity(intent);
+
+//                            new SweetAlertDialog(context)
+//                                    .setTitleText("確認是否修改此筆資料")
+//                                    .setConfirmText("確認")
+//                                    .setCancelText("取消")
+//                                    .showCancelButton(true)
+//                                    .setCancelClickListener(new SweetAlertDialog.OnSweetClickListener() {
+//                                        @Override
+//                                        public void onClick(SweetAlertDialog sDialog) {
+//                                            sDialog.cancel();
+//                                        }
+//                                    })
+//                                    .setConfirmClickListener(new SweetAlertDialog.OnSweetClickListener() {
+//                                        @Override
+//                                        public void onClick(SweetAlertDialog sweetAlertDialog) {
+//                                            //看要如何編輯
+//
+//                                        }
+//                                    }).show();
+                        }
+                    });
+                    imageViews.add(imgCell);
+                    addView(imgCell, layoutParams);
                 }
             }
 //            this.setBackgroundColor(Color.WHITE);//背景白色，利用空隙来实现边框
@@ -158,6 +199,8 @@ public class GTableAdapter extends BaseAdapter {
     static public class TableCell {
         static public final int STRING = 0;
         static public final int IMAGE = 1;
+        static public final int IMAGE_EDIT = 2;
+
         public Object value;
         public int width;
         public int height;

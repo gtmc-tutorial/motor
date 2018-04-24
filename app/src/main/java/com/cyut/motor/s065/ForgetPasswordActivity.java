@@ -1,6 +1,7 @@
 package com.cyut.motor.s065;
 
 import android.app.Activity;
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -11,6 +12,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.cyut.motor.Activity.MainActivity;
 import com.cyut.motor.R;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -22,7 +24,7 @@ public class ForgetPasswordActivity extends Activity {
 
     private Button btn_cencel,btn_confirm;
     EditText ed_email;
-    FirebaseAuth mauth;
+    FirebaseAuth auth;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,7 +36,7 @@ public class ForgetPasswordActivity extends Activity {
         btn_cencel.setOnClickListener(listener);
         btn_confirm = findViewById(R.id.btn_confirm);
 
-        mauth = FirebaseAuth.getInstance();
+        auth = FirebaseAuth.getInstance();
 
         btn_confirm.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -44,13 +46,17 @@ public class ForgetPasswordActivity extends Activity {
                     Toast.makeText(getApplicationContext(),"請輸入你的Email!" , Toast.LENGTH_SHORT).show();//done
                     return;
                 }
-                mauth.sendPasswordResetEmail(email).addOnCompleteListener(new OnCompleteListener<Void>() {
+                final ProgressDialog progressDialog = ProgressDialog.show(ForgetPasswordActivity.this, "Please wait...", "Processing...", true);
+                auth.sendPasswordResetEmail(email).addOnCompleteListener(new OnCompleteListener<Void>() {
                     @Override
                     public void onComplete(@NonNull Task<Void> task) {
+                        progressDialog.dismiss();
                         if (!task.isSuccessful()) {
                             Toast.makeText(ForgetPasswordActivity.this, "此信箱尚未被註冊！", Toast.LENGTH_SHORT).show();//done
                         } else {
-                            Toast.makeText(ForgetPasswordActivity.this,"已經送出修改信件!\n請至你的Email查看!",Toast.LENGTH_SHORT).show();
+                            Toast.makeText(ForgetPasswordActivity.this,"已經送出修改信件!\n請至您輸入的信箱進行修改密碼!",Toast.LENGTH_LONG).show();
+                            Intent i = new Intent(ForgetPasswordActivity.this, LoginActivity.class);
+                            startActivity(i);
                         }
                     }
                 });
@@ -61,10 +67,11 @@ public class ForgetPasswordActivity extends Activity {
     private Button.OnClickListener listener = new Button.OnClickListener() {
         @Override
         public void onClick(View v) {
+            finish();
             Intent intent = new Intent();
+            intent.putExtra("ForgetPasswordActivity_IN","ForgetPasswordActivity_IN");
             intent.setClass(ForgetPasswordActivity.this, LoginActivity.class);
             startActivity(intent);
-            finish();
         }
     };
 }

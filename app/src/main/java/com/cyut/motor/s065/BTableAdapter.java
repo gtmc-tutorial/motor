@@ -78,8 +78,8 @@ public class BTableAdapter extends BaseAdapter {
                     textCell.setGravity(Gravity.CENTER);
                     textCell.setBackgroundColor(0x00000000);
                     textCell.setText(String.valueOf(tableCell.value));
-                    textCell.setTextSize(20);
-                    textCell.setTextColor(Color.GRAY);
+                    textCell.setTextSize(16);
+                    textCell.setTextColor(Color.WHITE);
                     textCell.setPadding(20,50,20,50);
                     addView(textCell, layoutParams);
                 } else if (tableCell.type == TableCell.IMAGE) {//如果格单元是图像内容
@@ -143,6 +143,7 @@ public class BTableAdapter extends BaseAdapter {
                         @Override
                         public void onClick(View v) {
                             Intent intent = new Intent(context, InfoEditActivity.class);
+                            intent.putExtra("BTableAdapter","BTableAdapter");
                             intent.putExtra("add", main_arrayList.get(position-1).add);
                             intent.putExtra("name", main_arrayList.get(position-1).name);
                             intent.putExtra("lat", main_arrayList.get(position-1).lat+"");

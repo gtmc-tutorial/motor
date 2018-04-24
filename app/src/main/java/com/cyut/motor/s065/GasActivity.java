@@ -28,6 +28,7 @@ public class GasActivity extends AppCompatActivity {
     ListView listView;
     GTableAdapter GTableAdapter;
     ArrayList<GTableAdapter.TableRow> table = new ArrayList<GTableAdapter.TableRow>();
+
     public static ArrayList<String> key_array = new ArrayList<>();
     public static ArrayList<PlaceStructure> main_arrayList = new ArrayList<>();
 
@@ -35,18 +36,18 @@ public class GasActivity extends AppCompatActivity {
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_gas);
-
         btn_back = findViewById(R.id.btn_back);
         btn_back.setOnClickListener(listener);
         btn_create = findViewById(R.id.btn_create);
         btn_create.setOnClickListener(listener1);
 
         listView = findViewById(R.id.ListView01);
-        int width = getWindowManager().getDefaultDisplay().getWidth()/3;
-        titles = new GTableAdapter.TableCell[3];// 每行5个单元
+        int width = getWindowManager().getDefaultDisplay().getWidth()/4;
+        titles = new GTableAdapter.TableCell[4];// 每行5个单元
         titles[0] = new GTableAdapter.TableCell("門市",width + 8 * 0,RelativeLayout.LayoutParams.FILL_PARENT, com.cyut.motor.s065.GTableAdapter.TableCell.STRING);
         titles[1] = new GTableAdapter.TableCell("地址",width + 8 * 1,RelativeLayout.LayoutParams.FILL_PARENT, com.cyut.motor.s065.GTableAdapter.TableCell.STRING);
         titles[2] = new GTableAdapter.TableCell("刪除",width + 8 * 2,RelativeLayout.LayoutParams.FILL_PARENT, com.cyut.motor.s065.GTableAdapter.TableCell.STRING);
+        titles[3] = new GTableAdapter.TableCell("修改", width + 8 * 2, RelativeLayout.LayoutParams.FILL_PARENT, com.cyut.motor.s065.GTableAdapter.TableCell.STRING);
         table.add(new GTableAdapter.TableRow(titles));
 
         GTableAdapter = new GTableAdapter(this, table);
@@ -57,7 +58,6 @@ public class GasActivity extends AppCompatActivity {
         myFirebaseRef.addChildEventListener(new ChildEventListener() {
             @Override
             public void onChildAdded(DataSnapshot snapshot, String previousChild) {
-
                 PlaceStructure placeStructure = snapshot.getValue(PlaceStructure.class);
                 if (placeStructure != null) {
                     main_arrayList.add(placeStructure);
@@ -111,11 +111,12 @@ public class GasActivity extends AppCompatActivity {
     };
 
     private GTableAdapter.TableCell[] getTableItem(String name, String add, GTableAdapter.TableCell[] titles){
-        GTableAdapter.TableCell[] cells = new GTableAdapter.TableCell[3];
+        GTableAdapter.TableCell[] cells = new GTableAdapter.TableCell[4];
 
         cells[0] = new GTableAdapter.TableCell(name, titles[0].width, RelativeLayout.LayoutParams.FILL_PARENT, com.cyut.motor.s065.GTableAdapter.TableCell.STRING);
         cells[1] = new GTableAdapter.TableCell(add, titles[1].width, RelativeLayout.LayoutParams.FILL_PARENT, com.cyut.motor.s065.GTableAdapter.TableCell.STRING);
         cells[2] = new GTableAdapter.TableCell(R.drawable.delete,titles[2].width,RelativeLayout.LayoutParams.WRAP_CONTENT, com.cyut.motor.s065.GTableAdapter.TableCell.IMAGE);
+        cells[3] = new GTableAdapter.TableCell(R.drawable.update,titles[3].width,RelativeLayout.LayoutParams.WRAP_CONTENT, com.cyut.motor.s065.GTableAdapter.TableCell.IMAGE_EDIT);
         return cells;
     }
 

@@ -13,8 +13,10 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.cyut.motor.Structure.FragmentTag;
+import com.cyut.motor.s065.BackendActivity;
 import com.cyut.motor.s065.LoginActivity;
 import com.cyut.motor.s176.HelpFragment;
 import com.cyut.motor.s186.MaintenanceAddFragment;
@@ -32,6 +34,7 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
     private TextView titleTextView;
     private ImageView movieBtn, tvBtn,animeBtn, varietyBtn,abcBtn;
     private ImageView btn_user,btn_chart;
+    private long backPressedTime;
 
     private HomeFragment homeFragment;
     private MaintenanceFragment maintenanceFragment;
@@ -235,5 +238,16 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
         } else {
             return true;
         }
+    }
+
+    @Override
+    public void onBackPressed() {
+        if (backPressedTime + 2000 > System.currentTimeMillis()){
+            super.onBackPressed();
+            return;
+        } else {
+            Toast.makeText(getBaseContext(),"在按一次離開 無限騎機",Toast.LENGTH_SHORT).show();
+        }
+        backPressedTime = System.currentTimeMillis();
     }
 }
