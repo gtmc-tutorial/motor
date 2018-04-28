@@ -9,6 +9,7 @@ import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.content.ContextCompat;
 import android.util.Log;
+import android.view.KeyEvent;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
@@ -34,7 +35,7 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
     private TextView titleTextView;
     private ImageView movieBtn, tvBtn,animeBtn, varietyBtn,abcBtn;
     private ImageView btn_user,btn_chart;
-    private long backPressedTime;
+    private long clickTime = 0;
 
     private HomeFragment homeFragment;
     private MaintenanceFragment maintenanceFragment;
@@ -242,12 +243,26 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
 
     @Override
     public void onBackPressed() {
-        if (backPressedTime + 2000 > System.currentTimeMillis()){
-            super.onBackPressed();
-            return;
-        } else {
-            Toast.makeText(getBaseContext(),"在按一次離開 無限騎機",Toast.LENGTH_SHORT).show();
+        exit();
+    }
+
+    @Override
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
+        // 是否触发按键为back键
+        if (keyCode == KeyEvent.KEYCODE_BACK) {
+            onBackPressed();
+            return true;
+        } else { // 如果不是back键正常响应
+            return super.onKeyDown(keyCode, event);
         }
-        backPressedTime = System.currentTimeMillis();
+    }
+
+    private void exit() {
+        if ((System.currentTimeMillis() - clickTime) > 2000) {
+            Toast.makeText(this, "再按一次退出 無限騎機", Toast.LENGTH_SHORT).show();
+            clickTime = System.currentTimeMillis();
+        } else {
+            this.finish();
+        }
     }
 }
