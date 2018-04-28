@@ -46,7 +46,16 @@ public class InfoEditActivity extends AppCompatActivity {
                 mystringdata = edit_name1.getText().toString();
                 Firebase myNewChild = myfirebase.child("name");
                 myNewChild.setValue(mystringdata);
-                Toast.makeText(InfoEditActivity.this,"名稱變更為" + mystringdata ,Toast.LENGTH_LONG).show();
+                mystringdata = edit_add1.getText().toString();
+                Firebase myNewChild1 = myfirebase.child("add");
+                myNewChild1.setValue(mystringdata);
+                mystringdata = edit_lng1.getText().toString();
+                Firebase myNewChild2 = myfirebase.child("lng");
+                myNewChild2.setValue(mystringdata);
+                mystringdata = edit_lat1.getText().toString();
+                Firebase myNewChild3 = myfirebase.child("lat");
+                myNewChild3.setValue(mystringdata);
+                Toast.makeText(InfoEditActivity.this,"修改成功",Toast.LENGTH_SHORT).show();
             }
         });
 
