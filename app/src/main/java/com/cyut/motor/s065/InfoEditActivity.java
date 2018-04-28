@@ -9,16 +9,19 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import com.cyut.motor.R;
+import com.cyut.motor.Structure.PlaceStructure;
 import com.firebase.client.Firebase;
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
+import com.firebase.client.FirebaseError;
+
+import java.util.HashMap;
+import java.util.Map;
+
 
 public class InfoEditActivity extends AppCompatActivity {
     private EditText edit_name1, edit_add1, edit_lng1, edit_lat1;
     private Button button_cancel, button_save;
-    private DatabaseReference mFirebaseDatabase;
-    String mystringdata;
     Firebase myfirebase;
+    String key2;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,28 +40,53 @@ public class InfoEditActivity extends AppCompatActivity {
         edit_add1.setText(getIntent().getStringExtra("add"));
         edit_lng1.setText(getIntent().getStringExtra("lng"));
         edit_lat1.setText(getIntent().getStringExtra("lat"));
-        myfirebase = new Firebase("https://motorcycle-cc0fe.firebaseio.com");
+        key2 = getIntent().getStringExtra("key");
+        myfirebase = new Firebase("https://motorcycle-cc0fe.firebaseio.com/place");
 
-        mFirebaseDatabase = FirebaseDatabase.getInstance().getReference();
         button_save.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                mystringdata = edit_name1.getText().toString();
-                Firebase myNewChild = myfirebase.child("name");
-                myNewChild.setValue(mystringdata);
-                mystringdata = edit_add1.getText().toString();
-                Firebase myNewChild1 = myfirebase.child("add");
-                myNewChild1.setValue(mystringdata);
-                mystringdata = edit_lng1.getText().toString();
-                Firebase myNewChild2 = myfirebase.child("lng");
-                myNewChild2.setValue(mystringdata);
-                mystringdata = edit_lat1.getText().toString();
-                Firebase myNewChild3 = myfirebase.child("lat");
-                myNewChild3.setValue(mystringdata);
-                Toast.makeText(InfoEditActivity.this,"修改成功",Toast.LENGTH_SHORT).show();
+                writeNewPost(
+                        edit_name1.getText().toString(),
+                        edit_add1.getText().toString(),
+                        edit_lat1.getText().toString(),
+                        edit_lng1.getText().toString());
             }
         });
+    }
 
+    private void writeNewPost(String edit_name1, String edit_add1, String edit_lat1, String edit_lng1) {
+        if (edit_name1.equals("")){
+            Toast.makeText(this, "名稱尚未輸入", Toast.LENGTH_SHORT).show();
+            return;
+        }
+        if (edit_add1.equals("")) {
+            Toast.makeText(this, "地址尚未輸入", Toast.LENGTH_SHORT).show();
+            return;
+        }
+        if (edit_lat1.equals("")) {
+            Toast.makeText(this, "經度尚未輸入", Toast.LENGTH_SHORT).show();
+            return;
+        }
+        if (edit_lng1.equals("")) {
+            Toast.makeText(this, "緯度尚未輸入", Toast.LENGTH_SHORT).show();
+            return;
+        }
+        Firebase myFirebaseRef = new Firebase("https://motorcycle-cc0fe.firebaseio.com/place/battery");
+        String key = myFirebaseRef.child("battery").push().getKey();
+        PlaceStructure placeStructure = new PlaceStructure(edit_add1, edit_lat1, edit_lng1,edit_name1);
+        Map<String, Object> postValues = placeStructure.toMap();
+
+        Map<String, Object> childUpdates = new HashMap<>();
+        childUpdates.put("/battery/" + key, postValues);
+        myFirebaseRef.updateChildren(childUpdates, new Firebase.CompletionListener() {
+            @Override
+            public void onComplete(FirebaseError firebaseError, Firebase firebase) {
+                Intent i = new Intent(InfoEditActivity.this, BatteryActivity.class);
+                i.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                startActivity(i);
+            }
+        });
     }
 
     private Button.OnClickListener listener = new Button.OnClickListener() {
