@@ -6,10 +6,10 @@
     android:background="#80DEEA">
 
     <TextView
-        android:id="@+id/text_create_gas"
+        android:id="@+id/text_create_battery"
         android:layout_width="fill_parent"
         android:layout_height="50dp"
-        android:text="修改資料"
+        android:text="修改充電站資料"
         android:textColor="@color/colorWhite"
         android:textSize="20dp"
         android:background="@color/color"
@@ -18,7 +18,7 @@
 
     <LinearLayout
         android:id="@+id/L1"
-        android:layout_below="@+id/text_create_gas"
+        android:layout_below="@+id/text_create_battery"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal">

@@ -17,7 +17,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 
-public class InfoEditActivity extends AppCompatActivity {
+public class Battery_updateActivity extends AppCompatActivity {
     private EditText edit_name1, edit_add1, edit_lng1, edit_lat1;
     private Button button_cancel, button_save;
     Firebase myfirebase;
@@ -26,7 +26,7 @@ public class InfoEditActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_infoedit);
+        setContentView(R.layout.activity_battery_update);
 
         edit_name1 = findViewById(R.id.edit_name1);
         edit_add1 = findViewById(R.id.edit_add1);
@@ -73,18 +73,18 @@ public class InfoEditActivity extends AppCompatActivity {
             return;
         }
         Firebase myFirebaseRef = new Firebase("https://motorcycle-cc0fe.firebaseio.com/place/battery");
-        String key = myFirebaseRef.child("battery").push().getKey();
+//        String key = myFirebaseRef.child("battery").push().getKey();
         PlaceStructure placeStructure = new PlaceStructure(edit_add1, edit_lat1, edit_lng1,edit_name1);
         Map<String, Object> postValues = placeStructure.toMap();
 
         Map<String, Object> childUpdates = new HashMap<>();
-        childUpdates.put("/battery/" + key, postValues);
+        childUpdates.put(key2, postValues);
         myFirebaseRef.updateChildren(childUpdates, new Firebase.CompletionListener() {
             @Override
             public void onComplete(FirebaseError firebaseError, Firebase firebase) {
-                Intent i = new Intent(InfoEditActivity.this, BatteryActivity.class);
-                i.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                Intent i = new Intent(Battery_updateActivity.this, BatteryActivity.class);
                 startActivity(i);
+                Toast.makeText(Battery_updateActivity.this,"修改成功",Toast.LENGTH_LONG).show();
             }
         });
     }
@@ -92,16 +92,9 @@ public class InfoEditActivity extends AppCompatActivity {
     private Button.OnClickListener listener = new Button.OnClickListener() {
         @Override
         public void onClick(View v) {
-            String result = getIntent().getStringExtra("BTableAdapter");
-            String result1 = getIntent().getStringExtra("CTableAdapter");
-            String result2 = getIntent().getStringExtra("GTableAdapter");
-            if (result != null && result.equals("BTableAdapter")) {
-                startActivity(new Intent(InfoEditActivity.this, BatteryActivity.class));
-            } else if (result1 != null && result1.equals("CTableAdapter")) {
-                startActivity(new Intent(InfoEditActivity.this, Car_dealersActivity.class));
-            } else if (result2 != null && result2.equals("GTableAdapter")) {
-                startActivity(new Intent(InfoEditActivity.this, GasActivity.class));
-            }
+            Intent intent = new Intent();
+            intent.setClass(Battery_updateActivity.this, BatteryActivity.class);
+            startActivity(intent);
         }
     };
 }

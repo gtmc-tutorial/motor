@@ -136,4 +136,12 @@ public class BatteryActivity extends AppCompatActivity {
             startActivity(intent);
         }
     };
+
+    @Override
+    public void onBackPressed() {
+        Intent intent = new Intent();
+        intent.setClass(BatteryActivity.this, BackendActivity.class);
+        startActivity(intent);
+        super.onBackPressed();
+    }
 }

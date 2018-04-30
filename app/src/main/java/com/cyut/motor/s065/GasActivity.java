@@ -138,4 +138,11 @@ public class GasActivity extends AppCompatActivity {
         }
     };
 
+    @Override
+    public void onBackPressed() {
+        Intent intent = new Intent();
+        intent.setClass(GasActivity.this, BackendActivity.class);
+        startActivity(intent);
+        super.onBackPressed();
+    }
 }

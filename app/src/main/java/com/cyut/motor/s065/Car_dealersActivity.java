@@ -22,7 +22,7 @@ import java.util.ArrayList;
 import cn.pedant.SweetAlert.SweetAlertDialog;
 
 public class Car_dealersActivity extends AppCompatActivity {
-    Button btn_create,btn_back;
+    Button btn_create, btn_back;
     CTableAdapter.TableCell[] titles;
     ListView listView;
     CTableAdapter CTableAdapter;
@@ -70,8 +70,10 @@ public class Car_dealersActivity extends AppCompatActivity {
                     CTableAdapter.notifyDataSetChanged();
                 }
             }
+
             public void onChildChanged(DataSnapshot dataSnapshot, String s) {
             }
+
             public void onChildRemoved(DataSnapshot dataSnapshot) {
                 for (int i = 0; i < key_array.size(); i++) {
                     if (key_array.get(i).equals(dataSnapshot.getKey())) {
@@ -81,8 +83,10 @@ public class Car_dealersActivity extends AppCompatActivity {
                     }
                 }
             }
+
             public void onChildMoved(DataSnapshot dataSnapshot, String s) {
             }
+
             public void onCancelled(FirebaseError firebaseError) {
             }
         });
@@ -97,25 +101,25 @@ public class Car_dealersActivity extends AppCompatActivity {
     private AdapterView.OnItemClickListener onItemClickListener = new AdapterView.OnItemClickListener() {
         @Override
         public void onItemClick(AdapterView<?> parent, View view, int arg2, long id) {
-            if(arg2 != 0 ){
+            if (arg2 != 0) {
                 new SweetAlertDialog(Car_dealersActivity.this)
                         .setTitleText("機車行資訊")
-                        .setContentText("店名：" +main_arrayList.get(arg2-1).name+"\n"+
-                                "地址："+ main_arrayList.get(arg2-1).add+"\n"+
-                                "經度："+ main_arrayList.get(arg2-1).lng+"\n"+
-                                "緯度："+ main_arrayList.get(arg2-1).lat+"\n")
+                        .setContentText("店名：" + main_arrayList.get(arg2 - 1).name + "\n" +
+                                "地址：" + main_arrayList.get(arg2 - 1).add + "\n" +
+                                "經度：" + main_arrayList.get(arg2 - 1).lng + "\n" +
+                                "緯度：" + main_arrayList.get(arg2 - 1).lat + "\n")
                         .show();
             }
         }
     };
 
-    private CTableAdapter.TableCell[] getTableItem(String name, String add, CTableAdapter.TableCell[] titles){
+    private CTableAdapter.TableCell[] getTableItem(String name, String add, CTableAdapter.TableCell[] titles) {
         CTableAdapter.TableCell[] cells = new CTableAdapter.TableCell[4];
 
         cells[0] = new CTableAdapter.TableCell(name, titles[0].width, RelativeLayout.LayoutParams.FILL_PARENT, com.cyut.motor.s065.CTableAdapter.TableCell.STRING);
         cells[1] = new CTableAdapter.TableCell(add, titles[1].width, RelativeLayout.LayoutParams.FILL_PARENT, com.cyut.motor.s065.CTableAdapter.TableCell.STRING);
-        cells[2] = new CTableAdapter.TableCell(R.drawable.delete,titles[2].width,RelativeLayout.LayoutParams.WRAP_CONTENT, com.cyut.motor.s065.CTableAdapter.TableCell.IMAGE);
-        cells[3] = new CTableAdapter.TableCell(R.drawable.update,titles[3].width,RelativeLayout.LayoutParams.WRAP_CONTENT, com.cyut.motor.s065.CTableAdapter.TableCell.IMAGE_EDIT);
+        cells[2] = new CTableAdapter.TableCell(R.drawable.delete, titles[2].width, RelativeLayout.LayoutParams.WRAP_CONTENT, com.cyut.motor.s065.CTableAdapter.TableCell.IMAGE);
+        cells[3] = new CTableAdapter.TableCell(R.drawable.update, titles[3].width, RelativeLayout.LayoutParams.WRAP_CONTENT, com.cyut.motor.s065.CTableAdapter.TableCell.IMAGE_EDIT);
         return cells;
     }
 
@@ -137,4 +141,11 @@ public class Car_dealersActivity extends AppCompatActivity {
         }
     };
 
+    @Override
+    public void onBackPressed() {
+        Intent intent = new Intent();
+        intent.setClass(Car_dealersActivity.this, BackendActivity.class);
+        startActivity(intent);
+        super.onBackPressed();
+    }
 }

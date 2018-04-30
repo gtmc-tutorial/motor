@@ -145,12 +145,13 @@ public class CTableAdapter extends BaseAdapter {
                     imgCell.setOnClickListener(new OnClickListener() {
                         @Override
                         public void onClick(View v) {
-                            Intent intent = new Intent(context, InfoEditActivity.class);
+                            Intent intent = new Intent(context, Car_updateActivity.class);
                             intent.putExtra("CTableAdapter","CTableAdapter");
                             intent.putExtra("add", main_arrayList.get(position-1).add);
                             intent.putExtra("name", main_arrayList.get(position-1).name);
                             intent.putExtra("lat", main_arrayList.get(position-1).lat+"");
                             intent.putExtra("lng", main_arrayList.get(position-1).lng+"");
+                            intent.putExtra("key", key_array.get(position-1));
                             context.startActivity(intent);
 
 //                            new SweetAlertDialog(context)

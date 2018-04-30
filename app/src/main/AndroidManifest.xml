@@ -74,6 +74,15 @@
         <activity
             android:name=".s065.Gas_createActivity"
             android:screenOrientation="portrait" />
+        <activity
+            android:name=".s065.Battery_updateActivity"
+            android:screenOrientation="portrait" ></activity>
+        <activity
+            android:name=".s065.Car_updateActivity"
+            android:screenOrientation="portrait" ></activity>
+        <activity
+            android:name=".s065.Gas_updateActivity"
+            android:screenOrientation="portrait" ></activity>
 
         <activity
             android:name=".s192.WebViewActivity"
@@ -84,10 +93,6 @@
             android:screenOrientation="portrait" ></activity>
         <activity
             android:name=".Activity.MainActivity"
-            android:screenOrientation="portrait" ></activity>
-
-        <activity
-            android:name=".s065.InfoEditActivity"
             android:screenOrientation="portrait" ></activity>
 
         <receiver android:name=".s134.AlarmInitReceiver">

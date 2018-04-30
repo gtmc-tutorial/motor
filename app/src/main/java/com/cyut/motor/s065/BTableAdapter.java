@@ -142,7 +142,7 @@ public class BTableAdapter extends BaseAdapter {
                     imgCell.setOnClickListener(new OnClickListener() {
                         @Override
                         public void onClick(View v) {
-                            Intent intent = new Intent(context, InfoEditActivity.class);
+                            Intent intent = new Intent(context, Battery_updateActivity.class);
                             intent.putExtra("BTableAdapter","BTableAdapter");
                             intent.putExtra("add", main_arrayList.get(position-1).add);
                             intent.putExtra("name", main_arrayList.get(position-1).name);
@@ -150,7 +150,6 @@ public class BTableAdapter extends BaseAdapter {
                             intent.putExtra("lng", main_arrayList.get(position-1).lng+"");
                             intent.putExtra("key", key_array.get(position-1));
                             context.startActivity(intent);
-
 //                            new SweetAlertDialog(context)
 //                                    .setTitleText("確認是否修改此筆資料")
 //                                    .setConfirmText("確認")
