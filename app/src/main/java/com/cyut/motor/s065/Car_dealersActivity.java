@@ -53,6 +53,9 @@ public class Car_dealersActivity extends AppCompatActivity {
         listView.setAdapter(CTableAdapter);
         listView.setOnItemClickListener(onItemClickListener);
 
+        main_arrayList = new ArrayList<>();
+        key_array = new ArrayList<>();
+
         final Firebase myFirebaseRef = new Firebase("https://motorcycle-cc0fe.firebaseio.com/place/car_dealers");
         myFirebaseRef.addChildEventListener(new ChildEventListener() {
             @Override
@@ -91,13 +94,11 @@ public class Car_dealersActivity extends AppCompatActivity {
             }
         });
     }
-
-    @Override
-    public void onStart() {
-        key_array = new ArrayList<>();
-        super.onStart();
-    }
-
+//    @Override
+//    public void onStart() {
+//        key_array = new ArrayList<>();
+//        super.onStart();
+//    }
     private AdapterView.OnItemClickListener onItemClickListener = new AdapterView.OnItemClickListener() {
         @Override
         public void onItemClick(AdapterView<?> parent, View view, int arg2, long id) {

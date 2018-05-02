@@ -54,6 +54,9 @@ public class GasActivity extends AppCompatActivity {
         listView.setAdapter(GTableAdapter);
         listView.setOnItemClickListener(onItemClickListener);
 
+        main_arrayList = new ArrayList<>();
+        key_array = new ArrayList<>();
+
         final Firebase myFirebaseRef  = new Firebase("https://motorcycle-cc0fe.firebaseio.com/place/gas");
         myFirebaseRef.addChildEventListener(new ChildEventListener() {
             @Override
@@ -88,13 +91,11 @@ public class GasActivity extends AppCompatActivity {
             }
         });
     }
-
-    @Override
-    public void onStart() {
-        super.onStart();
-        key_array = new ArrayList<>();
-    }
-
+//    @Override
+//    public void onStart() {
+//        super.onStart();
+//        key_array = new ArrayList<>();
+//    }
     private AdapterView.OnItemClickListener onItemClickListener = new AdapterView.OnItemClickListener() {
         @Override
         public void onItemClick(AdapterView<?> parent, View view, int arg2, long id) {

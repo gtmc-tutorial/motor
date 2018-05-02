@@ -92,14 +92,12 @@ public class BatteryActivity extends AppCompatActivity {
             }
         });
     }
-
 //    @Override
 //    public void onStart() {
 //        main_arrayList = new ArrayList<>();
 //        key_array = new ArrayList<>();
 //        super.onStart();
 //    }
-
     private AdapterView.OnItemClickListener onItemClickListener = new AdapterView.OnItemClickListener() {
         @Override
         public void onItemClick(AdapterView<?> parent, View view, int arg2, long id) {
