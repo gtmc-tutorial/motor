@@ -74,7 +74,7 @@ public class RegisterActivity extends AppCompatActivity {
 
                             if (task.isSuccessful()) {
                                 Log.e("1","1");
-                                if(!getIntent().getBooleanExtra("UserActivity_IN",false)){
+                                if(!getIntent().getBooleanExtra("UserActivity_IN",true)){
                                     Log.e("2","2");
                                     sharedPreferences.edit().putString("userid", task.getResult().getUser().getUid()).apply();
                                 }
@@ -100,11 +100,14 @@ public class RegisterActivity extends AppCompatActivity {
     private Button.OnClickListener listener = new Button.OnClickListener() {
         @Override
         public void onClick(View v) {
-            finish();
-            Intent intent = new Intent();
-            intent.putExtra("RegisterActivity_IN","RegisterActivity_IN");
-            intent.setClass(RegisterActivity.this, LoginActivity.class);
-            startActivity(intent);
+            String result = getIntent().getStringExtra("LoginActivity_IN");
+            String result1 = getIntent().getStringExtra("UserActivity_IN");
+            if(result != null && result.equals("LoginActivity_IN")){
+                startActivity(new Intent(RegisterActivity.this, LoginActivity.class));
+            }
+            else if (result1 != null && result1.equals("UserActivity_IN")){
+                startActivity(new Intent(RegisterActivity.this, UserActivity.class));
+            }
         }
     };
 
@@ -120,14 +123,29 @@ public class RegisterActivity extends AppCompatActivity {
         myFirebaseRef.updateChildren(childUpdates, new Firebase.CompletionListener() {
             @Override
             public void onComplete(FirebaseError firebaseError, Firebase firebase) {
-                if(getIntent().getBooleanExtra("UserActivity_IN",false)){
-                    finish();
-                }else{
+                if(getIntent().getBooleanExtra("UserActivity_IN",true)){
                     Intent i = new Intent(RegisterActivity.this, BackendActivity.class);
+                    startActivity(i);
+                }else{
+                    Intent i = new Intent(RegisterActivity.this, MainActivity.class);
                     i.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                     startActivity(i);
                 }
             }
         });
     }
+
+    @Override
+    public void onBackPressed() {
+        String result = getIntent().getStringExtra("LoginActivity_IN");
+        String result1 = getIntent().getStringExtra("UserActivity_IN");
+        if(result != null && result.equals("LoginActivity_IN")){
+            startActivity(new Intent(RegisterActivity.this, LoginActivity.class));
+        }
+        else if (result1 != null && result1.equals("UserActivity_IN")){
+            startActivity(new Intent(RegisterActivity.this, UserActivity.class));
+        }
+        super.onBackPressed();
+    }
+
 }

@@ -24,6 +24,7 @@ import com.facebook.FacebookCallback;
 import com.facebook.FacebookException;
 import com.facebook.login.LoginResult;
 import com.facebook.login.widget.LoginButton;
+import com.firebase.client.Firebase;
 import com.google.android.gms.auth.api.Auth;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
@@ -177,6 +178,8 @@ public class LoginActivity extends AppCompatActivity {
                                     Toast.makeText(LoginActivity.this,  "登入成功", Toast.LENGTH_LONG).show();
                                     Intent i = new Intent(LoginActivity.this, MainActivity.class);
                                     i.putExtra("Email", firebaseAuth.getCurrentUser().getEmail());
+                                    Firebase myFirebaseRef = new Firebase("https://motorcycle-cc0fe.firebaseio.com/User");
+                                    i.putExtra("name" , myFirebaseRef.getKey());
                                     startActivity(i);
                                     finish();
                                 }

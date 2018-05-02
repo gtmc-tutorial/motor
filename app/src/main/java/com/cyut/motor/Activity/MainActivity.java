@@ -12,6 +12,7 @@ import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -32,7 +33,7 @@ import cn.pedant.SweetAlert.SweetAlertDialog;
 
 
 public class MainActivity extends FragmentActivity implements View.OnClickListener  {
-    private TextView titleTextView;
+    private TextView titleTextView,tv_showname;
     private ImageView movieBtn, tvBtn,animeBtn, varietyBtn,abcBtn;
     private ImageView btn_user,btn_chart;
     private long clickTime = 0;
@@ -44,6 +45,7 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
     private SettingFragment settingFragment;
     private MaintenanceAddFragment maintenanceAddFragment;
     SharedPreferences sharedPreferences;
+    String name;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -79,6 +81,8 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
     }
     private void findById() {
         titleTextView = (TextView) this.findViewById(R.id.main_title_text);
+        tv_showname= findViewById(R.id.tv_showname);
+        tv_showname.setText(getIntent().getStringExtra("name"));
 
         movieBtn = (ImageView)this.findViewById(R.id.home_btn);
         tvBtn = (ImageView)this.findViewById(R.id.tv_btn);
