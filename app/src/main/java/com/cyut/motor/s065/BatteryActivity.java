@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.Button;
@@ -53,12 +54,16 @@ public class BatteryActivity extends AppCompatActivity {
         listView.setAdapter(BTableAdapter);
         listView.setOnItemClickListener(onItemClickListener);
 
+        main_arrayList = new ArrayList<>();
+        key_array = new ArrayList<>();
+
         final Firebase myFirebaseRef = new Firebase("https://motorcycle-cc0fe.firebaseio.com/place/battery");
         myFirebaseRef.addChildEventListener(new ChildEventListener() {
             @Override
             public void onChildAdded(DataSnapshot snapshot, String previousChild) {
                 PlaceStructure placeStructure = snapshot.getValue(PlaceStructure.class);
                 if (placeStructure != null) {
+                    Log.e("key",snapshot.getKey());
                     main_arrayList.add(placeStructure);
                     key_array.add(snapshot.getKey());
 
@@ -88,11 +93,12 @@ public class BatteryActivity extends AppCompatActivity {
         });
     }
 
-    @Override
-    public void onStart() {
-        key_array = new ArrayList<>();
-        super.onStart();
-    }
+//    @Override
+//    public void onStart() {
+//        main_arrayList = new ArrayList<>();
+//        key_array = new ArrayList<>();
+//        super.onStart();
+//    }
 
     private AdapterView.OnItemClickListener onItemClickListener = new AdapterView.OnItemClickListener() {
         @Override
