@@ -39,8 +39,8 @@ public class UserActivity extends AppCompatActivity {
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_user);
-        btn_create = (Button) findViewById(R.id.btn_create);
-        btn_create.setOnClickListener(listener1);
+//        btn_create = (Button) findViewById(R.id.btn_create);
+//        btn_create.setOnClickListener(listener1);
         btn_back = (Button) findViewById(R.id.btn_back);
         btn_back.setOnClickListener(listener);
 
@@ -128,16 +128,16 @@ public class UserActivity extends AppCompatActivity {
         super.onResume();
     }
 
-    private Button.OnClickListener listener1 = new Button.OnClickListener() {
-        @Override
-        public void onClick(View v) {
-            finish();
-            Intent intent = new Intent();
-            intent.putExtra("UserActivity_IN","UserActivity_IN");
-            intent.setClass(UserActivity.this, RegisterActivity.class);
-            startActivity(intent);
-        }
-    };
+//    private Button.OnClickListener listener1 = new Button.OnClickListener() {
+//        @Override
+//        public void onClick(View v) {
+//            finish();
+//            Intent intent = new Intent();
+//            intent.putExtra("UserActivity_IN","UserActivity_IN");
+//            intent.setClass(UserActivity.this, RegisterActivity.class);
+//            startActivity(intent);
+//        }
+//    };
 
     private Button.OnClickListener listener = new Button.OnClickListener() {
         @Override

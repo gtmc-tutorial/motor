@@ -36,7 +36,9 @@
             android:id="@+id/tv_showname"
             android:layout_toRightOf="@+id/btn_user"
             android:layout_width="80dp"
-            android:layout_height="wrap_content" />
+            android:layout_height="50dp"
+            android:textSize="32dp"
+            android:gravity="center"/>
 
         <ImageView
             android:id="@+id/btn_chart"

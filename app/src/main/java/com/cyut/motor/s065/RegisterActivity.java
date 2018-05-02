@@ -64,6 +64,10 @@ public class RegisterActivity extends AppCompatActivity {
                 Toast.makeText(RegisterActivity.this, "密碼需6碼以上", Toast.LENGTH_LONG).show();
                 return;
             }
+            if (ed_name.getText().toString().length() > 6 && ed_name.getText().toString().length() > 6) {
+                Toast.makeText(RegisterActivity.this, "暱稱請6位元以下", Toast.LENGTH_LONG).show();
+                return;
+            }
             //process
             final ProgressDialog progressDialog = ProgressDialog.show(RegisterActivity.this, "Please wait...", "Processing...", true);
             (firebaseAuth.createUserWithEmailAndPassword(ed_email.getText().toString(), ed_password.getText().toString()))
@@ -71,13 +75,11 @@ public class RegisterActivity extends AppCompatActivity {
                         @Override
                         public void onComplete(@NonNull Task<AuthResult> task) {
                             progressDialog.dismiss();
-
                             if (task.isSuccessful()) {
                                 Log.e("1","1");
-                                if(!getIntent().getBooleanExtra("UserActivity_IN",true)){
-                                    Log.e("2","2");
-                                    sharedPreferences.edit().putString("userid", task.getResult().getUser().getUid()).apply();
-                                }
+//                                if(!getIntent().getBooleanExtra("UserActivity_IN",false)){
+//                                    Log.e("2","2");
+                                sharedPreferences.edit().putString("userid", task.getResult().getUser().getUid()).apply();
                                 Toast.makeText(RegisterActivity.this, "註冊成功", Toast.LENGTH_LONG).show();
                                 writeNewPost(
                                         ed_name.getText().toString(),
@@ -123,14 +125,9 @@ public class RegisterActivity extends AppCompatActivity {
         myFirebaseRef.updateChildren(childUpdates, new Firebase.CompletionListener() {
             @Override
             public void onComplete(FirebaseError firebaseError, Firebase firebase) {
-                if(getIntent().getBooleanExtra("UserActivity_IN",true)){
-                    Intent i = new Intent(RegisterActivity.this, BackendActivity.class);
-                    startActivity(i);
-                }else{
                     Intent i = new Intent(RegisterActivity.this, MainActivity.class);
                     i.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                     startActivity(i);
-                }
             }
         });
     }

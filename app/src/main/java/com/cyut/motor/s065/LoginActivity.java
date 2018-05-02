@@ -242,14 +242,7 @@ public class LoginActivity extends AppCompatActivity {
 
     @Override
     public void onBackPressed() {
-        String result = getIntent().getStringExtra("RegisterActivity_IN");
-        String result1 = getIntent().getStringExtra("ForgetPasswordActivity_IN");
-        if(result != null && result.equals("RegisterActivity_IN")){
-            startActivity(new Intent(LoginActivity.this, MainActivity.class));
-        }
-        else  if(result1 != null && result1.equals("ForgetPasswordActivity_IN")){
-            startActivity(new Intent(LoginActivity.this, MainActivity.class));
-        }
+        startActivity(new Intent(LoginActivity.this, MainActivity.class));
         super.onBackPressed();
     }
 

@@ -10,16 +10,16 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true">
-        <Button
-            android:id="@+id/btn_create"
-            android:layout_width="120dp"
-            android:layout_height="50dp"
-            android:layout_marginTop="20dp"
-            android:layout_marginLeft="60dp"
-            android:backgroundTint="@android:color/black"
-            android:text="新增"
-            android:textColor="@android:color/background_light"
-            android:textSize="20sp" />
+        <!--<Button-->
+            <!--android:id="@+id/btn_create"-->
+            <!--android:layout_width="120dp"-->
+            <!--android:layout_height="50dp"-->
+            <!--android:layout_marginTop="20dp"-->
+            <!--android:layout_marginLeft="60dp"-->
+            <!--android:backgroundTint="@android:color/black"-->
+            <!--android:text="新增"-->
+            <!--android:textColor="@android:color/background_light"-->
+            <!--android:textSize="20sp" />-->
 
         <Button
             android:id="@+id/btn_back"
@@ -27,7 +27,7 @@
             android:layout_height="50dp"
             android:layout_marginTop="20dp"
             android:layout_marginLeft="30dp"
-            android:layout_toRightOf="@+id/btn_create"
+            android:layout_centerHorizontal="true"
             android:backgroundTint="@android:color/black"
             android:text="返回"
             android:textColor="@android:color/background_light"

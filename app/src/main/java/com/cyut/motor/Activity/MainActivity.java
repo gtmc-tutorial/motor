@@ -8,17 +8,14 @@ import android.os.Bundle;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.content.ContextCompat;
-import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
 import android.widget.Button;
-import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.cyut.motor.Structure.FragmentTag;
-import com.cyut.motor.s065.BackendActivity;
 import com.cyut.motor.s065.LoginActivity;
 import com.cyut.motor.s176.HelpFragment;
 import com.cyut.motor.s186.MaintenanceAddFragment;
@@ -45,7 +42,6 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
     private SettingFragment settingFragment;
     private MaintenanceAddFragment maintenanceAddFragment;
     SharedPreferences sharedPreferences;
-    String name;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
