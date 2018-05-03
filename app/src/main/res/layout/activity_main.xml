@@ -64,11 +64,9 @@
             android:id="@+id/home_btn"
             android:layout_width="60dp"
             android:layout_height="55dp"
-            android:adjustViewBounds="false"
-            android:cropToPadding="false"
+            android:layout_weight="1"
             android:gravity="center"
-            android:src="@drawable/house_outline"
-            android:text="會員中心" />
+            android:src="@drawable/house_outline" />
 
 
         <ImageView
@@ -77,8 +75,7 @@
             android:layout_height="55dp"
             android:layout_weight="1"
             android:gravity="center"
-            android:src="@drawable/service"
-            android:textColor="#FFFFFF" />
+            android:src="@drawable/service" />
 
         <ImageView
             android:id="@+id/anime_btn"
@@ -86,8 +83,7 @@
             android:layout_height="55dp"
             android:layout_weight="1"
             android:gravity="center"
-            android:src="@drawable/gps"
-            android:textColor="#FFFFFF" />
+            android:src="@drawable/gps" />
 
         <ImageView
             android:id="@+id/variety_btn"
@@ -95,8 +91,7 @@
             android:layout_height="55dp"
             android:layout_weight="1"
             android:gravity="center"
-            android:src="@drawable/help"
-            android:textColor="#FFFFFF" />
+            android:src="@drawable/help" />
 
         <ImageView
             android:id="@+id/setting_btn"
@@ -104,8 +99,7 @@
             android:layout_height="55dp"
             android:layout_weight="1"
             android:gravity="center"
-            android:src="@drawable/setting"
-            android:textColor="#FFFFFF" />
+            android:src="@drawable/setting" />
     </LinearLayout>
 
     <FrameLayout
