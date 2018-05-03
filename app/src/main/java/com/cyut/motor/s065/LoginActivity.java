@@ -178,9 +178,6 @@ public class LoginActivity extends AppCompatActivity {
                                     Toast.makeText(LoginActivity.this,  "登入成功", Toast.LENGTH_LONG).show();
                                     Intent i = new Intent(LoginActivity.this, MainActivity.class);
                                     i.putExtra("Email", firebaseAuth.getCurrentUser().getEmail());
-                                    FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
-                                    String name = user.getDisplayName();
-//                                    Log.e("name",task.getResult().getUser().getDisplayName());
                                     startActivity(i);
                                     finish();
                                 }
@@ -246,7 +243,6 @@ public class LoginActivity extends AppCompatActivity {
         startActivity(new Intent(LoginActivity.this, MainActivity.class));
         super.onBackPressed();
     }
-
 //    private void firebaseAuthWithGoogle(GoogleSignInAccount acct) {
 //            Log.d(TAG, "firebaseAuthWithGooogle:" + acct.getId());
 //        AuthCredential credential = GoogleAuthProvider.getCredential(acct.getIdToken(), null);

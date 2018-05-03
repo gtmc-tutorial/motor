@@ -81,6 +81,7 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
         titleTextView = (TextView) this.findViewById(R.id.main_title_text);
 
         tv_showname= findViewById(R.id.tv_showname);
+        tv_showname.setText(getIntent().getStringExtra("Email"));
 
         movieBtn = (ImageView)this.findViewById(R.id.home_btn);
         tvBtn = (ImageView)this.findViewById(R.id.tv_btn);
