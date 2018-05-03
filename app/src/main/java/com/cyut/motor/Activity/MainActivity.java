@@ -25,6 +25,8 @@ import com.cyut.motor.s014.MapFragment;
 import com.cyut.motor.s134.SettingFragment;
 import com.cyut.motor.R;
 import com.firebase.client.Firebase;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 
 import cn.pedant.SweetAlert.SweetAlertDialog;
 
@@ -77,8 +79,8 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
     }
     private void findById() {
         titleTextView = (TextView) this.findViewById(R.id.main_title_text);
+
         tv_showname= findViewById(R.id.tv_showname);
-        tv_showname.setText(getIntent().getStringExtra("name"));
 
         movieBtn = (ImageView)this.findViewById(R.id.home_btn);
         tvBtn = (ImageView)this.findViewById(R.id.tv_btn);
@@ -228,7 +230,7 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
             getSupportFragmentManager().beginTransaction()
                     .show(maintenanceAddFragment).hide(homeFragment).hide(mapFragment).hide(maintenanceFragment).hide(settingFragment)
                     .commit();
-            titleTextView.setText("設定");
+            titleTextView.setText("保養");
         }
     }
     //打電話權限檢查

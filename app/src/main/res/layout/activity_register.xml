@@ -41,13 +41,13 @@
     <TextView
         android:id="@+id/email"
         android:layout_width="100dp"
-        android:layout_height="34dp"
-        android:text="信箱"
-        android:textSize="20dp"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/ed_email"
         android:layout_alignParentTop="true"
-        android:layout_marginTop="116dp"
-        android:layout_marginLeft="30dp"
-        android:textColor="@color/colorPrimary"/>
+        android:layout_marginTop="110dp"
+        android:text="信箱"
+        android:textColor="@color/colorPrimary"
+        android:textSize="24dp" />
 
     <EditText
         android:id="@+id/ed_email"
@@ -66,10 +66,10 @@
         android:layout_width="100dp"
         android:layout_height="34dp"
         android:text="密碼"
-        android:textSize="20dp"
+        android:textSize="24dp"
         android:layout_alignParentTop="true"
-        android:layout_marginTop="176dp"
-        android:layout_marginLeft="30dp"
+        android:layout_alignLeft="@+id/ed_email"
+        android:layout_marginTop="170dp"
         android:textColor="@color/colorPrimary"/>
 
     <EditText
@@ -90,10 +90,10 @@
         android:layout_width="100dp"
         android:layout_height="34dp"
         android:text="暱稱"
-        android:textSize="20dp"
+        android:textSize="24dp"
         android:layout_alignParentTop="true"
-        android:layout_marginTop="236dp"
-        android:layout_marginLeft="30dp"
+        android:layout_alignLeft="@+id/ed_email"
+        android:layout_marginTop="230dp"
         android:textColor="@color/colorPrimary"/>
 
     <EditText
@@ -132,23 +132,23 @@
     <Button
         android:id="@+id/btnRegistrationUser"
         android:onClick="btnRegistrationUser_Click"
-        android:layout_width="wrap_content"
+        android:layout_width="110dp"
         android:layout_height="wrap_content"
         android:background="@color/colorPrimary"
         android:textColor="@color/colorWhite"
         android:layout_below="@+id/ed_name"
-        android:layout_marginLeft="60dp"
+        android:layout_alignLeft="@+id/ed_email"
         android:layout_marginTop="20dp"
         android:text="確認"/>
 
     <Button
         android:id="@+id/btn_cencel"
-        android:layout_width="wrap_content"
+        android:layout_width="110dp"
         android:layout_height="wrap_content"
         android:background="@color/colorPrimary"
         android:textColor="@color/colorWhite"
         android:layout_below="@+id/ed_name"
-        android:layout_marginLeft="220dp"
+        android:layout_alignRight="@+id/ed_email"
         android:layout_marginTop="20dp"
         android:text="取消"/>
 

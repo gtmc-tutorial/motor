@@ -178,8 +178,9 @@ public class LoginActivity extends AppCompatActivity {
                                     Toast.makeText(LoginActivity.this,  "登入成功", Toast.LENGTH_LONG).show();
                                     Intent i = new Intent(LoginActivity.this, MainActivity.class);
                                     i.putExtra("Email", firebaseAuth.getCurrentUser().getEmail());
-                                    Firebase myFirebaseRef = new Firebase("https://motorcycle-cc0fe.firebaseio.com/User");
-                                    i.putExtra("name" , myFirebaseRef.getKey());
+                                    FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+                                    String name = user.getDisplayName();
+//                                    Log.e("name",task.getResult().getUser().getDisplayName());
                                     startActivity(i);
                                     finish();
                                 }
