@@ -139,12 +139,19 @@
         android:layout_height="match_parent"
         android:layout_marginTop="40dp"
         android:layout_below="@+id/L4">
+
+        <TextView
+            android:id="@+id/tv_middle"
+            android:layout_centerHorizontal="true"
+            android:layout_width="80dp"
+            android:layout_height="wrap_content" />
+
         <Button
             android:id="@+id/button_save"
             android:onClick="button_sure_Click"
-            android:layout_width="wrap_content"
+            android:layout_width="100dp"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="80dp"
+            android:layout_toLeftOf="@+id/tv_middle"
             android:backgroundTint="@android:color/black"
             android:text="儲存"
             android:textColor="@color/Watercolor"
@@ -152,10 +159,9 @@
 
         <Button
             android:id="@+id/button_cancel"
-            android:layout_width="wrap_content"
+            android:layout_width="100dp"
             android:layout_height="wrap_content"
-            android:layout_toRightOf="@+id/button_save"
-            android:layout_marginLeft="40dp"
+            android:layout_toRightOf="@+id/tv_middle"
             android:backgroundTint="@android:color/black"
             android:text="取消"
             android:textColor="@color/Watercolor"

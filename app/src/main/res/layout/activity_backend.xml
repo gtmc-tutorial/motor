@@ -20,8 +20,9 @@
 
     <Button
         android:id="@+id/btn_backend_user"
-        android:layout_width="fill_parent"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
         android:background="@color/colorPrimary"
         android:textColor="@color/colorWhite"
         android:layout_marginLeft="10dp"
@@ -31,8 +32,9 @@
 
     <Button
         android:id="@+id/btn_backend_warranty"
-        android:layout_width="fill_parent"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
         android:background="@color/colorPrimary"
         android:textColor="@color/colorWhite"
         android:layout_below="@+id/btn_backend_user"
@@ -42,21 +44,23 @@
         android:text="保養紀錄管理"/>
 
     <Button
-    android:id="@+id/btn_backend_car_dealers"
-    android:layout_width="fill_parent"
-    android:layout_height="wrap_content"
-    android:background="@color/colorPrimary"
-    android:textColor="@color/colorWhite"
-    android:layout_below="@+id/btn_backend_warranty"
-    android:layout_marginLeft="10dp"
-    android:layout_marginRight="10dp"
-    android:layout_marginTop="20dp"
-    android:text="機車行管理"/>
+        android:id="@+id/btn_backend_car_dealers"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:background="@color/colorPrimary"
+        android:textColor="@color/colorWhite"
+        android:layout_below="@+id/btn_backend_warranty"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:layout_marginTop="20dp"
+        android:text="機車行管理"/>
 
     <Button
         android:id="@+id/btn_backend_gas"
-        android:layout_width="fill_parent"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
         android:background="@color/colorPrimary"
         android:textColor="@color/colorWhite"
         android:layout_below="@+id/btn_backend_car_dealers"
@@ -67,8 +71,9 @@
 
     <Button
         android:id="@+id/btn_backend_battery"
-        android:layout_width="fill_parent"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
         android:background="@color/colorPrimary"
         android:textColor="@color/colorWhite"
         android:layout_below="@+id/btn_backend_gas"
@@ -79,8 +84,9 @@
 
     <Button
         android:id="@+id/btn_backend_homepage"
-        android:layout_width="fill_parent"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
         android:background="@color/colorPrimary"
         android:textColor="@color/colorWhite"
         android:layout_below="@+id/btn_backend_battery"
