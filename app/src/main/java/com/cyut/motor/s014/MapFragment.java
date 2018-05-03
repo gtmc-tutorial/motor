@@ -118,6 +118,7 @@ public class MapFragment extends Fragment implements OnMapReadyCallback, Locatio
                 mClusterManager.clearItems();
                 tag = "battery";
                 readFireBaseData();
+                Toast.makeText(getActivity(),"目前為充電站位置",Toast.LENGTH_SHORT).show();
             }
         });
         car_dealers_btn.setOnClickListener(new View.OnClickListener() {
@@ -127,6 +128,7 @@ public class MapFragment extends Fragment implements OnMapReadyCallback, Locatio
                 mClusterManager.clearItems();
                 tag = "car_dealers";
                 readFireBaseData();
+                Toast.makeText(getActivity(),"目前為機車行位置",Toast.LENGTH_SHORT).show();
             }
         });
         gas_btn.setOnClickListener(new View.OnClickListener() {
@@ -136,6 +138,7 @@ public class MapFragment extends Fragment implements OnMapReadyCallback, Locatio
                 mClusterManager.clearItems();
                 tag = "gas";
                 readFireBaseData();
+                Toast.makeText(getActivity(),"目前為加油站位置",Toast.LENGTH_SHORT).show();
             }
         });
     }
