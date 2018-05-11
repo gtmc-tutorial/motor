@@ -2,7 +2,7 @@ apply plugin: 'com.android.application'
 
 android {
     compileSdkVersion 26
-    buildToolsVersion '26.0.2'
+    buildToolsVersion '26.0.1'
 
     defaultConfig {
         applicationId "com.cyut.motor"
@@ -53,7 +53,6 @@ dependencies {
         exclude group: 'com.android.support', module: 'support-annotations'
     })
     compile 'com.android.support:multidex:1.0.0'
-
     //noinspection GradleCompatible
     compile 'com.android.support:appcompat-v7:26.0.2'
     // s014
@@ -61,7 +60,6 @@ dependencies {
     compile 'com.firebase:firebase-client-android:2.5.2+'
     compile 'com.koushikdutta.ion:ion:2.+'
     compile 'com.squareup.okhttp3:okhttp:3.4.2'
-
     // s065
     compile 'com.github.bumptech.glide:glide:3.7.0'
     compile 'com.google.firebase:firebase-core:9.8.0'
@@ -69,23 +67,17 @@ dependencies {
     compile 'com.google.firebase:firebase-database:9.8.0'
     compile 'com.google.android.gms:play-services-auth:9.8.0'
     compile 'com.facebook.android:facebook-android-sdk:[4,5)'
-
     compile 'com.google.maps.android:android-maps-utils:0.4+'
-
     compile 'com.android.support:recyclerview-v7:26.0.2'
-
     compile 'com.github.f0ris.sweetalert:library:1.5.1'
     compile 'org.jsoup:jsoup:1.11.2'
     //統計圖表
     compile 'com.github.PhilJay:MPAndroidChart:v3.0.3'
-
     //RefreshLayout 道路救援
     compile 'com.scwang.smartrefresh:SmartRefreshLayout:1.1.0-alpha-1'
     compile 'com.scwang.smartrefresh:SmartRefreshHeader:1.1.0-alpha-1'
     //dialog library 道路救援
     implementation 'com.afollestad.material-dialogs:commons:0.9.6.0'
-
     compile 'com.kaopiz:kprogresshud:1.0.2'
-
 }
 apply plugin: 'com.google.gms.google-services'

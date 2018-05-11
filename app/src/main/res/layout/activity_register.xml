@@ -99,7 +99,6 @@
     <EditText
         android:id="@+id/ed_name"
         android:singleLine="true"
-        android:hint="登入後所顯示的使用者名稱"
         android:layout_width="300dp"
         android:layout_height="30dp"
         android:layout_centerHorizontal="true"

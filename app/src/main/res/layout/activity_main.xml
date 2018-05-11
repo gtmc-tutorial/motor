@@ -37,6 +37,9 @@
             android:layout_toRightOf="@+id/btn_user"
             android:layout_width="80dp"
             android:layout_height="50dp"
+            android:singleLine="true"
+            android:ellipsize="marquee"
+            android:marqueeRepeatLimit="marquee_forever"
             android:textSize="32dp"
             android:gravity="center"/>
 
