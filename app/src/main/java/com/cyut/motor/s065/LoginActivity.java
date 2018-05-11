@@ -52,7 +52,7 @@ public class LoginActivity extends AppCompatActivity {
 //        View.OnClickListener {
     private Button btn_register,btn_forgetpw;
     private ImageView btn_home;
-    private EditText ed_email,ed_password,ed_name;
+    private EditText ed_email,ed_password;
     private FirebaseAuth firebaseAuth;
 
     private static final String TAG = "SignInActivity";
@@ -78,7 +78,6 @@ public class LoginActivity extends AppCompatActivity {
 
         ed_email = findViewById(R.id.ed_email);
         ed_password = findViewById(R.id.ed_password);
-        ed_name = findViewById(R.id.ed_name);
         firebaseAuth = FirebaseAuth.getInstance();
 
         ed_email.setText("cyutmotor@gmail.com");

@@ -33,7 +33,6 @@ public class RegisterActivity extends AppCompatActivity {
     private Button btn_cencel;
     private EditText ed_email;
     private EditText ed_password;
-    private EditText ed_name;
     private FirebaseAuth firebaseAuth;
     SharedPreferences sharedPreferences;
 
@@ -44,7 +43,6 @@ public class RegisterActivity extends AppCompatActivity {
 
         ed_email = findViewById(R.id.ed_email);
         ed_password = findViewById(R.id.ed_password);
-        ed_name = findViewById(R.id.ed_name);
         firebaseAuth = FirebaseAuth.getInstance();
         sharedPreferences = getSharedPreferences("GTCLOUD_Content", MODE_PRIVATE);
 
@@ -56,16 +54,12 @@ public class RegisterActivity extends AppCompatActivity {
     public void btnRegistrationUser_Click(View v) {
         //判斷網路狀況
         if (StaticMethodPack.isNetworkConnecting(this)) {
-            if (ed_password.getText().toString().equals("") || ed_email.getText().toString().equals("") || ed_name.getText().toString().equals("")) {
+            if (ed_password.getText().toString().equals("") || ed_email.getText().toString().equals("")) {
                 Toast.makeText(RegisterActivity.this, "有欄位尚未輸入", Toast.LENGTH_LONG).show();
                 return;
             }
             if (ed_password.getText().toString().length() < 6 && ed_password.getText().toString().length() < 6) {
                 Toast.makeText(RegisterActivity.this, "密碼需6碼以上", Toast.LENGTH_LONG).show();
-                return;
-            }
-            if (ed_name.getText().toString().length() > 6 && ed_name.getText().toString().length() > 6) {
-                Toast.makeText(RegisterActivity.this, "暱稱請6位元以下", Toast.LENGTH_LONG).show();
                 return;
             }
             //process
@@ -79,10 +73,9 @@ public class RegisterActivity extends AppCompatActivity {
                                 Log.e("1","1");
 //                                if(!getIntent().getBooleanExtra("UserActivity_IN",false)){
 //                                    Log.e("2","2");
-                                sharedPreferences.edit().putString("userid", task.getResult().getUser().getUid()).apply();
-                                Toast.makeText(RegisterActivity.this, "註冊成功", Toast.LENGTH_LONG).show();
+//                                sharedPreferences.edit().putString("userid", task.getResult().getUser().getUid()).apply();
+                                Toast.makeText(RegisterActivity.this, "註冊成功"+"\n"+"請重新登入", Toast.LENGTH_LONG).show();
                                 writeNewPost(
-                                        ed_name.getText().toString(),
                                         ed_email.getText().toString(),
                                         ed_password.getText().toString(),
                                         task.getResult().getUser().getUid());
@@ -114,10 +107,10 @@ public class RegisterActivity extends AppCompatActivity {
     };
 
 
-    private void writeNewPost(String ed_name, String ed_email, String ed_password, String userId) {
+    private void writeNewPost(String ed_email, String ed_password, String userId) {
         Firebase myFirebaseRef = new Firebase("https://motorcycle-cc0fe.firebaseio.com/");
         String key = myFirebaseRef.child("User").push().getKey();
-        UserStructure userStructure = new UserStructure(ed_name, ed_email, ed_password,userId);
+        UserStructure userStructure = new UserStructure( ed_email, ed_password,userId);
         Map<String, Object> postValues = userStructure.toMap();
 
         Map<String, Object> childUpdates = new HashMap<>();
@@ -125,7 +118,7 @@ public class RegisterActivity extends AppCompatActivity {
         myFirebaseRef.updateChildren(childUpdates, new Firebase.CompletionListener() {
             @Override
             public void onComplete(FirebaseError firebaseError, Firebase firebase) {
-                    Intent i = new Intent(RegisterActivity.this, MainActivity.class);
+                    Intent i = new Intent(RegisterActivity.this, LoginActivity.class);
                     i.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                     startActivity(i);
             }

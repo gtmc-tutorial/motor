@@ -1,7 +1,6 @@
 package com.cyut.motor.s065;
 
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
@@ -18,8 +17,6 @@ import com.firebase.client.ChildEventListener;
 import com.firebase.client.DataSnapshot;
 import com.firebase.client.Firebase;
 import com.firebase.client.FirebaseError;
-import com.firebase.client.Query;
-import com.firebase.client.ValueEventListener;
 
 import java.util.ArrayList;
 
@@ -47,8 +44,8 @@ public class UserActivity extends AppCompatActivity {
         listView = findViewById(R.id.ListView01);
         int width = getWindowManager().getDefaultDisplay().getWidth() / 3;
         titles = new UTableAdapter.TableCell[3];// 每行5个单元
-        titles[0] = new UTableAdapter.TableCell("暱稱", width + 8 * 0, RelativeLayout.LayoutParams.FILL_PARENT, com.cyut.motor.s065.UTableAdapter.TableCell.STRING);
-        titles[1] = new UTableAdapter.TableCell("信箱", width + 8 * 1, RelativeLayout.LayoutParams.FILL_PARENT, com.cyut.motor.s065.UTableAdapter.TableCell.STRING);
+        titles[0] = new UTableAdapter.TableCell("信箱", width + 8 * 0, RelativeLayout.LayoutParams.FILL_PARENT, com.cyut.motor.s065.UTableAdapter.TableCell.STRING);
+        titles[1] = new UTableAdapter.TableCell("UID", width + 8 * 1, RelativeLayout.LayoutParams.FILL_PARENT, com.cyut.motor.s065.UTableAdapter.TableCell.STRING);
         titles[2] = new UTableAdapter.TableCell("刪除", width + 8 * 2, RelativeLayout.LayoutParams.FILL_PARENT, com.cyut.motor.s065.UTableAdapter.TableCell.STRING);
         table.add(new UTableAdapter.TableRow(titles));
 
@@ -62,14 +59,14 @@ public class UserActivity extends AppCompatActivity {
             public void onChildAdded(DataSnapshot snapshot, String previousChild) {
 
                 UserStructure userStructure = snapshot.getValue(UserStructure.class);
-                Log.e("name", userStructure.name);
+                Log.e("name", userStructure.email);
                 if (userStructure != null) {
                     Log.e("snapshot", snapshot + "");
                     main_arrayList.add(userStructure);
                     key_array.add(snapshot.getKey());
 
                     ArrayList<UTableAdapter.TableCell[]> arrayList = new ArrayList<>();
-                    arrayList.add(getTableItem(userStructure.name, userStructure.email, titles));
+                    arrayList.add(getTableItem(userStructure.email, userStructure.user_id, titles));
                     for (int i = 0; i < arrayList.size(); i++) {
                         table.add(new UTableAdapter.TableRow(arrayList.get(i)));
                     }
@@ -106,19 +103,18 @@ public class UserActivity extends AppCompatActivity {
             if(arg2 != 0 ){
                 new SweetAlertDialog(UserActivity.this)
                         .setTitleText("使用者資訊")
-                        .setContentText("使用者：" +main_arrayList.get(arg2-1).user_id+"\n"+
-                                "暱稱：" + main_arrayList.get(arg2-1).name+"\n"+
-                                "信箱：" + main_arrayList.get(arg2-1).email+"\n")
+                        .setContentText("信箱：" +main_arrayList.get(arg2-1).email+"\n"+
+                                "使用者資訊：" + main_arrayList.get(arg2-1).user_id+"\n")
                         .show();
             }
         }
     };
 
-    private UTableAdapter.TableCell[] getTableItem(String name, String email, UTableAdapter.TableCell[] titles){
+    private UTableAdapter.TableCell[] getTableItem(String email,String user_id,  UTableAdapter.TableCell[] titles){
         UTableAdapter.TableCell[] cells = new UTableAdapter.TableCell[3];
 
-        cells[0] = new UTableAdapter.TableCell(name, titles[0].width, RelativeLayout.LayoutParams.FILL_PARENT, com.cyut.motor.s065.UTableAdapter.TableCell.STRING);
-        cells[1] = new UTableAdapter.TableCell(email, titles[1].width, RelativeLayout.LayoutParams.FILL_PARENT, com.cyut.motor.s065.UTableAdapter.TableCell.STRING);
+        cells[0] = new UTableAdapter.TableCell(email, titles[0].width, RelativeLayout.LayoutParams.FILL_PARENT, com.cyut.motor.s065.UTableAdapter.TableCell.STRING);
+        cells[1] = new UTableAdapter.TableCell(user_id, titles[1].width, RelativeLayout.LayoutParams.FILL_PARENT, com.cyut.motor.s065.UTableAdapter.TableCell.STRING);
         cells[2] = new UTableAdapter.TableCell(R.drawable.delete,titles[2].width,RelativeLayout.LayoutParams.WRAP_CONTENT, com.cyut.motor.s065.UTableAdapter.TableCell.IMAGE);
         return cells;
     }
