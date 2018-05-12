@@ -18,7 +18,7 @@
             android:layout_height="50dp"
             android:layout_weight="1"
             android:background="#ffff"
-            android:text="無限騎機"
+            android:text="首頁"
             android:gravity="center"
             android:textAllCaps="false"
             android:textColor="#000"
@@ -34,15 +34,16 @@
 
         <TextView
             android:id="@+id/tv_showname"
-            android:layout_toRightOf="@+id/btn_user"
             android:layout_width="80dp"
-            android:layout_height="50dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="18dp"
+            android:layout_marginLeft="48dp"
             android:singleLine="true"
             android:ellipsize="marquee"
             android:marqueeRepeatLimit="marquee_forever"
             android:focusable="true"
             android:focusableInTouchMode="true"
-            android:textSize="32dp"
+            android:textSize="20sp"
             android:gravity="center"/>
 
         <ImageView

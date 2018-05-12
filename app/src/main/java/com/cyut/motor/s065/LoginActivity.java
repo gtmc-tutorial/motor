@@ -80,8 +80,8 @@ public class LoginActivity extends AppCompatActivity {
         ed_password = findViewById(R.id.ed_password);
         firebaseAuth = FirebaseAuth.getInstance();
 
-        ed_email.setText("cyutmotor@gmail.com");
-        ed_password.setText("106cyutmotor");
+//        ed_email.setText("cyutmotor@gmail.com");
+//        ed_password.setText("106cyutmotor");
 
         sharedPreferences = getSharedPreferences("GTCLOUD_Content", MODE_PRIVATE);
 
